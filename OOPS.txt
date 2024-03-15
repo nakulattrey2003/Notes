@@ -1,0 +1,659 @@
+OOPS:
+    
+Object Oriented Programming System : 
+    > It is a programming paradigm (way of solving problems using the help of programming).
+    > In layman language it can be said that oops is used to solve the real world problems using virtual world solutions.
+
+6 Main Pillars of OOPS:
+    > Class
+    > Objects and Methods
+    > Inheritance
+    > Polymorphism
+    > Abstraction
+    > Encapsulation
+    These all are taken from the real world only
+
+Comparing with real world:
+    Class -> Animal
+    Object -> Tiger, Lion
+    Method -> run, eat
+
+psvm : 
+    public static void main(String args[]) --- it is an object.
+
+    public: This keyword is an access modifier that specifies that the main method can be called from anywhere. In Java, public means that
+    the method is accessible from any other class.
+
+    static: This keyword means that the main method belongs to the class itself, not to any specific instance of the class. It allows the 
+    main method to be called without creating an object of the class. If it is non-static class than for the jvm to call it has to first 
+    initialize the object of the class it is inside, but the main method is the entry point of a java program, so this becomes a deadlock 
+    and hence is not done. 
+
+    void: This keyword indicates that the main method does not return any value after execution. In Java, void is used as a return type 
+    when a method does not return anything.
+
+    main: This is the name of the method. In Java, the main method is the entry point of a Java program, where the program starts 
+    execution.
+
+    String args[]: This is a parameter of the main method. It represents an array of strings that can be passed as command-line arguments 
+    when running the Java program. The args[] parameter allows the program to accept input from the command line.
+
+Class: 
+    Is is a collection of object, not a real world entity.
+    A blueprint or template for creating objects. 
+    It defines the properties and behaviors that objects of the class will have.
+    It does not occupy memory.
+    Syntax: 
+    access-modifier class ClassName
+    {
+        -methods
+        -constructors
+    }
+    public void Animal
+    {
+
+    }
+
+Object: 
+    It is an instance of a class,
+    It is a real world entity and thus occupies space.
+    It consists of: 
+        > identity (name)
+        > state/attribute (breed, color)
+        > behavior (run, eat)
+    How to declare it -> 
+    initializing -> Animal tommy = new Animal();   
+    calling      -> tommy.run();
+
+Method: 
+    A set of code which perform a particular task..
+    Code reusability, code optimization.
+    Syntax:
+    access-modifier return-type methodName(parameters)
+    {
+        ...
+    }
+    public void dog(int age, String color)
+    {
+        ...
+    }
+
+Constructor: 
+    It is a block which is initialized as the same name as the class,
+    It does not have a return type, not even void,
+    It is automatically called when an object is initialized of its class,
+    We can only provide public, private, default and protected access specifier to the constructor.
+    Use: It is used for initializing an object.
+    Syntax:
+    public Animal()
+    {
+    ...
+    }
+
+    Types of Constructors:
+    > Default constructor -> When no compiler is defined then this is automatically made by the compiler, it is a no-argument constructor.
+        Syntax: 
+        class Test
+        {
+            public static void main(String[] args)
+            {
+                Test t=new Test();
+            }
+        }
+        as we have not defined a constructor, the compiler will itself do it.
+
+    > User Defined -> Defining a constructor with no value.
+        Syntax:
+        Syntax: 
+        class Test
+        {
+            Test()
+            {
+
+            }
+            public static void main(String[] args)
+            {
+                Test t=new Test();
+            }
+        }
+    
+    > Parameterized Constructor -> Defining a constructor with value/values.
+        Syntax:
+        Syntax: 
+        class Test
+        {
+            Test(int a, String b)
+            {
+
+            }
+            public static void main(String[] args)
+            {
+                Test t=new Test(10, "red");
+            }
+        }
+
+Methods of initializing/putting value in object:
+    1. By reference 
+    class Main
+    {
+        int age;
+        String color;
+        public static void main(String[] args)
+        {
+            Animal a=new Animal();
+            a.age=10;
+            a.color="Black";
+        }
+    }
+
+    2. By method
+    class Main
+    {
+        int age;
+        String color;
+        public void init(int x, String y)
+        {
+            age=x;
+            color=y;
+        }
+        public static void main(String[] args)
+        {
+            Animal a=new Animal();
+            a.init=(10, "Black");
+        }
+    }
+
+    3. By constructor (most efficient)
+    class Animal
+    {
+        int age;
+        String color;
+        Animal(int age, String color)
+        {
+            this.age=age;
+            this.color=color;
+        }
+        public static void main(String[] args)
+        {
+            Animal a=new Animal(10, "Black");
+            Animal b=new Animal(11, "White");
+        }
+    }
+
+Types of Relationship between classes: 
+    > Inheritance (IS A Relation)
+    > Association (HAS A Relation)
+
+Inheritance: 
+    Inheriting properties of a parent class to a child class. 
+    Also called IS A Relationship. Code reusability. 
+    We can achieve Polymorphism using Inheritance. 
+    Object class is parent class of all the classes in java because it is by-default extended by all the classes.
+    When we are inheriting properties of one class to another, constructors and private members are not inherited. 
+    Every class has maximum one parent class as java does'nt support Multiple Inheritance.
+    Any change in Parent class creates a change in child class.
+    Syntax:
+    class Animal
+    {
+        public void eat()
+        {
+            System.out.print("eat);
+        }
+    }
+    class Dog extends Animal
+    {
+        public static void main(String[] args)
+        {
+            Dog d=new Dog();
+            d.eat();
+        }
+    }
+    Here we are extending properties of Animal class into Dog class.
+    Here Animal is a parent/super class and Dog is a child/sub class.
+    They are having IS A relation (Dog IS A Animal);
+
+    Types of Inheritance:
+    1. Single: A -> B (Class B is inheriting properties of Class A)
+        Ex.
+        class A
+        {
+            void showA()
+            {
+                System.out.print("A is called");
+            }
+        }
+        class B extends A
+        {
+            void showB()
+            {
+                System.out.print("B is called");
+            }
+            public static void main(String[] args)
+            {
+                A a=new A();
+                a.showA(); // will work
+                a.showB(); // will not work
+
+                B b=new B();
+                b.showA(); // will work
+                b.showB(); // will work
+            }
+        }
+        only A is called will be printed in first because A cannot take properties of Class B show it will not find showB method.
+
+    2. Multilevel: A -> B -> C (Class C is inheriting properties of Class B and Class B is inheriting properties of Class A)
+        Ex.
+        class A
+        {
+            void showA()
+            {
+                System.out.print("A is called");
+            }
+        }
+        class B extends A
+        {
+            void showB()
+            {
+                System.out.print("B is called");
+            }
+        }
+        class C extends B
+        {
+            void showC()
+            {
+                System.out.print("C is called");
+            }
+            public static void main(String[] args)
+            {
+                A a=new A();
+                a.showA(); // will work
+                a.showB(); // will not work
+                a.showC() // will not work
+
+                B b=new B();
+                b.showA(); // will work
+                b.showB(); // will  work
+                b.showC(); // will not work
+
+                C c=new C();
+                c.showA(); // will  work
+                c.showB(); // will  work
+                c.showC(); // will  work
+
+            }
+        }
+    
+    3. Hierarchical: B <- A -> C (Class B is inheriting properties of Class A and Class C is inheriting properties of Class A)
+        Ex.
+        class A
+        {
+            void showA()
+            {
+                System.out.print("A is called");
+            }
+        }
+        class B extends A
+        {
+            void showB()
+            {
+                System.out.print("B is called");
+            }
+        }
+        class C extends A
+        {
+            void showC()
+            {
+                System.out.print("C is called");
+            }
+            public static void main(String[] args)
+            {
+                A a=new A();
+                a.showA(); // will work
+                a.showB(); // will not work
+                a.showC() // will not work
+
+                B b=new B();
+                b.showA(); // will work
+                b.showB(); // will  work
+                b.showC(); // will not work
+
+                C c=new C();
+                c.showA(); // will  work
+                c.showB(); // will not  work
+                c.showC(); // will  work
+
+            }
+        }
+
+    4. Multiple: B -> A <- C (Class A inherits Class B and Class C) Not possible in java due to ambiguity error.
+        Ex.
+        class B
+        {
+            void show()
+            {
+                System.out.print("A is called");
+            }
+        }
+        class C
+        {
+            void show()
+            {
+                System.out.print("B is called");
+            }
+        }
+        class A extends B,C
+        {
+            public static void main(String[] args)
+            {
+                A a=new A();
+                a.show(); // Here java will be confused which method to call, this is called ambiguity error.
+            }
+        }
+
+    5. Hybrid: Combination of any 2 Inheritances (Not possible in java)
+
+Association: 
+    Here classes are not blood related, any change in parent class does not reflect change in child class.
+    It is HAS A Relationship
+    Syntax:
+    class Engine
+    {
+        public void good()
+        {
+            System.out.print("good");
+        }
+    }
+    class Car
+    {
+        public static void main(String[] args)
+        {
+            Engine e=new Engine();
+            e.good();
+        }
+    }
+
+    Types: Aggregation(Weak Bonding), Composition (Strong Bond)
+           (Weak)Music Player  -->  Car  <--  Engine(Strong)
+
+Polymorphism: 
+    Objects can take on different forms or behave differently based on the context in which they are used.
+    Multiple Forms like Water -> Ice, Liquid, Gas
+    Types:
+    1. Compile Time Polymorphism: Also known as Static Polymorphism, Achieved through Method Overloading.
+        Method Overloading: 
+            > Same name, 
+            > Same class, 
+            > Different argument(No. of args || Sequence of args || Type of args)
+        Ex.
+            Class Test
+            {
+                void show()
+                {
+                    System.out.print("1");
+                }
+                void show(int a)
+                {
+                    System.out.print("2");
+                }
+                public static void main(String[] args)
+                {
+                    Test t=new Test();
+                    t.show(); // will call 1
+                    t.show(1); // will call 2
+                }
+            }
+            Changing the return type of method wont help in achieving overloading,
+            We can overload main method also.
+
+    2. Run Time Polymorphism: Also known as Dynamic Polymorphism, Achieved through Method Overriding.
+        Method Overriding: 
+            > Same name, 
+            > Different class, 
+            > Same argument(No. of args || Sequence of args || Type of args)
+            > Inheritance (IS A Relationship)
+        Ex.
+            Class Test
+            {
+                void show()
+                {
+                    System.out.print("1");
+                }
+            }
+            class XYZ extends Test
+            {
+                void show()
+                {
+                    System.out.print("2");
+                }
+                public static void main(String[] args)
+                {
+                    Test t=new Test();
+                    t.show(); // will call 1
+
+                    XYZ x=new XYZ();
+                    x.show() // will call 2
+                }
+            }
+            We can provide different return type but parent return type should be a parent class of child return type. For example parent return type is Object and child return type is String (they can be equal also).
+            We should provide an equal or greater access modifier to the child class.
+            Without Inheritance we cant achieve overriding.
+        
+    Case1: Do overriding method must have same return type -> Child's return type should be sub-type of parent's return type. This is called covariant return type.
+    Case2: Overriding and Access-modifiers -> child's class access-modifier should be greater than access-modifier of parent' class, else it will be a compile time error.
+
+Access-modifier/Access-specifier : 
+    These modifiers help to restrict the scope of a class, constructor, variable, method, or data member. It provides security, accessibility, etc to the user depending upon the access modifier used with the element.
+    
+    Areas / Modifiers               Default  | Private | Protected | Public
+    Same Class                    |   Yes       Yes         Yes        Yes
+    Same Package subclass         |   Yes       No          Yes        Yes
+    Same Package Non-subclass     |   Yes       No          Yes        Yes
+    Different Package subclass    |   No        No          Yes        Yes
+    Different Package Non-subclass|   No        No          No         Yes
+
+Non Access-modifier:
+    Is  is a keyword in programming languages like Java that modifies the accessibility of classes, methods, variables, or constructors 
+    within a program. Unlike access modifiers, non-access modifiers do not control the visibility of a member but rather provide 
+    additional characteristics or behaviors.
+
+    Some common non-access modifiers include:
+    final: 
+        Indicates that a variable cannot be changed after it has been initialized, a method cannot be overridden, or a class cannot 
+        be subclassed.
+
+    static: 
+        Specifies that a member belongs to the class rather than an instance of the class. Static variables and methods are shared 
+        among all instances of a class.
+
+    abstract: 
+        Used to declare abstract classes or methods. Abstract classes cannot be instantiated and may contain abstract methods that 
+        must be implemented by subclasses.
+
+    synchronized: 
+        Applies to methods or code blocks to ensure that only one thread can access them at a time, preventing concurrent 
+        access and potential data corruption.
+
+    volatile: 
+        Indicates that a variable's value may be modified asynchronously by multiple threads, ensuring that the latest value is 
+        always read and written.
+
+Abstraction: 
+    It is data hiding internal implementation and just highlighting the setup services we are offering.
+    It is achieved by Abstract class(0% - 100% abstraction) and by interface(I guarantees 100% abstraction).
+    For Example: To a driver, the staring, wheels, clutch, break etc are shown because they are necessary for driving, but the inner implementation of those things are irrelevant for the driver thus they are hidden.
+
+    1. A method without body is known as abstract method.
+    2. If any class has an abstract method then it is necessary to make that class as abstract class but if any class is abstract then it is not necessary that it has abstract methods.
+    3. If a normal class extends an abstract class then all the abstract methods in that class needs to be implemented in that class else it will show error.
+    4. Method overriding is used in abstraction.
+    5. We cannot create object of an abstract class.
+
+    Ex. 
+    abstract class Vehicle
+    {
+        abstract void start();
+    }
+    class Car extends Vehicle
+    {
+        void start()
+        {
+            System.out.print("Car starts with key");
+        }
+    }
+    class Activa extends Vehicle
+    {
+        void start()
+        {
+            System.out.print("Activa starts with kick");
+        }
+    }
+    class Main
+    {
+        public static void main(String args[])
+        {
+            Car c=new Car();
+            c.start();
+
+            Activa a=new Activa();
+            a.start();
+        }
+    }
+
+Interface: 
+    It is the instance of a class which tells what to do and not how to do it. I guarantees 100% abstraction. 
+
+    1. In previous versions (before 8) all the methods in the interface class are public abstract by default(not even need to write).
+    2. In 8th version default concrete methods and static methods were introduced.
+    3. In 9th version private methods were also allowed.
+    4. If a normal class implements an interface class then all the abstract methods in that class needs to be implemented in that class else it will show error.
+    5. Making object of implement class is not allowed.
+
+    Ex.
+        interface Inter
+        {
+            void show();
+        }
+        class Test implements Inter
+        {
+            public void show() // we have to write public because the access modifier in child class should be greater than that of implements class, as implements class is public by default so we have to write public by ourself.
+            {
+                System.out.print("Test is called");
+            }
+        }
+        class Main
+        {
+            public static void main(String args[])
+            {
+                Test t=new Test();
+                t.show();
+            }
+        }
+
+Encapsulation: 
+    It is a java mechanism of wrapping data(variables) and all the code(like functions) acting on the data(methods) together as a single unit.
+    Real life example - like a capsule, all the things needed are taken inside a capsule.
+
+    1. Declare all the variables of a class as private.
+    2. Provide public methods to modify and view the variable values.
+
+    Ex.
+        class Test
+        {
+            private int temp;
+            void setTemp(int data)
+            {
+                temp = data;
+            }
+            void getTemp()
+            {
+                System.out.print(temp);
+            }
+        }
+        class Main
+        {
+            public static void main(String args[])
+            {
+                Test t=new Test();
+                t.setTemp(7);
+                t.getTemp();
+            }
+        }
+
+Wrapper:
+    Wrapper, in general, is referred to a larger entity that encapsulates a smaller entity. Here in Java, the wrapper class is an object class that encapsulates the primitive data types. 
+    Java contains 8 wrapper classes. They are Boolean, Byte, Short, Integer, Character, Long, Float, and Double. Further, custom wrapper classes can also be created in Java.
+
+    1. Wrapper classes are final and immutable
+    2. Provides methods like valueOf(), parseInt(), etc.
+    3. It provides the feature of autoboxing and unboxing.
+
+this:
+    this keyword refers to current class ke instance variable
+    Ex.
+        import java.util.*;
+        class B
+        {
+            int a=20;
+            void show(int a)
+            {
+                System.out.println(a);
+                System.out.println(this.a);
+            }
+        }
+        public class Main
+        {
+            public static void main(String[] args) 
+            {
+                B b=new B();
+                b.show(30);
+            }
+        }
+
+super:
+    super keyword refers to the immediate parent of the current class instance variable. As refers to the parent class so Inheritance is necessary.
+    Ex.
+        import java.util.*;
+        class A
+        {
+            int a=10;
+        }
+        class B extends A
+        {
+            int a=20;
+            void show(int a)
+            {
+                System.out.println(a);
+                System.out.println(this.a);
+                System.out.println(super.a);
+            }
+        }
+        public class Main
+        {
+            public static void main(String[] args) 
+            {
+                B b=new B();
+                b.show(30);
+            }
+        }
+
+final:
+    we use final keyword
+    >  with a variable when we want the variable to be constant
+    >  with a method when we do not want the method to be override
+    >  with a class when we do not want the class to be extended or inherited.
+
+static:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
