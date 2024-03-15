@@ -1,5 +1,9 @@
 NodeJs
 
+What is NodeJs
+    It is a javascript runtime environment. As javascript only runs inside an environment like browser so node provides the environment for it to run. Like
+    js can't be run on cli or terminal but if node is installed in the system then just write node and it will make an encvironment where you can write js.
+
 NodeJs Architecture:
     Request Handling: When a client makes a request to a Node.js server, the server accepts the request and places it in the event queue.
 
