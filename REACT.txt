@@ -1,0 +1,389 @@
+React
+
+Q: What is `CDN`? Why do we use it?
+
+    A: A `content delivery network (CDN)` refers to a geographically distributed group of servers that work together to provide fast delivery 
+    of Internet content.
+    The goal is to provide high availability and performance by distributing the service spatially relative to end users.
+
+Q: Why is `React known as React`?
+
+    A: And it's called `React` because it `reacts`. It was developed by Facebook (a site that CONSTANTLY updates their data) to improve the user 
+    interface development and more effectively change (REACT to) what the user sees when they're doing things like mouse clicking, submitting and typing.
+
+Q: What is `crossorigin in script tag`?
+
+    A: The `crossorigin` attribute sets the mode of the request to an HTTP CORS Request.
+    The purpose of crossorigin attribute is used to share the resources from one domain to another domain. Basically, it is used to handle the CORS request. 
+    It is used to handle the CORS request that checks whether it is safe to allow for sharing the resources from other domains.
+
+Q: What is difference between `React and ReactDOM`?
+
+    A: `React` is a JavaScript library for building User Interfaces whereas `ReactDOM` is also JavaScript library that allows `React to interact with the DOM`.
+    The react package contains `React.createElement()`, `React.Component`, `React.Children`, and other helpers related to elements and component classes. 
+    You can think of these as the isomorphic or universal helpers that you need to build components. The react-dom package contains `ReactDOM.render()`, and in 
+    react-dom/server we have server-side rendering support with `ReactDOMServer.renderToString()` and `ReactDOMServer.renderToStaticMarkup()`.
+
+Q: What is difference between `react.development.js` and `react.production.js` files via `CDN`?
+
+    A: `Development` is the stage of an application before it's made public while `production` is the term used for the same application when it's made `public`.
+    `Development build` is several times (maybe 3-5x) `slower` than the `production build`.
+
+Q: Difference between a `Library and Framework`?
+    A: A framework is a set of pre-written code that provides a structure for developing software applications. A library, on the other hand, is a collection of pre-written 
+    code that can be used to perform specific tasks.
+
+    A `library` is a collection of packages that perform specific operations whereas a `framework` contains the basic flow and architecture of an application. The major 
+    difference between them is the complexity. Libraries contain a number of methods that a developer can just call whenever they write code. React js is library and Angular is Framework.
+
+    The `framework` provides the flow of a software application and tells the developer what it needs and calls the code provided by the developer as required. If a `library` 
+    is used, the application calls the code from the library.
+
+Q: What is `JSX`?
+
+    A: JSX stands for JavaScript XML.
+    JSX allows us to write HTML elements in JavaScript and place them in the DOM without any createElement() and/or appendChild() methods.
+    JSX makes it easier to write and add HTML in React.
+    JSX converts HTML tags into react elements.
+
+    ### Example 1 using JSX:
+
+    ```
+    const myElement = <h1>I Love JSX!</h1>;
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(myElement);
+    ```
+
+    ### Example 2 Without JSX:
+
+    ```
+    const myElement = React.createElement('h1', {}, 'I do not use JSX!');
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(myElement);
+
+Q: What is `Reconciliation` in React?
+
+    A: `Reconciliation` is the process through which React updates the Browser DOM and makes React work faster. React use a `diffing algorithm` so that component updates are predictable and faster. 
+    React would first calculate the difference between the real DOM and the copy of DOM (Virtual DOM) when there's an update of components.
+    React stores a copy of Browser DOM which is called `Virtual DOM`. When we make changes or add data, React creates a new Virtual DOM and compares it with the previous one. Comparison is done by 
+    `Diffing Algorithm`.
+    React compares the Virtual DOM with Real DOM. It finds out the changed nodes and updates only the changed nodes in Real DOM leaving the rest nodes as it is. This process is called Reconciliation.
+
+    (or)
+
+    Reconciliation is the process by which React updates the UI to reflect changes in the component state. The reconciliation algorithm is the set of rules that React uses to determine how to 
+    update the UI in the most efficient way possible. React uses a virtual DOM (Document Object Model) to update the UI.
+
+Q: What is `React Fiber`?
+
+    A: React Fiber is a concept of ReactJS that is used to render a system faster, smoother and smarter.
+    The Fiber reconciler, which became the default reconciler for React 16 and above, is a complete rewrite of React’s reconciliation algorithm to solve some long-standing issues in React.
+    Because Fiber is asynchronous, React can:
+
+    - Pause, resume, and restart rendering work on components as new updates come in
+    - Reuse previously completed work and even abort it if not needed
+    - Split work into chunks and prioritize tasks based on importance
+
+Q: Why do we need `keys` in React?
+
+    A: A `key` is a special attribute you need to include when creating lists of elements in React. Keys are used in React to identify which items in the list are changed, updated, or deleted. 
+    In other words, we can say that keys are unique Identifier used to give an identity to the elements in the lists.
+    Keys should be given to the elements within the array to give the elements a stable identity.
+
+    #### Example
+
+    ```
+    <li key={0}>1</li>
+    <li key={1}>2</li>
+    <li key={2}>3</li>
+
+Q: Can we use `index as keys` in React?
+
+    A: Yes, we can use the `index as keys`, but it is not considered as a good practice to use them because if the order of items may change. This can negatively impact performance and may cause issues with component state.
+    Keys are taken from each object which is being rendered. There might be a possibility that if we modify the incoming data react may render them in unusual order.
+
+Q: What is `props in React`? Ways to.
+
+    A: props stands for properties. Props are arguments passed into React components. props are used in React to pass data from one component to another (from a parent component to a child component(s)). 
+    They are useful when you want the flow of data in your app to be dynamic.
+
+    #### Example
+
+    ```
+    function App() {
+    return (
+        <div className="App">
+        <Tool name="Chetan Nada" tool="Figma"/> // name and tool are props
+        </div>
+    )
+    }
+    ```
+
+Q: What is `Config Driven UI`?
+
+    A: `Config Driven UI` are based on the configurations of the data application receives. It is rather a good practice to use config driven UIs to make application for dynamic.
+    It is a very common & basic approach to interact with the User. It provides a generic interface to develop things which help your project scale well. It saves a lot of development time and effort.
+    A typical login form, common in most of the Apps. Most of these forms also get frequent updates as the requirements increase in terms of Form Validations, dropdown options,.. or design changes.
+
+Q: Difference between `Virtual DOM` and `Real DOM`?
+
+    A: DOM stands for `Document Object Model`, which represents your application UI and whenever the changes are made in the application, this DOM gets updated and the user is able to visualize the changes. 
+    DOM is an interface that allows scripts to update the content, style, and structure of the document.
+
+    - `Virtual DOM`
+    - The Virtual DOM is a light-weight abstraction of the DOM. You can think of it as a copy of the DOM, that can be updated without affecting the actual DOM. It has all the same properties as the 
+      real DOM object, but doesn’t have the ability to write to the screen like the real DOM.
+    - Virtual DOM is just like a blueprint of a machine, can do the changes in the blueprint but those changes will not directly apply to the machine.
+    - Reconciliation is a process to compare and keep in sync the two files (Real and Virtual DOM). Diffing algorithm is a technique of reconciliation which is used by React.
+    - `Real DOM`
+    - The DOM represents the web page often called a document with a logical tree and each branch of the tree ends in a node and each node contains object programmers can modify the content of the document 
+      using a scripting language like javascript and the changes and updates to the dom are fast because of its tree-like structure but after changes, the updated element and its children have to be re-rendered 
+      to update the application UI so the re-rendering of the UI which make the dom slow all the UI components you need to be rendered for every dom update so real dom would render the entire list and not only 
+      those item that receives the update .
+
+    | `Real DOM`                                                       | `Virtual DOM`                                            |
+    | ---------------------------------------------------------------- | -------------------------------------------------------- |
+    | DOM manipulation is very expensive                               | DOM manipulation is very easy                            |
+    | There is too much memory wastage                                 | No memory wastage                                        |
+    | It updates Slow                                                  | It updates fast                                          |
+    | It can directly update HTML                                      | It can’t update HTML directly                            |
+    | Creates a new DOM if the element updates.                        | Update the JSX if the element update                     |
+    | It allows us to directly target any specific node (HTML element) | It can produce about 200,000 Virtual DOM Nodes / Second. |
+    | It represents the UI of your application                         | It is only a virtual representation of the DOM           |
+
+Q: What is the difference between `Named export`, `Default export`, and `* as export`?
+
+    A: ES6 provides us to import & export a module and use it in other files. ES6 provides two ways to export a module from a file: `named export` and `default export`.
+    In `Named export`, one can have multiple named exports per file. Then import the specific exports they want surrounded in `{}` braces. The name of imported module has to be the same as the name of the exported module.
+    In `Named export`, the component is exported from MyComponent.js file like:
+
+    ```
+    export const MyComponent = () => {}
+    export const MyComponent2 = () => {}
+    ```
+
+    and the component is imported from MyComponent.js file like: here we must use `{}` in MyComponent.
+
+    ```
+    // ex. importing a single named export
+    import { MyComponent } from "./MyComponent";
+
+    // ex. importing multiple named exports
+    import { MyComponent, MyComponent2 } from "./MyComponent";
+
+    // ex. giving a named import a different name by using "as":
+    import { MyComponent2 as MyNewComponent } from "./MyComponent";
+    ```
+
+    In `Default export`, One can have only one default export per file. The naming of import is completely independent in default export and we can use any name we like.
+    In `Default export`, the component is exported from MyComponent.js file like:
+
+    ```
+    const MyComponent = () => {}
+    export default MyComponent;
+    ```
+
+    and the component is imported from MyComponent.js file like: here we must omit `{}` in MyComponent.
+
+    ```
+    import MyComponent from "./MyComponent";
+    ```
+
+    In `* as export`, it is used to import the whole module as a component and access the components inside the module.
+    In `* as export`, the component is exported from MyComponent.js file like:
+
+    ```
+    export const MyComponent = () => {}
+    export const MyComponent2 = () => {}
+    export const MyComponent3 = () => {}
+    ```
+
+    and the component is imported from MyComponent.js file like:
+
+    ```
+    import * as MainComponents from "./MyComponent";
+    ```
+
+    Now we can use them in JSX as:
+
+    ```
+    <MainComponents.MyComponent />
+    <MainComponents.MyComponent2 />
+    <MainComponents.MyComponent3 />
+    ```
+
+    We can use `Named export` and `Default export` together. So you should export like:
+
+    ```
+    export const MyComponent2 = () => {}
+    const MyComponent = () => {}
+    export default MyComponent;
+    ```
+
+    and import like:
+
+    ```
+    import MyComponent, {MyComponent2} from "./MyComponent";
+    ```
+
+Q: What are `React Hooks`?
+
+    A: In React version 16.8, React introduced a new pattern called Hooks. React Hooks are simple JavaScript functions that we can use to 
+    isolate the reusable part from a functional component. 
+    Hooks can be stateful and can manage side-effects.
+    Hooks allow you to reuse stateful logic without changing your component hierarchy. This makes it easy to share Hooks among many components 
+    or with the community.
+
+    ### React provides a bunch of standard in-built hooks:
+
+    - useState: To manage states. Returns a stateful value and an updater function to update it.
+    - useEffect: To manage side-effects like API calls, subscriptions, timers, mutations, and more.
+    - useContext: To return the current value for a context.
+    - useReducer: A useState alternative to help with complex state management.
+    - useCallback: It returns a memorized version of a callback to help a child component not re-render unnecessarily.
+
+Q: Why do we need `useState Hook`?
+
+    A: `useState hook` is used to maintain the state in our React application. It keeps track of the state changes so basically useState has 
+    the ability to encapsulate local state in a functional component.
+    The useState hook is a special function that takes the `initial state` as an `argument` and `returns an array` of two entries. UseState 
+    encapsulate only singular value from the state, for multiple state need to have useState calls.
+
+    #### Syntax for useState hook
+
+    ```
+    const [state, setState] = useState(initialstate);
+
+Q: Why do we need a `useEffect Hook`?
+
+    A: `useEffect Hook` is javascript function provided by `react`. The useEffect Hook allows you to `eliminate side effects` in your components. 
+    Some examples of side effects are: `fetching API data`, `directly updating the DOM`, and `setting up subscriptions or timers`, etc can be lead 
+    to unwarranted side-effects.
+    useEffect accepts `two arguments`, a `callback function` and a `dependency array`. The second argument is optional.
+
+    ```
+    useEffect(() => {}, [])
+    ```
+
+    The `() => {}` is callback function and `[]` is called a empty dependency array.
+    If anything that we pass (suppose currentState) inside the `[]` it trigger the callback function and changes the state of the application.
+
+    ```
+    useEffect(() => {
+        setCurrentState("true");
+    }, [currentState])
+    ```
+
+    If we do not pass empty dependency array then the useEffect runs everytime when the UI is rendered.
+
+    ```
+    useEffect(() => {})
+    ```
+
+Q: What is `Optional Chaining`?
+
+    A: `Optional Chaining` (`?.`) operator accesses an object's property or calls a function. If the object accessed or function called is `undefined or null` , 
+    it returns `undefined` instead of throwing an error.
+    `Optional Chaining` (`?.`) is good way of accessing the object keys, it prevents the application from being crashed if the key that we are trying to access 
+    is not present. If the key is not present then instead of a throwing key error, it returns `undefined`.
+
+Q: What is `Shimmer UI`?
+
+    A: A `Shimmer UI` resembles the page's actual UI, so users will understand how quickly the web or mobile app will load even before the content has shown up. It 
+    gives people an idea of what's about to come and what's happening (while UI currently loading) when a page full of content/data takes more than 3 - 5 seconds to load.
+    Shimmer UI is a great way for loading the applications. Instead of showing a loading circle we can design a shimmer UI for our application that is good for user experience.
+
+Q: What is `CORS`?
+
+    A: Cross-Origin Resource Sharing (CORS) is an HTTP-header based mechanism that allows a server to indicate any origins (domain, scheme, or port) other than its own from which 
+    a browser should permit loading resources.
+    CORS defines a way in which a browser and server can interact to determine whether it is safe to allow the cross-origin request.
+
+Q: What would happen if we do `console.log(useState())`?
+
+    A: If we do `console.log(useState())`, we get an array `[undefined, function]` where first item in an array is `state` is `undefined` and the second item in an array 
+    is `setState` `function` is bound dispatchSetState.
+
+Q: How will `useEffect` behave if we `don't add` a `dependency array`?
+
+    A: Syntax of `useEffect` is:
+
+    ```
+    useEffect(() => {}, []);
+    ```
+
+    Case 1 : When the `dependency array is not included` in the arguments of `useEffect() hook`, the callback function will be executed `every time` the component is rendered and re-rendered.
+
+        ```
+        useEffect(() => {
+            console.log("I run everytime this component rerenders")
+        });
+        ```
+
+    Case 2 : When the `dependency array is empty` in the arguments of `useEffect() hook`, the callback function will be executed `only one time` during the initial render of the component.
+
+        ```
+        useEffect(() => {
+            console.log("I Only run once (When the component gets mounted)")
+        }, []);
+        ```
+
+    Case 3 : When the `dependency array contains a condition`, the callback function will be executed `one time` during the initial render of the component and also rerender if there is a `change in the condition`.
+
+        ```
+        useEffect(() => {
+            console.log("I run every-time when my condition changed")
+        }, [condition]);
+        ```
+
+Q: What is `SPA`?
+
+    A: `Single Page Application (SPA)` is a web application that dynamically updates the webpage with data from web server without reloading/refreshing the entire page. 
+    All the HTML, CSS, JS are retrieved in the initial load and other data/resources can be loaded dynamically whenever required. An SPA is sometimes referred to as 
+    a `single-page interface (SPI)`.
+
+Q: What is the difference between `Client Side Routing` and `Server Side Routing`?
+
+    A: In `Server-side routing or rendering (SSR)`, every change in URL, http request is made to server to fetch the webpage, and replace the current webpage with the older one.
+
+    In `Client-side routing or rendering (CSR)`, during the first load, the webapp is loaded from server to client, after which whenever there is a change in URL, the router 
+    library navigates the user to the new page without sending any request to backend. All `Single Page Applications uses client-side routing`.
+
+Q: What is Code Splitting and Lazy Loading?
+
+    A: 
+    Code Splitting: Code Splitting is a technique used in web development to divide your codebase into smaller chunks or bundles. Instead of loading all the code at once when a user 
+    visits your website, you split it into separate files. This allows you to load only the code needed for the current page, improving loading times and performance.
+
+    Lazy Loading: Lazy Loading is a strategy where resources (such as images, scripts, or components) are loaded only when they are needed. Instead of loading everything upfront, 
+    lazy loading defers the loading of non-essential resources until they are required, reducing initial load times and conserving bandwidth.
+
+Q: Context API?
+
+    A: Context API in React is a way to share data across the component tree without having to pass props manually at every level. It's useful when multiple components need access 
+    to the same data. For example, you can use Context API to provide theme information or user authentication status to all components in your application. Here's a simple example:
+
+    Imagine you have an application where multiple components need access to the user's authentication status. Instead of passing this information as props down through each 
+    component, you can use Context API. You create a context that holds the authentication status, and then you can access this context from any component in your application 
+    that needs it. This simplifies the code and makes it easier to manage the shared state across your application.
+
+Redux
+
+    Install:
+        It has 2 libraries @reduxjs/toolkit & react-redux
+
+    Theory:
+        The scenario is to update the 'cart' by clicking the 'add' button
+
+        To write in store
+        > When we click the 'add' button it will dispach the action.
+        > The action will dispatch the reducer function.
+        > The function will update the slice in the redux store.
+
+        To read from store
+        > The cart is subscribed to the store using a selector that will automagically update the cart on changes.
+
+
+        ADD -> ACTION -> FUNC -> SLICE IN THE STORE -> SELECTOR -> CART
+
+ 
