@@ -87,5 +87,6 @@ Stash-
     to commit that changes so you will use command "git stash", this command will take the changes to a temporary storage in form of stack.
     When you want the changes back from temporary storage you will use command "git stash apply".
 
+just checking the changes
 
 
