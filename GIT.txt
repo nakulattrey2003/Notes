@@ -1,0 +1,91 @@
+GIT
+
+Defination - 
+    It is a free and open source version control system.
+    Suppose we wrote some code a=1; and some other team member changes it to a=2;, so to know what the change has been made we have to have some tool to know the version control.
+
+Initialize -
+    To Initialize version control or git in some file to check the changes in the file first you have to Initialize git in the terminal by command "git init".
+    You can initialize git in any file .txt .java .css etc.
+    Then you have to add the file whom you want to check the source control by command "git add example.js".
+    You have to use "git add ."  after every change so that, that change will go to stage area.
+    In real life there are a lot of files in the folders so we use "git add ." to add to the files of that folder at once.
+
+Uninitializing -
+    If you have added some file to git which you dont want to add then write "git rm index.js"
+
+Commit -
+    After adding the file, they will be in staging area and then you had to commit them with a user friendly comment with it with command 'git commit -m "Message you want to give"'.
+    Every commit has it own id and they are stored in the form of linked list where the head is on the latest commit, 
+    you can see previous commits with "git log" to see all and "git log --oneline" for seeing clean commit.
+
+Revert Back -
+    Method 1:
+        d477487 (HEAD -> master) Deleted some file
+        6a426c9 removed space and adding new variable       
+        23a205d removed space
+        Git commits are something like this, its look like a linked list and the head is pointing towards the last node.
+        If we made the head to point towards the 2nd line from top the the latest commit will be reverted back,
+        We can do this with command git reset --hard 6a426c9
+
+    Method 2:
+        To revert back a particular commit you have to write the command "git revert 23a205d" the id of the commit, 
+        in this a new commit is made which does exactly opposite from the previous commit, i a was removed previously then it will be added.
+
+Push And Pull - 
+   When working with team we have to maintain the code in both the desktops.
+   Eg. in my desktops i have const a = 10; and the same code is with my friend const a = 10. Suppose he changed the code to const b = 10; 
+   so that change to be reflected in my desktop fisrt he have to push the changed code from his desktop to a remote server and i have to pull that change from that server.
+   This helps in maintaining the same code to all the fellow developers and also maintaining a cloud history.
+   The remote server can be made by us also but windows has provided us with a remote server called Github.
+
+Github - 
+    GitHub is a developer platform that allows developers to create, store, manage and share their code. It uses Git software, providing the distributed version control of Git plus access 
+    control, bug tracking, software feature requests, task management, continuous integration.
+    Gits only feature required from Github was to push and pull the changes and anything else that available on github is its own feature like UI, like, other's projects, issues etc.
+
+Adding Files to Github -
+    First create a Git Repository and copy the Repository link.
+    Now go to your vs code terminal and do
+        > git init  // to initialize git there
+        > git add . // to add all the changed files
+        > git commit -m "commit message" // to commit all the changes
+        > git branch -M main // to change the branch as required
+        > git remote add origin https://github.com/nakulattrey2003/gitTest.git // to add the link with a variable name origin to the git  here origin = https://github.com/nakulattrey2003/gitTest.git
+        > git push -u origin main // to push the changes to the origin in the main branch and that's all and -u for upstram. 
+    You can use command "git remote -v" to see all the variables associated with the links of the Repository.
+
+    To push the changes made inexisting projects
+        > git add .
+        > git commit -m "commit"
+        > git push
+        or you can do this with vs code UI.
+
+Branch -
+    Suppose we are working in a group and we want to delete work done by a particular member, so it will be difficult to delete all the commits one by one.
+    So for this problem we use branches. We will create a new branch and do all the work there, and after doing the work we will ask for pull request and merging the changes.
+    All the commits done in branch will go as one commit in main branch, and if we want to delete the commits done by one member then we can delete that commit.
+
+        > git branch "nakul-branch" // to create new branch
+        > git branch  // to see all branches
+        > git checkout nakul-branch // to switch to that branch
+        > git push // it will give you error because the branch exists in local and not online so paste the command from the error like this git push --set-upstream origin nakul-branch
+    now we have to merge the changes to the main branch , we can do this by cli anf also through gui.
+        cli
+        > git checkout main // to switch to main branch
+        > git merge origin/nakul-branch    
+        > git push // changes are now in local only to make changes to github we use git push
+        same can be done using gui and after making the changes online you have to make tha same changes in your local server, that will be done using "git pull" command 
+    
+    Naming conventions of branches also known as branching tags
+    > feature --> git branch "feat/add-chat-support"
+    > bug fixing --> git branch "bug/login-not-working"
+    > Work in progress --> wip
+
+Stash-
+    Suppose you have some unsaved changes on your local and you friend has made some changes on the github, you want that changes but do not want 
+    to commit that changes so you will use command "git stash", this command will take the changes to a temporary storage in form of stack.
+    When you want the changes back from temporary storage you will use command "git stash apply".
+
+
+

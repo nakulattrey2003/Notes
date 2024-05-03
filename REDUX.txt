@@ -1,0 +1,20 @@
+Redux
+
+Install:
+    It has 2 libraries @reduxjs/toolkit & react-redux
+
+Theory:
+    The scenario is to update the 'cart' by clicking the 'add' button
+
+    To write in store
+    > When we click the 'add' button it will dispach the action.
+    > The action will dispatch the reducer function.
+    > The function will update the slice in the redux store.
+
+    To read from store
+    > The cart is subscribed to the store using a selector that will automagically update the cart on changes.
+
+
+    ADD -> ACTION -> FUNC -> SLICE IN THE STORE -> SELECTOR -> CART
+
+ 
