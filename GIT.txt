@@ -52,7 +52,7 @@ Adding Files to Github -
         > git commit -m "commit message" // to commit all the changes
         > git branch -M main // to change the branch as required
         > git remote add origin https://github.com/nakulattrey2003/gitTest.git // to add the link with a variable name origin to the git  here origin = https://github.com/nakulattrey2003/gitTest.git
-        > git push -u origin main // to push the changes to the origin in the main branch and that's all and -u for upstram. 
+        > git push -u origin main // to push the changes to the origin in the main branch and that's all and -u for upstram. // git remote remove origin to remove origin.
     You can use command "git remote -v" to see all the variables associated with the links of the Repository.
 
     To push the changes made inexisting projects

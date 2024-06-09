@@ -7,7 +7,7 @@ Theory:
     The scenario is to update the 'cart' by clicking the 'add' button
 
     To write in store
-    > When we click the 'add' button it will dispach the action.
+    > When we click the 'add' button it will dispatch the action.
     > The action will dispatch the reducer function.
     > The function will update the slice in the redux store.
 
@@ -17,4 +17,51 @@ Theory:
 
     ADD -> ACTION -> FUNC -> SLICE IN THE STORE -> SELECTOR -> CART
 
- 
+
+Example. 
+
+Suppose we want to save the user details when he logs or registers in.
+1. Creating the userSlice
+    import { createSlice } from "@reduxjs/toolkit";
+
+    const initialState = {
+    user: null,
+    token: null,
+    };
+
+    export const userSlice = createSlice({
+    name: "user",
+    initialState,
+    reducers: {
+        setLogin: (state, action) => {
+        // console.log("setLogin action payload:", action.payload);
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        },
+        setLogout: (state) => {
+        state.user = null;
+        state.token = null;
+        },
+    }
+    });
+
+    export const {
+        setLogin,
+        setLogout
+    }
+
+
+2. Saving the slice in the reducer.
+
+3. Cliking the login button and calling the function.
+
+4. dispatching the action in the function
+    dispatch(
+        setLogin({
+        user: loggedIn.user,
+        token: loggedIn.token,
+        })
+    );
+
+5. when the name of the user was required it was called using useSelector
+    const username = useSelector((state) => state?.user?.name);

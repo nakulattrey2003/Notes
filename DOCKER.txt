@@ -1,0 +1,12 @@
+Docker
+
+Meaning and Use:
+    Suppose you are running a website that you had made on your desktop and your friend wants to run the same 
+    website on his desktop then he must have the same configurations and versions that you computer has.
+    As this is not possible for a single as well as a large group of people so there comes docker to help you.
+
+    The docker is like a box which contains all you configurations and that can be duplicated or send over multiple
+    devices, so that people who want the same configurations can use that. These boxes are light weight and are
+    easily transferable.
+
+Some 
