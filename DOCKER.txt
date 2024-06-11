@@ -9,4 +9,124 @@ Meaning and Use:
     devices, so that people who want the same configurations can use that. These boxes are light weight and are
     easily transferable.
 
-Some 
+Images & Containers
+    The images are just like the operating system and the container is like your computer.
+    Just like an OS needs a computer to run same as an image needs a container to run.
+    Images contains all the configurations you have made, and that you can send to your friend, or can deploy that also.
+
+Some Commands:
+    docker -v                          =:  to check the version of the docker.
+    docker run -it ubuntu              =:  it will run a container with ubuntu image in it, it will install ubuntu lighweight image on your docker from dockerhub if not present else will run the present ubuntu image. It provies a random name to that like "silly_faraday".
+    ctrl + D                           =:  to come out of docker cli.
+
+    docker images || docker image ls   =:  to see all the images inside your docker.
+    docker container ls                =:  list the running Containers
+    docker container ls -a             =:  list all the Containers
+
+    docker run -it --name demo busybox =:  makes a container with name demo and uses busybox image
+
+    docker start silly_faraday         =:  to start a particular container
+    docker stop silly_faraday          =:  to stop a particular container
+    docker exec silly_faraday ls       =:  helps in executing command without going inside the container, it lists all the files in that container. you had to start the container before running this command
+    docekr exec -it silly_faraday bash =:  allows us to write any command inside that container. it stands for interactive
+    docekr exec -it 24bda8628f60 bash  =:  allows us to write any command inside that container. it stands for interactive
+
+Port exposing:
+    Suppose you want to run a website on your localhost so you need to map the port number in the docker to the port number of your choice to be run your desktop.
+    For ex.
+    Suppose in nakulattreydev there is an image mynodeapp and you want to run that on your system. So will do
+        docker run -it nakulattreydev/mynodeapp                 // this will install the image on your local
+        docker run -it -p 6000:9000 nakulattreydev/mynodeapp    // this will map 9000 port of the image to 6000 port of my local
+
+Creating an Image:
+    Create an application  like i had created in "C:\Users\HP\OneDrive\Desktop\Nakul\Web Development\Demo\DemoDocker\DockerNode"
+    There you will make a Dockerfile and write some Commands in it
+    Then you will write command "docker build -it myimagename ."  inside your vscode terminal to build this image
+    {
+        "myimagename" is the name of the image you want, 
+        "." is the path of the file} in terminal to create this app an image,
+        "7000:7000" is mapping the image port 7000 to your local port 7000,
+    }
+
+    Write command "docker run -it -p 7000:7000 myimagename" in your terminal and it will give you a message like "App started on PORT 7000" and will work on localhost:7000
+    Write command "docker run -it -e PORT=4000 -p 4000:4000 myimagename" in your terminal and it will give you a message like "App started on PORT 4000" and will work on localhost:4000, this will change the environment variable PORT to 4000, by this you can change the env variables.
+
+    By this you can exchange the code of your file with your friends with the provided configurations.
+
+Cached:
+    When creating the image you will see something like this 
+        => CACHED [ 7/10] COPY package.json package.json
+        => CACHED [ 8/10] COPY package-lock.json package-lock.json  
+    this means that there is no change in these files, so these will not rerun and will save time.
+    All the commands should be written on top and the changeable files at the end because if any of the files is changes then all the lines written below will be executed no matter they are changed or not.
+
+Pushing local image to docker.io
+    Write "docker push myimagename"
+    if there is any error related to login the first you have to login using "docker login"
+    and for pulling "docker pull myimagename"
+
+Running the docker.io image on your local:
+    docker pull nakulattrey2003/mydemonode
+    docker run -it -e PORT=4000 -p 4000:4000 nakulattrey2003/mydemonode
+
+Compose:
+    When we talk about real world, there are many Containers in a website like there can be one container of postgre, mongodb or redis. All have their owm configurations and port mapping.
+    One solution is to execute these commands 1 by 1 to execute them.
+    Second solution is to use docker Compose
+        We will create a file naming docker-compose.yml
+        In that file we will write all the configurations
+        Ex.
+        We will define service. inside it the name of the service. inside it the name of image to be downloaded, its port mapping, env variables
+
+        services:
+            postgres:
+                image: postgres # it will be downloaded from hub.docker.com
+                ports:
+                - "5432:5432"
+                environment:
+                POSTGRES_USER: postgres
+                POSTGRES_DB: review
+                POSTGRES_PASSWORD: password
+
+        After it we have to write "docker compose up" in your vs code terminal to run all the configurations up    // you can see it in your docker desktop
+        run "docker compose up -d" to run the commands in your background and you can use your terminal.
+        you can use "docker compose down" to remove all that.
+
+Docker Networking:
+    The networks help the containers to communicate with each other.
+    This specifies how the container is getting access to the network. write "docker network ls" to see all the networks
+    - Bridge: 
+        This provides a bridge between the local and the docker from which the the local container gets the network. This is by default
+        To check it write "docker run -it busybox" it will make a container with busybox as image. 
+        Then write "ping google.com" to check connectivity. It will ping google.
+
+    - Host:
+        In this the container is not connected to the docker and gets the network directly through the host network.
+        To check it write "docker run -it --network=host busybox" it will make a container with busybox as image. 
+        Then write "ping google.com" to check connectivity. It will also ping google.
+
+    - None:
+        In this the container is not connected to the docker and doee not gets the network connectivity
+        To check it write "docker run -it --network=none busybox" it will make a container with busybox as image. 
+        Then write "ping google.com" to check connectivity. I will not ping google and will show "ping: bad address 'google.com'".
+
+    - Custom Network
+        You can also create custom networks, command to make custom network "docker network create -d bridge demonetwork"
+
+Volume Mounting:
+    When we create a container and make some files in it and when we delete that container all the files are also deleted, 
+    so to maintain those files we mount a volume to that container.
+    Create a folder on you local and open it in terminal.
+    now write "docker run -it -v hostMachineAddress:containerAddress busybox"  
+    now the files of hostMachineAddress are attached to a volume and they are mounted on address containerAddress in busybox.
+    now opening the containerAddress in the container will let you add delete alter the files in it, and they will still be there after you had deleted the container.
+
+
+
+
+
+
+
+
+
+
