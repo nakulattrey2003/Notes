@@ -1,0 +1,196 @@
+
+SQL:
+
+Defination:
+    Strucutred Query Language used for getting data from very large datasets using queries.
+    Although known as a query language it can do much than that like creating database, schemas, models and update, alter them. Also can 
+    provide security and multiple number of tasks.
+
+Classifications of Database:
+    > DDL - 
+        Data Defination Language
+        Used to create, modify, delete strucutres but not data.
+        CREATE, ALTER, DROP, TRUNCATE, GRANT, REVOKE
+
+    > DML -
+        Data Manipulation Language
+        Used to access or manipulate data.
+        INSERT, UPDATE, DELETE
+
+    > DCL - 
+        Data Control Language
+        Used to Control access to data and to database.
+        COMMIT, ROLLBACK
+
+    > DQL - 
+        Data Query Language
+        Used to get data from the database according to the query.
+        SELECT
+
+DDL Commands:
+    CREATE - 
+        create table emp(
+            emp_id int primary key,
+            trainee_id int,
+            emp_name varchar(30),
+            emp_email varchar(30) unique
+            foreign key (trainee_id) refrences customers(trainee_id)
+        )
+
+    ALTER - 
+        > Adding new Column:
+            alter table emp 
+            add phone_no varchar(10);
+
+        > Dropping a Column:
+            alter table emp
+            drop column phone_no
+
+        > Modifying an existing Column:
+            alter table emp
+            modify column phone_no varchar(12);
+
+        > Ater table emp:
+            alter column phone_no varchar(12);
+
+        > Renaming a column:
+            alter table emp
+            rename column phone_no to contact_no
+        
+        > Renaming a table;
+            alter table emp
+            rename to employee
+
+        > Delete all schema:
+            drop table emp;
+
+DML Commands:
+    > Insert
+        insert into emp
+        values
+        (1, 'Nakul', 20),
+        (2, 'Ted', 23),
+        (3, 'Wolf', 25)
+
+        if we want to enter specific fields only-
+        insert into temp
+        (id, name)
+        values
+        (1, 'Nakul'),
+        (2, 'Ted')
+
+    > Delete
+        Delete a specific column content:
+            delete from emp
+            where emp_id = 1
+
+        Delete whole table content
+            delete from emp
+
+Select Coammds:
+    
+    select * from emp;             # to select all emp data
+    select distinct(*) from emp    # unique data
+
+    Q. Select employees with salary greater than or equal to 10 and less than or equal 20;
+    Ans.select emp_name from emp
+        where salary > 10 and salary < 20
+        ----------  or  -----------
+        select emp_name from emp
+        where salary between 10 and 20     # between will also include boundary values
+    
+    Q. Select name of the emp who are both emp and customer
+    Ans.Situations where we need data from 2 tables, we merge them
+        select emp_name 
+        from emp, customer
+        where emp.trainee_id = customer.trainee_id
+        ---------  or  ---------
+        select emp_name
+        from emp natural join customer
+
+Joins:
+    Joining databases to extract data is known as join,
+
+    > Join || Natural Join || Inner Join:             // Lossy
+        Joins all the data of the both tables which are same.
+
+    > Left Outer Join:
+        Takes all data from the left table and data from right table which matches rows in left table.
+        If left data does not match right data then it fills it with null.
+    
+    > Right Outer Join:
+        Takes all data from the right table and data from left table which matches rows in right table.
+        If right data does not match left data then it fills it with null.
+
+    > Outer Join || Complete Outer Join || Full Outer Join:
+        Takes all data from left and all data from right table.
+        Marks null where the data does not matches.
+
+Alias:
+    Just for the query purpose we rename the table. Sometimes also used for self comparison of tables
+    Example.
+        select count(emp_name) as total_emp from emp;
+        select salary from emp as a, emp as b
+        where a.salary > b.salary;
+    
+Functions:
+    Used to make things fast and easy
+    Count, Max, Min, Average, Sum
+
+    select count(*) from emp;
+    select max(*) from emp;
+    select min(*) from emp;
+    select avg(*) from emp;
+    select sum(*) from emp;
+
+Order:
+    Sorted result
+        select emp_name from emp   # ascending default
+        order by emo_name
+
+        select emp_name from emp   # descending
+        order by emo_name desc
+
+String Matching:
+    Q. Find employees with exactly 5 characters in their name
+    Ans.select emo_name from emp
+        where emp_name like '_ _ _ _ _'
+        
+    Q. Find employees with exactly 'abc' in their name
+    Ans.select emo_name from emp
+        where emp_name like '%abc%'
+        
+    Q. Find employees whose names start with 'a'
+    Ans.select emo_name from emp
+        where emp_name like 'a%'
+        
+    Q. Find employees whose names end with 'a'
+    Ans.select emo_name from emp
+        where emp_name like '%a'
+        
+    Q. Find employees with exactly 7 characters in their name and it starts with 'a' contains 'bcd' and ends with 'e'
+    Ans.select emo_name from emp
+        where emp_name like 'a_bcd_e'
+    
+    
+    Q. Find employees which starts with a or b or c
+    Ans.select emo_name from emp
+        where emp_name like '[abc]%'
+        
+    Q. Find employees with does not starts with a or b or c
+    Ans.select emo_name from emp
+        where emp_name like '[!abc]%'
+
+Group By:
+    Suppose we want to get avg of students numbers in a college, first we divide students according to their branch and then take avg of them.
+    Having will be used if there is any condition inside those groups like select only those whose avg marks are greater than 50.
+
+    Q. Find avg marks of each branch in a college
+    Ans.select avg(marks) from college
+        group by branch_name
+    
+    Q. Find avg marks of each branch in a college having average marks more than 50
+    Ans.select avg(marks) from college
+        group by branch_name
+        having avg(marks) > 50
+    
