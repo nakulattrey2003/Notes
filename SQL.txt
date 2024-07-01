@@ -27,6 +27,9 @@ Classifications of Database:
         Used to get data from the database according to the query.
         SELECT
 
+Constraints:
+    NOT_NULL, UNIQUE, PRIMARY KEY, FOREIGN KEY, DEFAULT
+
 DDL Commands:
     CREATE - 
         create table emp(
