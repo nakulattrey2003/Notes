@@ -134,7 +134,7 @@ Constructor:
 
 Methods of initializing/putting value in object:
     1. By reference 
-        class Main
+        class Animal
         {
             int age;
             String color;
@@ -147,7 +147,7 @@ Methods of initializing/putting value in object:
         }
 
     2. By method
-        class Main
+        class Animal
         {
             int age;
             String color;
@@ -193,31 +193,46 @@ Inheritance:
     Every class has maximum one parent class as java does'nt support Multiple Inheritance.
     Any change in Parent class creates a change in child class.
     Syntax:
-    class Animal
+    class Animal 
     {
-        public void eat()
+        // Method in the base class
+        void eat() 
         {
-            System.out.print("eat");
+            System.out.println("This animal eats food");
         }
     }
-    class Dog extends Animal
+
+    // Dog is a subclass that inherits from the Animal class
+    class Dog extends Animal 
     {
-        public static void main(String[] args)
+        // Method in the derived class
+        void bark() 
         {
-            Dog d=new Dog();
-            d.eat();
+            System.out.println("The dog barks");
         }
     }
+
+    public class Main 
+    {
+        public static void main(String[] args) 
+        {
+            Dog myDog = new Dog();
+            
+            // The Dog class can use the eat method from the Animal class
+            myDog.eat();
+            
+            // The Dog class can also use its own bark method
+            myDog.bark();
+        }
+    }
+
     Here we are extending properties of Animal class into Dog class.
     Here Animal is a parent/super class and Dog is a child/sub class.
     They are having IS A relation (Dog IS A Animal);
 
 
     NOTE -  
-       
-       Base class variable = Derived class object (is always correct but vi)
-
-
+       Base class variable = Derived class object (is always correct but vice versa is not true)
 
     Types of Inheritance:
     1. Single: A -> B (Class B is inheriting properties of Class A)
@@ -664,4 +679,36 @@ static:
     we use static keyword
     >  when we want the variable belongs to the class itself rather than to instances of the class. This means there will be only one copy of the variable shared among all instances of the class. when we want the variable to be constant
     >  when we want the method belongs to the class itself rather than to instances of the class. Static methods can be called directly on the class without the need to create an instance of the class.
-    >  Java does not allow classes to be marked as static. Classes are inherently static in Java, meaning they are loaded into memory once and shared across all instances of the class. However, you can use the final keyword with a class to prevent it from being extended or inherited
+    >  Java does not allow classes to be marked as static. Classes are inherently static in Java, meaning they are loaded into memory once and shared across all instances of the class. However, you can use the final keyword with a class to prevent it from being extended or inherited.
+
+
+JAVA:
+
+Java is Platform Independent:
+    Java uses both compiler and interpreter to execute a file, firstly Java uses a compiler to convert a Java file to a .class file known 
+    as bytecode which is not ready to be executed thus Java uses interpreter to convert .class file into machine code which is then is 
+    ready to be executable using the jvm (Java virtual machine). Java is interpreted inside jvm.
+
+Interpreter vs Compiler:
+    Interpreter uses an interpreter to interpret the code for example a javascript uses browser as an interpreter to run its code, while 
+    running the javascript code it is executed line by line and after that it is shown on the browser whereas 
+    In the case of a compiler Like C language code is first converted into .exe executable file and then that executable file consisting 
+    of the machine code is run every time you run the code. You can even delete your .c file also.
+
+JRE:
+    JVM(Java Virtual Machine) is inside JRE(Java Runtime Environment), and JRE is inside JDK(Java Development Kit).
+
+Memory inside JVM:
+    There are 2 memories inside JVM
+    1. Stack Memory: 
+        A new Stack is called whenever a new Method is called inside a class. This stack consists of all the variables and there values 
+        in them. Whenever we declare an object like Test obj=new Test() or a String s="", this is also stored on the class as obj is 
+        also a reference variable, but its value stored is the address of the object that is created inside the heap memory.
+
+    2. Heap Memory: 
+        All the object are created inside the heap memory. The instance variables(variables that are declared inside a class but outside 
+        a function) and the method declaration is also stored inside heap memory. Heap also has a separate space in it named as string 
+        constraint pool where Strings are stores, String (as it is an object) being immutable and Dynamic memory, they are stored in 
+        heap memory.
+
+
