@@ -63,10 +63,10 @@ creating a server and sending request to different pages:
     // we can also send some photo, video or even an html file
 
 HTTP Request Methods:
-    1. GET: When user wants to get some data from the server. Eg searching google.com
-    2. POST: When user wants to send data to the server. Eg Filling Forms
-    3. PUT: When user wants to upload data to the server. Eg Uploading a Picture
-    4. PATCH: When user wants to change data of the server. Eg changing your name on facebook
+    1. GET   : When user wants to get some data from the server. Eg searching google.com
+    2. POST  : When user wants to send data to the server. Eg Filling Forms
+    3. PUT   : When user wants to upload data to the server. Eg Uploading a Picture
+    4. PATCH : When user wants to change data of the server. Eg changing your name on facebook
     5. DELETE: When user wants to delete data from the server. Eg Deleting Account on Facebook.
 
 Express:
@@ -127,7 +127,8 @@ Status Codes:
         503: Service Unavailable
 
 MongoDB Schema
-    // for finding the url mongodb://127.0.0.1:27017 you have to open cmd and write mongosh then you will get the link, then you can write the name of the mongo Database yourself
+    // for finding the url mongodb://127.0.0.1:27017 you have to open cmd and write mongosh then you will get the link, then you can
+    write the name of the mongo Database yourself
 
     const mongoose = require("mongoose");
     // connecting to database
@@ -138,14 +139,14 @@ MongoDB Schema
 
     // Schema
     const UserSchema = new mongoose.Schema(
-    {
-        firstName: { type: String, required: true },
-        lastName: { type: String, required: false },
-        email: { type: String, required: true, unique: true },
-        job_title: { type: String },
-        gender: { type: String },
-    },
-    { timestamps: true }
+        {
+            firstName: { type: String, required: true },
+            lastName: { type: String, required: false },
+            email: { type: String, required: true, unique: true },
+            job_title: { type: String },
+            gender: { type: String },
+        },
+        { timestamps: true }
     );
 
     // Model
@@ -198,6 +199,17 @@ CRUD:
     These examples demonstrate how to perform CRUD operations using Mongoose in a Node.js application connected to a MongoDB database.
 
 Web Sockets:
+    In normal communication between client and server, the client sends a request to the server and server sends a response to the client.
+    After this the session is broken and for any further communication the same steps are done.
+    But for the real time applications like chatting this approach will be causing time, space and money.
+    For real time applications we upgrade our connection and server makes a 2 way connection with the client or said as full duplex.
+    With the connection now any new message from client is directly seen by the server.
+    And the server breaks when the user wants.
+
+    For Implementing it we first create the server using socket.io instead of normal app.listen();
+    const { Server } = require("socket.io");
+    const server = http.createServer(app);
+
     web sockets -- socket io
     1. when the send button is called socket.emit is called and userMessage is send to the backend.
     2. io.on("connection") is called and socket.on('userMessage') is called inside it which sends io.emit('message') which is send to the connections.
