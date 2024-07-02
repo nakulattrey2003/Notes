@@ -152,6 +152,48 @@ MongoDB Schema
     // Model
     const userModel = mongoose.model("userModel", UserSchema);
 
+JWT:
+    JSON Web Token are the tokens that are used for authorization and information exchange in the web application. These are stateless 
+    and most popular for authentication and authorization. Whereas sessions are statefull.
+    JWT consists of 3 parts
+        > Header   : This tells us about the algorithm type used for encryption.
+        > Payload  : This contains the actual data to be sent.
+        > Signature: This is the space where you provide you secret_key to modify the data.
+    
+    Working: 
+        Whenever a user signs in or registers (according to needs) the JWT token is created and for any request first the token is 
+        verfied (which is sent in the headers with the request) that if the user is authorized to use that resource or not.
+
+    Using in project:
+        // signing token during login
+            const jwt = require("jsonwebtoken");
+            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);     // user is sent as "id" and token is signed using secret_key
+
+        // token is verfied and data is taken from it
+            const jwt = require("jsonwebtoken");
+            const token = req.headers["authorization"].split(" ")[1];   // token is taken from the header
+                jwt.verify(token, "nakul", (err, decode) => {           // verfied using secret_key
+                // (err, decode) means that, there will be error or the token will be decoded
+                if (err) {
+                    return res.status(400).send({
+                    success: false,
+                    message: "Unauthorized User",
+                    });
+                } else {
+                    // console.log(req.body);
+                    req.body.userid = decode.userid;
+                    next();
+                }
+            });
+
+Hashing:
+    When the user is created using username and password then it will be easy for anyone to see those details, where username is public
+    and can be easily accessible we need to make sure that the password is hashed properly.
+    For that we make use of bcryptjs library
+        // hashing
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(password, salt);
+
 MVC:
     files in node js
 
