@@ -11,11 +11,11 @@ NodeJs Architecture:
     meaning it processes events in the order they were added to the queue.
 
     Non-blocking and Blocking Operations:
-
     For non-blocking (asynchronous) operations, such as I/O operations, the event loop delegates the task to a separate thread (handled 
     by libuv in Node.js). When the operation completes, a callback is pushed into the event queue.
     For blocking (synchronous) operations, such as CPU-bound tasks, the event loop can't handle them directly. It delegates these 
     operations to the worker threads in the thread pool.
+
     Response Handling: When a task completes (either synchronous or asynchronous), its corresponding callback is placed back into the 
     event queue. The event loop then picks up this callback and processes it, which may involve sending a response to the client.
 
@@ -203,4 +203,15 @@ Web Sockets:
     2. io.on("connection") is called and socket.on('userMessage') is called inside it which sends io.emit('message') which is send to the connections.
     3. then socket.on('message') this receives the message and displays it.
 
+Rate Limiting:
+    This is an approach or a method in which we control the number of requests are made. Helps in coping with attacks like DDOS.
+    For example the number of requests to the Gemini AI API Key is 15 per min.
 
+    > Token Bucket:
+        It is one of the approach to Implement rate limiting. In this approach certain number of tokens are provided in the bucket and
+        when a request comes it takes that token, if the request is having a token then only the request is handled else the request is
+        rejected or added in the queue according to the needs.
+
+    > Leaky Bucket: 
+        In this approach all the requests are taken in the bucket and a small hole is made at the bottom of the bucket, controllable 
+        number of requests leaks from that hole which is then handled by the nodejs server.
