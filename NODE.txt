@@ -269,3 +269,46 @@ Rate Limiting:
     > Leaky Bucket: 
         In this approach all the requests are taken in the bucket and a small hole is made at the bottom of the bucket, controllable 
         number of requests leaks from that hole which is then handled by the nodejs server.
+
+SSL:
+    Secure Socket Layer
+    It provides a secure connection between web server and browser.
+    SSL certificate: This is a digital certificate provided by a certificate issuing authority to prove the validity of a public key.
+
+    Symmetric Key: When same key can encrypt and decrypt the data.
+    Asymmetric Key: When different keys encrypt and decrypt the data.
+
+    Flow of sending data:-
+        Firstly the server make use of Asymmetric Keys and send the puclic key to the client ans takes the private key for himself.
+        Now for the first time, the client encrypts the Symmetric Key with the server's public key and sends it to the server.
+        The server decrypts the Symmetric Key with the server's own private key.
+        Now both client and server are having Symmetric key so the client can send encrypted data using Symmetric key and server can decrypt using the same key.
+        This solves our pronlem of securing the connection.
+
+    But this method has a chance of hacking due to which SSL Certificate is there:-
+        The hacker can send his own public key to the client and then rather than sending than data to server, the client unintentionally sends its data to the hacker.
+        So to validate that public key been recieved by the client we uses SSL Certificate.
+        With the public key now a certificate will also be sent attached to it which is created by certificate issuing authority which may charge you
+        because of the certificate.
+        The certificate includes the server's public key and the certain will be signed.
+        The signature consists of (server's public key  + certificate issuing authority's public key)
+        Now the client will have certficate issuer's public key, server's public key and the certificate.
+        And now he can check if the signature is verified or not.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
