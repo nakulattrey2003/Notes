@@ -1,0 +1,256 @@
+
+DBMS (https://youtu.be/YRnjGeQbsHQ) Knowledge Gate
+
+Definations:
+    > Data: Any facts or figures about an entity is called data. It can be descriptive or numeric. Unmeaningful text is data.
+    > Information: When data is analyzed that helps to make some decisions or understanding is known as info. Meaningfull text is information.
+    > Database: Data stored in a structural way in forms of table is called database.
+    > Database Management System: A software which helps in efficient storing, maintaining, easy access, updating and deleting of data. Ensures data safety and integrity, querying and analytics.
+
+View of Databse:
+    Different views of db accoring to different persons
+    > Physical Level: How the data is actually stored, we have use linked-list or trees or table. Managed by DBA.
+    > Logical Level: This view consists of the design or er-diagram,  relation between different entities.
+    > View Level: This is the view actually seen by the user. Like this website opens like this, here we need to enter the details etc.
+
+OLAP & OLTP:
+    > OLAP: 
+        Online Analytical Processing. 
+        It deals with the historic data. 
+        Uses are analytics and reporting. 
+        Read operations are done.
+    > OLTP: 
+        Online Transaction Processing. 
+        It deals with day-to-day data. 
+        Uses are handling transactional data. 
+        CRUD operations are done.
+
+ER Diagram
+    Table == Relation, Row == Tuple, Column == Attribute
+    > Entity: 
+        Smallest piece of information that can be stored in the database and can be differentiate from other information.
+        Entity Set is Represented using table relation model.
+        Represented using Rectangle in ER diagram.
+        > Weak Entity Sets: Which do not have any primary key, Represented by double rectanlge.
+        > Strong Entity Sets
+    > Attribute: 
+        Piece of data that describes an entity. Ex. Akash 10 is entity but Name Id is its Attribute.
+        Represented as column in relation model.
+        Represented as oval in ER Diagram.
+            > Single Valued: Represented as single oval, like a student can have only 1 name.
+            > Mutli Valued : Represented as double oval, like a student can have 2 phone numbers.
+            > Derived      : Represented as dotted oval, which can be Derived from other values, like age can be derived from dob.
+    > Relations: 
+        How to or more entities are related to each other is done using relations.
+        Represented as Diamond in ER Diagram.
+            > Binary: Teacher - [Teaches] - Subject
+            > Unary : Team - [supervisor][supervisee] - Supervision
+            > N ary : N number of entities in a relationship
+        Types: 
+            > One to One  : Person - Passport
+            > One to Many : Author - Books
+            > Many to One : Book - Author
+            > Many to Many: Student - Courses
+
+    Generalization: 
+        If we can represent 2 entity sets with 1 set it is known as Generalization
+        Bottom Up Approach
+        Example [Saving, Current] - IS A - [Account]
+
+    Specialization: 
+        If we can represent 1 entity set with 2 set it is known as Specialization
+        Top Down Approach
+        Example [Person] - IS A - [Employee, Customer]
+    
+RDBMS:
+    Relational Database Management System
+    Rows   : Tuples / Records / Cardinality
+    Columns: Domain / Field / Arity / Degree
+
+Anomalies:
+    Faults is database due to poor handling of data.
+
+    > Insertion Anomaly: An issue where you cannot add data to the database due to missing other required data.
+    > Deletion Anomaly : An issue where deleting data unintentionally removes additional, unintended data.
+    > Update Anomaly   : An issue where data inconsistency occurs due to partial updates in the database.
+
+Functional Dependency:
+    If you can derive value of Beta when Alpha is given to you the Alpha & Beta are in functional dependency.
+    Ex. A B C
+        1 2 3
+        1 2 4
+        2 3 5
+        7 5 3
+        Here A -> B are in functional dependency because for every value of A you can find value of B. 
+        But B -> C are not in functional dependency like if we give B=2 we will get confuse between C=3 or C=4
+    
+Keys:
+    Attributes in table which can uniquely indentify a row in that table are called keys.
+
+    > Super Key: 
+        A super key is a set of one or more attributes that, taken collectively, can uniquely identify a row in a 
+        table. In other words, any set of attributes that includes a candidate key is a super key.
+        There will be atleast one super key in every table.
+        Eg. If AB -> CD. where AB is also super key and ABC, ABCD is also super key. But CD ka hona na hone ek barabar.
+
+    > Candidate Key:
+        Minimal Set of Attributes which can uniquely identify a row in a table.
+        Also known as Minimal Super Key.
+        There will be atleast one candidate key in every table.
+        Eg. If AB -> CD. where AB is also super key and ABC, ABCD is also super key but not candidate key because CD ka hona na hone ek barabar.
+        Pime Attributes     : A and B
+        Non Prime Attributes: C and D
+        Candidate Key is better than Super Key because there is no redundancy in Candidate Key.
+
+    > Primary Key:
+        One of the Candidate Key selected by DBA is known as Primary Key.
+        Other Candidate Keys which are not selected as Primary Key are known as Alternate Key.
+        Primary key is unique and cannot be NULL.
+        Exactly one primary key is there per table.
+
+    > Foreign Key:
+        Not related to uniquely identify a row in a table.
+        Reltaion between 2 tables is identified using foreign key.
+        Primary Key of one table when used in any other or same table to create a relationship then that key in other table is known as Foreign key.
+
+Dependencies:
+    Partial Dependency: 
+        When the Non Prime Attribute is not dependent on the all the Prime Attributes but on few Prime Attributes or
+        you can say the Non Prime Attribute is not Dependent on Entire Candidate Key but on subset of Candidate Key.
+        Eg R(ABCD) AB -> D and A -> C  there is partial dependency between A and C.
+
+    Full Dependency: 
+        When the Non Prime Attribute is dependent on the all the Prime Attributes or
+        you can say the Non Prime Attribute is Dependent on Entire Candidate Key and not on subset of Candidate Key.
+        Eg AB -> D and AB -> C  there is full dependency between AB and C && AB and D.
+
+    Transitive Dependency:
+        A Functional Dependency from a Non Prime to Non Prime
+        Ex R(ABC) A -> B, B -> C 
+        Here A is the key and Prime Attribute whereas B and C are Non Prime Attributes.
+        There is Dependency between B and C, since they are both Non Prime so there is Transitive Dependency between them.
+
+    MultiValued Dependency:
+        Denoted by A ->> B , 
+        For every value of A there may exist more than 1 value of B, 
+        Example. Ram -> Dance, Ram -> Sings.
+        Trivial MultiValued Dependency: If a table has only 1 MultiValued Dependency then it is said Trivial MultiValued Dependency. Iske hone na hone se koi farq nahi hai.
+        NonTrivial MultiValued Dependency: If a table has more than 1 MultiValued Dependency then it is said Non Trivial MultiValued Dependency.       
+
+Decomposition:
+    > Lossy:
+        When a table r is converted into r1 and r2 and then if we do natural join ⨝ of r1 and r2, then if there is loss of data it is 
+        known as Lossy Decomposition.
+
+    > Lossless:
+        When a table r is converted into r1 and r2 and then if we do natural join ⨝ of r1 and r2, then if there is no loss of data it is
+        known as Lossless Decomposition.
+        For Lossless Decomposition we need to make sure that:
+            > All the attributes are convered while dividing a table
+            > There should be a comman attribute in them and,
+            > That comman attribute needs to be a key(basically unique value).
+
+Normalization:
+    Process of organizing data in a database so as to minimize redundancy using its so-called normal forms.
+
+    > 1NF: 
+        Initial Step of Database Normalization.
+        Any ER Diagram converted into table is in 1NF.
+        It will not contain any Mutli Valued Attributes like phone_no = 123, 234 this will be converted into 2 separate tables.
+        No Duplicate Rows.
+        Should have Primary Key.
+
+    > 2NF:
+        Table should be in 1NF
+        Table should not contain any Partial Dependency
+    
+    > 3NF:
+        Should be in 2NF
+        Should not contain Transitive Dependency.
+        
+    > BCNF:
+        Boyce Codd Normal Form
+        For any dependency A -> B, A must be a super key.
+
+    > 4NF:
+        Must be in BCNF
+        Should not contain any NonTrivial MultiValued Dependency
+    
+    > 5NF:
+        It should be in 4NF
+        The table is maximum decomposed and any decomposition after this will be a lossy decomposition.
+
+ACID:
+    Any Transaction happening should have all these properties Atomicity, Consistency, Isolation, Durability
+
+    > Atomicity:
+        It states that either the entire instructions should be exectuted or none.
+        For eg. If the process is doing some transaction to remove money from account A and send it to Account B.
+        So either the whole transaction is done else none should be done.
+
+    > Consistency:
+        The Database should remain consistent before and after the transaction.
+        For example. If total money before transaction was 700 (A-700 B-0) then total money after the transaction should also be 700 (A-0 B-700)
+
+    > Isolation:
+        While the process of transaction is done it should be isolated from all the other transactions happening at that time.
+        Eg. If i am sending 700 to my friend and at the same time my father is sending 700 to his friend then both the transactions 
+        should not interfere with each other.
+
+    > Durability:
+        The changes made in the databse should remain persistent in the database.
+        Ex. If my account has 10$ and I had added 90$ in it and after visiting my account after some days it should reflect my 100$ only,
+        neither less nor more.
+
+Transaction States:
+    These are the states through which transactions go through
+    
+    > Active: 
+        This is the Initial state, transactions wait while all its lines of code are executed.
+        If success it goes to Partially Commit state by commiting.
+        If fails it go to Failed State by aborting.
+
+    > Partially Commit State:
+        After commiting the transaction goes to Partially Commited State.
+        If any failure occurs in this state before commiting then transaction goes to failed State.
+        Else it goes to Commit State.
+    
+    > Commited State:
+        Last State of Transaction
+        If the transaction is in this state means the transaction is complete and,
+        The database is consistent.
+
+    > Failed State:
+        Any Transaction after failing goes to this State.
+        After this state transaction goes to Abort State.
+        All the changes made are rolled back before going to Abort State.
+
+    > Abort State:
+        This is the last state of transaction
+        If any transaction is in this state means the transaction is failed and,
+        The database is consistent in this state.
+    
+Schedule:
+    When more than one transactions happen at same time then this is called Schedule.
+
+    Serial Schedule:
+        When 2 transactions are executing parallely then the 2nd transaction will only start when 1st transaction is complete.
+        There is no swapping or context switch in this case.
+    
+    Non Serial Schedule:
+        When 2 transactions are working parallely then both the instructions can run simultaneouly.
+        Context switch and swapping occur time to time as per need.
+        To make it work properly we swap non conflicting instructions.
+        Non conflicting: R-R , R(A)-W(B) , W(A)-R(B)
+        Conflicting    : R(A)-W(A) , W(A)-W(A)
+
+    Conflict Seralizable Schedule:
+        A Schedule which is non serail but after swapping non conflicting instructions it becomes Seralizable then it becomes Conflict
+        Seralizable Schedule and it is consistent.
+
+        
+
+
+
+
+
