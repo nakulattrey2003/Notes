@@ -682,33 +682,7 @@ static:
     >  Java does not allow classes to be marked as static. Classes are inherently static in Java, meaning they are loaded into memory once and shared across all instances of the class. However, you can use the final keyword with a class to prevent it from being extended or inherited.
 
 
-JAVA:
 
-Java is Platform Independent:
-    Java uses both compiler and interpreter to execute a file, firstly Java uses a compiler to convert a Java file to a .class file known 
-    as bytecode which is not ready to be executed thus Java uses interpreter to convert .class file into machine code which is then is 
-    ready to be executable using the jvm (Java virtual machine). Java is interpreted inside jvm.
 
-Interpreter vs Compiler:
-    Interpreter uses an interpreter to interpret the code for example a javascript uses browser as an interpreter to run its code, while 
-    running the javascript code it is executed line by line and after that it is shown on the browser whereas 
-    In the case of a compiler Like C language code is first converted into .exe executable file and then that executable file consisting 
-    of the machine code is run every time you run the code. You can even delete your .c file also.
-
-JRE:
-    JVM(Java Virtual Machine) is inside JRE(Java Runtime Environment), and JRE is inside JDK(Java Development Kit).
-
-Memory inside JVM:
-    There are 2 memories inside JVM
-    1. Stack Memory: 
-        A new Stack is called whenever a new Method is called inside a class. This stack consists of all the variables and there values 
-        in them. Whenever we declare an object like Test obj=new Test() or a String s="", this is also stored on the class as obj is 
-        also a reference variable, but its value stored is the address of the object that is created inside the heap memory.
-
-    2. Heap Memory: 
-        All the object are created inside the heap memory. The instance variables(variables that are declared inside a class but outside 
-        a function) and the method declaration is also stored inside heap memory. Heap also has a separate space in it named as string 
-        constraint pool where Strings are stores, String (as it is an object) being immutable and Dynamic memory, they are stored in 
-        heap memory.
 
 
