@@ -68,5 +68,61 @@ Real-life uses of various data structures:
         Unique Data Storage: Sets are used to store unique items, such as unique identifiers in a database.
         Mathematical Operations: Operations like union, intersection, and difference can be efficiently performed on sets.
 
+Time complexities for each data structure:
+    > Array
+        Access: O(1)
+        Search: O(n)
+        Insertion: O(n) (worst case, if inserting in the middle)
+        Deletion: O(n) (worst case, if deleting from the middle)
 
+    > Linked List
+        Access: O(n)
+        Search: O(n)
+        Insertion: O(1) (if the position is known)
+        Deletion: O(1) (if the position is known)
+
+    > Stack
+        Push: O(1)
+        Pop: O(1)
+        Peek/Top: O(1)
+        Search: O(n)
+
+    > Queue
+        Enqueue: O(1)
+        Dequeue: O(1)
+        Peek/Front: O(1)
+        Search: O(n)
+
+    > Hash Table
+        Insertion: O(1) (average case), O(n) (worst case, with many collisions)
+        Deletion: O(1) (average case), O(n) (worst case, with many collisions)
+        Search: O(1) (average case), O(n) (worst case, with many collisions)
+
+    > Tree (Binary Search Tree - BST)
+        Access: O(log n) (average case), O(n) (worst case, unbalanced tree)
+        Search: O(log n) (average case), O(n) (worst case, unbalanced tree)
+        Insertion: O(log n) (average case), O(n) (worst case, unbalanced tree)
+        Deletion: O(log n) (average case), O(n) (worst case, unbalanced tree)
+
+    > Graph
+        Access (using adjacency matrix): O(1)
+        Access (using adjacency list): O(v + e) (v = number of vertices, e = number of edges)
+        Search (DFS/BFS): O(v + e) (v = number of vertices, e = number of edges)
+        Insertion (new edge): O(1) (adjacency list), O(v^2) (adjacency matrix)
+        Deletion (existing edge): O(1) (adjacency list), O(v^2) (adjacency matrix)
+
+    > Heap (Binary Heap)
+        Insertion: O(log n)
+        Deletion (remove max/min): O(log n)
+        Search: O(n)
+
+    > Trie
+        Insertion: O(k) (k = length of the word)
+        Deletion: O(k) (k = length of the word)
+        Search: O(k) (k = length of the word)
+
+    > Set (using Hash Set)
+        Insertion: O(1) (average case), O(n) (worst case, with many collisions)
+        Deletion: O(1) (average case), O(n) (worst case, with many collisions)
+        Search: O(1) (average case), O(n) (worst case, with many collisions)
 
