@@ -111,6 +111,43 @@ hiding or encapsulation:
     This example showcases how closures can be used to hide certain variables or functions within a scope, providing a way to encapsulate and 
     protect internal state or behavior
 
+Browser Architecture Working:
+    After running the code first of all a Global Execution Context is pushed into the Call Stack.
+    The GEC contains all the variables and function in it.
+    Note: setTimeout, setInterval, fetch, Promises are not Js functoins, these are provided by browser.
+    setTimeout and fetch functions which are provides by browser do not go the GEC.
+    Whenever the setTimeout function is seen by the Js it rather than pushing it into the GEC, it pushes it into Task Queue/Callback Queue after the timer is set out.
+    Whenever the Promises are executed they are rather pushing to GEC are pushed in the Microtask Queue, which has higher priority than Callback Queue.
+    So after all the other code is executed successfully, the GEC is popped out of the Stack.
+    when GEC is popped out of the Call Stack, the callback code inside setTimeout function goes from the Callback Queue to the Call Stack with the help of Event Loop.
+    Event Loop continuously works in the background to check if the Call Stack is empty or not. If Call Stack is empty than it pushes the 
+    code first from the Microtask queue beacuse of higher priority and then from the Callback Queue.
+
+    Ex.
+        console.log(1);
+
+        setTimeout(() => console.log(2), 0);
+        setTimeout(() => console.log(3), 1000);
+        setTimeout(() => console.log(4), 0);
+
+        Promise.resolve().then(() => console.log(5));
+        Promise.resolve().then(() => setTimeout(() => console.log(6), 0));
+        Promise.resolve().then(() => setTimeout(() => console.log(7), 1000));
+        Promise.resolve().then(() => setTimeout(() => console.log(8), 0));
+
+        console.log(10);
+
+        Output:
+        1
+        10
+        5
+        2
+        4
+        6
+        8
+        3
+        7
+
 Types of Functions:
     First Class Function:
         > ability to use a function as a value 
@@ -323,4 +360,3 @@ map & filter:
 
     console.log("ans1: " + ans1);
     console.log("ans2: " + ans2);
->>>>>>> 958ce07db5b037f7c0e4bcb9cd6edcbfe11adfac
