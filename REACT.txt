@@ -30,14 +30,15 @@ Q: What is difference between `react.development.js` and `react.production.js` f
     `Development build` is several times (maybe 3-5x) `slower` than the `production build`.
 
 Q: Difference between a `Library and Framework`?
-    A: A framework is a set of pre-written code that provides a structure for developing software applications. A library, on the other hand, is a collection of pre-written 
-    code that can be used to perform specific tasks.
+    A: A framework is a set of pre-written code that provides a structure for developing software applications. A library, on the other 
+    hand, is a collection of pre-written code that can be used to perform specific tasks.
 
-    A `library` is a collection of packages that perform specific operations whereas a `framework` contains the basic flow and architecture of an application. The major 
-    difference between them is the complexity. Libraries contain a number of methods that a developer can just call whenever they write code. React js is library and Angular is Framework.
+    A `library` is a collection of packages that perform specific operations whereas a `framework` contains the basic flow and architecture 
+    of an application. The major difference between them is the complexity. Libraries contain a number of methods that a developer can 
+    just call whenever they write code. React js is library and Angular is Framework.
 
-    The `framework` provides the flow of a software application and tells the developer what it needs and calls the code provided by the developer as required. If a `library` 
-    is used, the application calls the code from the library.
+    The `framework` provides the flow of a software application and tells the developer what it needs and calls the code provided by the 
+    developer as required. If a `library` is used, the application calls the code from the library.
 
 Q: What is `JSX`?
 
@@ -63,23 +64,27 @@ Q: What is `JSX`?
 
 Q: What is `Reconciliation` in React?
 
-    A: `Reconciliation` is the process through which React updates the Browser DOM and makes React work faster. React use a `diffing algorithm` so that component updates are predictable and faster. 
-    React would first calculate the difference between the real DOM and the copy of DOM (Virtual DOM) when there's an update of components.
-    React stores a copy of Browser DOM which is called `Virtual DOM`. When we make changes or add data, React creates a new Virtual DOM and compares it with the previous one. Comparison is done by 
-    `Diffing Algorithm`.
-    React compares the Virtual DOM with Real DOM. It finds out the changed nodes and updates only the changed nodes in Real DOM leaving the rest nodes as it is. This process is called Reconciliation.
+    A: `Reconciliation` is the process through which React updates the Browser DOM and makes React work faster. React use a `diffing 
+    algorithm` so that component updates are predictable and faster. React would first calculate the difference between the real DOM and 
+    the copy of DOM (Virtual DOM) when there's an update of components.
+    React stores a copy of Browser DOM which is called `Virtual DOM`. When we make changes or add data, React creates a new Virtual DOM 
+    and compares it with the previous one. Comparison is done by `Diffing Algorithm`.
+    React compares the Virtual DOM with Real DOM. It finds out the changed nodes and updates only the changed nodes in Real DOM leaving 
+    the rest nodes as it is. This process is called Reconciliation.
 
     (or)
 
-    Reconciliation is the process by which React updates the UI to reflect changes in the component state. The reconciliation algorithm is the set of rules that React uses to determine how to 
-    update the UI in the most efficient way possible. React uses a virtual DOM (Document Object Model) to update the UI.
+    Reconciliation is the process by which React updates the UI to reflect changes in the component state. The reconciliation algorithm 
+    is the set of rules that React uses to determine how to update the UI in the most efficient way possible. React uses a virtual DOM 
+    (Document Object Model) to update the UI.
 
 Q: What is `React Fiber`?
 
     A: React Fiber is a concept of ReactJS that is used to render a system faster, smoother and smarter.
-    The Fiber reconciler, which became the default reconciler for React 16 and above, is a complete rewrite of React’s reconciliation algorithm to solve some long-standing issues in React.
-    Because Fiber is asynchronous, React can:
+    The Fiber reconciler, which became the default reconciler for React 16 and above, is a complete rewrite of React’s reconciliation 
+    algorithm to solve some long-standing issues in React. 
 
+    Because Fiber is asynchronous, React can:
     - Pause, resume, and restart rendering work on components as new updates come in
     - Reuse previously completed work and even abort it if not needed
     - Split work into chunks and prioritize tasks based on importance
@@ -121,9 +126,11 @@ Q: What is `props in React`? Ways to.
 
 Q: What is `Config Driven UI`?
 
-    A: `Config Driven UI` are based on the configurations of the data application receives. It is rather a good practice to use config driven UIs to make application for dynamic.
-    It is a very common & basic approach to interact with the User. It provides a generic interface to develop things which help your project scale well. It saves a lot of development time and effort.
-    A typical login form, common in most of the Apps. Most of these forms also get frequent updates as the requirements increase in terms of Form Validations, dropdown options,.. or design changes.
+    A: `Config Driven UI` are based on the configurations of the data application receives. It is rather a good practice to use config 
+    driven UIs to make application for dynamic. It is a very common & basic approach to interact with the User. It provides a generic 
+    interface to develop things which help your project scale well. It saves a lot of development time and effort. A typical login form, 
+    common in most of the Apps. Most of these forms also get frequent updates as the requirements increase in terms of Form Validations, 
+    dropdown options,.. or design changes.
 
 Q: Difference between `Virtual DOM` and `Real DOM`?
 
@@ -337,17 +344,18 @@ Q: How will `useEffect` behave if we `don't add` a `dependency array`?
         ```
 
 Q: What is `SPA`?
-
     A: `Single Page Application (SPA)` is a web application that dynamically updates the webpage with data from web server without reloading/refreshing the entire page. 
     All the HTML, CSS, JS are retrieved in the initial load and other data/resources can be loaded dynamically whenever required. An SPA is sometimes referred to as 
     a `single-page interface (SPI)`.
 
 Q: What is the difference between `Client Side Routing` and `Server Side Routing`?
 
-    A: In `Server-side routing or rendering (SSR)`, every change in URL, http request is made to server to fetch the webpage, and replace the current webpage with the older one.
+    A: In `Server-side routing or rendering (SSR)`, every change in URL, http request is made to server to fetch the webpage, and replace 
+    the current webpage with the older one.
 
-    In `Client-side routing or rendering (CSR)`, during the first load, the webapp is loaded from server to client, after which whenever there is a change in URL, the router 
-    library navigates the user to the new page without sending any request to backend. All `Single Page Applications uses client-side routing`.
+    In `Client-side routing or rendering (CSR)`, during the first load, the webapp is loaded from server to client, after which whenever 
+    there is a change in URL, the router library navigates the user to the new page without sending any request to backend. All `Single 
+    Page Applications uses client-side routing`.
 
 Q: What is Code Splitting and Lazy Loading?
 
@@ -366,6 +374,11 @@ Q: Context API?
     Imagine you have an application where multiple components need access to the user's authentication status. Instead of passing this information as props down through each 
     component, you can use Context API. You create a context that holds the authentication status, and then you can access this context from any component in your application 
     that needs it. This simplifies the code and makes it easier to manage the shared state across your application.
+
+Q. What is 2 way binding?
+    Two-way binding is a feature in software development where changes in the user interface (UI) automatically update the underlying 
+    data model, and changes in the data model automatically update the UI.
+
 
 Redux
 
