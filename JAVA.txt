@@ -126,3 +126,70 @@ Time complexities for each data structure:
         Deletion: O(1) (average case), O(n) (worst case, with many collisions)
         Search: O(1) (average case), O(n) (worst case, with many collisions)
 
+JDBC:
+    Java DataBase Connectivity
+    It is a process used to establish communication between Application and Database and manage Data.
+
+    Steps:
+    > Import JDBC Package
+        import java.sql.*;
+
+    > Load the Driver
+        Class.forName("com.mysql.cj.jdbc.Driver");
+    
+    > Establish a Connection
+        String url = "jdbc:mysql://localhost:3306/mydatabase";
+        String username = "root";
+        String password = "password";
+        Connection con = DriverManager.getConnection(url, username, password);
+
+    > Create a Statement
+        String query = "SELECT * FROM toys";
+        ResultSet rs = stmt.executeQuery(query);
+
+    > Process the Results
+        while (rs.next()) {
+            System.out.println(rs.getString("data"));
+        }
+
+    > Close the Connection
+        rs.close();
+        stmt.close();
+        con.close();
+
+    Complete Ex.
+        import java.sql.*;
+
+        public class Main {
+            public static void main(String[] args) {
+                try {
+                    // 1. Load the driver
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    
+                    // 2. Establish a connection
+                    String url = "jdbc:mysql://localhost:3306/mydatabase";
+                    String username = "root";
+                    String password = "password";
+                    Connection con = DriverManager.getConnection(url, username, password);
+                    
+                    // 3. Create a statement
+                    Statement stmt = con.createStatement();
+                    
+                    // 4. Execute a query
+                    String query = "SELECT * FROM toys";
+                    ResultSet rs = stmt.executeQuery(query);
+                    
+                    // 5. Process the results
+                    while (rs.next()) {
+                        System.out.println(rs.getString("toy_name"));
+                    }
+                    
+                    // 6. Close the connection
+                    rs.close();
+                    stmt.close();
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
