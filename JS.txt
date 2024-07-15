@@ -26,6 +26,14 @@ var, let, const:
     Cannot be accessed as a property of the window object.
     Example: const a = 10;
 
+Object:
+    An object in JavaScript is a collection of related data and functions, stored together in a single unit. 
+    Think of it like a real-world object, such as a car or a book, which has properties (like color or title) 
+    and behaviors (like driving or reading).
+
+    We can also say that an Object is a data structure that can hanle different data types. (my defination, no confidence).
+    API's are in form of Object only.
+
 Scopes:
     Outer Scope: When you define a variable outside of any function, it is said to be in the global scope. Variables declared in the global scope are accessible from anywhere in your code.
 

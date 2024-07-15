@@ -1,0 +1,171 @@
+DSA:
+
+ArrayList:
+    Initialization: ArrayList<Integer> arr = new ArrayList<>();
+    Insert: arr.add(element);
+    Delete: arr.remove(index); or arr.remove(Integer.valueOf(element));
+    Access: arr.get(index);
+    Update: arr.set(index, element);
+    Size: arr.size();
+    Clear: arr.clear();
+
+Stack:
+    Initialization: Stack<Integer> s = new Stack<>();
+    Push: s.push(element);
+    Pop: s.pop();
+    Check Empty: s.isEmpty(); or s.empty();
+    Size: s.size();
+
+Set
+    Initialization (unordered): Set<Integer> s = new HashSet<>(); 
+    Initialization (ordered): Set<Integer> s = new LinkedHashSet<>();
+    Initialization (ordered and sorted): Set<Integer> s = new TreeSet<>();
+    Insert: s.add(element);
+    Delete: s.remove(element);
+    Clear: s.clear();
+
+Queue
+    Initialization: Queue<Integer> q = new LinkedList<>();
+    Offer: q.offer(element);
+    Poll: q.poll();
+    Peek: q.peek();
+    Size: q.size();
+
+PriorityQueue
+    Initialization: PriorityQueue<Integer> pq = new PriorityQueue<>();
+    Insert: pq.add(element); or pq.offer(element);
+    Delete: pq.remove(); or pq.poll();
+    Access: pq.peek(); // Access the head
+    Size: pq.size();
+    Clear: pq.clear();
+
+Map
+    Initialization: Map<String, Integer> m = new HashMap<>();
+    Insert: m.put(key, value);
+    Key Set: m.keySet();
+    Traverse:
+        for (String key : m.keySet()) 
+        {
+            System.out.println("Key: " + key + ", Value: " + m.get(key));
+        }
+    Contains Key: m.containsKey(key);
+    Contains Value: m.containsValue(value);
+    Delete: m.remove(key);
+
+String
+    Initialization: String str = "Hello, World!";
+    Access: char ch = str.charAt(index);
+    Substring: String subStr = str.substring(startIndex, endIndex);
+    Length: int len = str.length();
+    Split: String[] parts = str.split(delimiter);
+    Replace: String newStr = str.replace(oldChar, newChar);
+
+Tree:
+    Types
+    > Binary Tree
+        A tree where each node has at most two children.
+
+    > Complete Binary Tree
+        A binary tree where all levels are fully filled except possibly the last, which is filled from left to right.
+
+    > Full Binary Tree
+        A binary tree where every node has either 0 or 2 children (no nodes have only one child).
+
+    > Perfect Binary Tree
+        A complete binary tree where all leaf nodes are at the same level, and all internal nodes have two children.
+
+    > Balanced Tree
+        A tree that maintains a balanced height for efficient operations, ensuring that the difference in heights of subtrees is minimal.
+
+    > Binary Search Tree (BST)
+        A binary tree where the left child is less than the parent and the right child is greater.
+
+    > AVL Tree
+        A self-balancing BST where the heights of child subtrees differ by at most one.
+
+    > Red-Black Tree
+        A balanced BST with properties ensuring no two consecutive red nodes.
+
+    > Trie (Prefix Tree)
+        A tree used for storing strings with shared prefixes for efficient retrieval.
+
+    > B-Tree
+        A self-balancing tree that maintains sorted data and allows efficient searches and updates.
+
+    > Segment Tree
+        A tree for storing intervals and enabling efficient range queries.
+
+    > N-ary Tree
+        A tree where each node can have up to N children, suitable for hierarchical structures.
+
+    Traversals:
+        BFS(using Queue) Level Order Traversal
+        DFS(Using recursion) Preorder, Inorder, PostOrder
+        Morris Traversal
+        Level Order Spiral Traversal
+        Vertical Traversal
+        Boundary Traversal
+
+    Views:
+        Left View
+        Right View
+        Top View
+        Bottom View
+
+Graph:
+    Traversals: 
+        BFS(Using Queue)
+        DFS(using recursion)
+
+    Topological Sort:
+        You have to first take indegree of all the nodes in a array,
+        then put all the nodes with 0 indegree in a queue and ans array and then perform BFS.
+        While revisting the nodes decrease the indegree of the nodes,
+        and if any node with indegree 0 in the proess will be added to the queue and the ans array.
+        This is only allowed if the graph is Directed and Acyclic (DAG).
+
+    Cycle:
+        Undirected Graph: 
+            If the node is visited and the next node is not the parent node then 
+            it is a cyclic graph.
+
+        Directed Graph: 
+            If the kahn's algo is working here then it is acyclic else cyclic.
+            kahn's algo -> It is a Topological Sort done using BFS.
+
+    Algorithms:
+        > Dijkstra:
+            Finds the shortest path from a starting node to all other nodes in a graph with non-negative weights.
+            It won't detect -ve Cycle.
+            Here we take use of Priority Queue of type pair or array that takes distance ans nodes to keep shortest distances on top.
+            We enter a distArray with us which takes care of shortest the distances of the way do far.
+            While discovering the neighbour nodes from the given node we update the distArray accordingly.
+
+        > Bellman Ford:
+            Finds the shortest paths from a source node to all nodes, even with negative weights.
+            If you will relax graph v-1 times then you will get the shortest path.
+            Relax means when we got a shorter path from previous one it means that, that node is relaxed one time.
+            We run the loop v-1 times to relax the nodes.
+            If you can still relax the graph after v-1 loops this means that the graph has been stuck in a -ve cycle.
+
+        > Floyyd Warshal:
+            Calculates shortest paths between all pairs of nodes in an edge weighted directed graph.
+            We will find every path from    A->B and will update is there exists a shorter path.
+            For eg. there is a graph with nodes A B C D, and we want to find the shortest distance between A->B, 
+            then we will go through every possible path such as A->C->B and A->D->B, and if there is a shorter one then we will update.
+
+        • Minimum Spanning Tree:
+            A Spanning Tree is a subgraph of a graph which has all the nodes with it.
+            Minimum weight Spanning Tree is called Minimum Spanning Tree.
+            The MST should have n vertices and n-1 edges.
+
+        > Prims:
+            It is used to find Minimum Spanning Tree.
+            We use a PriorityQueue to store the distance and node as a pair ans also a visited array.
+            Then we go the neighbour nodes and push them into the PriorityQueue.
+            This will ensure that we will get the shortest distance always.
+
+        > Kruskal:
+            Used to find MST.
+
+
