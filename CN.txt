@@ -1,0 +1,309 @@
+Computer Networks:
+
+Defination:
+    It is a telecommunication network between different digital devices via wired or wireless methods to share resources(h/w or s/w) via 
+    technology such as internet.
+
+Transmission Modes:
+    Simplex: Only One Way Transmission is allowed. Eg. Radio.
+    Half Duplex: Two way Transmission is allowed but only 1 way at a time. Eg. Walkie Talkie.
+    Full Duplex: Two way Transmission is allowed. Eg. Talking ona a phone.
+
+Topology:
+    It tells how a network is laid out physically.
+    Geometric representation of how devices are connected to each other.
+
+    Bus Topology: 
+        All devices share a single communication line or cable.
+
+    Star Topology: 
+        All devices are connected to a central hub or switch.
+
+    Ring Topology: 
+        Each device is connected to two other devices, forming a circular pathway for signals.
+
+    Mesh Topology: 
+        Each device is connected to every other device in the network.
+
+    Tree Topology: 
+        A combination of star and bus topologies with a central root node and hierarchical connections.
+
+    Hybrid Topology: 
+        A mix of two or more different topologies combined into one network.
+
+    Point-to-Point Topology: 
+        A direct connection between two devices.
+
+Devices:
+    Hub
+        A hub is a basic networking device that connects multiple computers in a network, allowing them to communicate. It sends data to all 
+        connected devices without filtering, which can lead to network congestion.
+
+    Router
+        A router is a smart device that connects different networks together, such as your home network to the internet. It directs data 
+        packets between networks and helps manage traffic to ensure efficient communication.
+
+    Switch
+        A switch is a network device that connects devices within a single network, like computers or printers. It intelligently sends data 
+        only to the specific device that needs it, reducing unnecessary traffic and improving efficiency.
+
+Types of Networks:
+    PAN (Personal Area Network):
+        A network for interconnecting devices centered around an individual, typically within a range of a few meters. My Phone and Laptop
+
+    LAN (Local Area Network):
+        A network that connects devices within a small geographic area, like a single building. Mini Militia
+
+    CAN (Campus Area Network):
+        A network that connects multiple LANs within a limited geographic area, such as a university campus. College
+
+    MAN (Metropolitan Area Network):
+        A network that spans a city or campus, connecting multiple LANs. Punjab
+
+    WAN (Wide Area Network):
+        A network that covers a large geographic area, often connecting multiple MANs or LANs. Internet.
+
+OSI Model:
+    Indian Organization for Standardization(ISO) developed Open System Interconnection (OSI) model to communicate between 2 devices 
+    regardless of there architecture.
+
+    OSI Model is just a theory model and is not used in real life.
+
+    Every Layer adds as a header to the data from Application to Physical Layer from sender's end and the headers are dispersed one by one
+    from Physical to Application Layers in reciever's end.
+
+    OSI Model consists of 7 Layers:
+    > Physical:
+        The Physical Layer is responsible for the actual transmission of raw data over physical media, such as cables or wireless signals.
+        Which topology will be used and Transmission mode will be used is decided in this layer only. 
+        Twister Pair Cable, Copper Wire and Optic Fibre is used here for data transmission.
+
+    > Data Link:
+        The Data Link Layer ensures error-free transfer of data frames between directly connected devices. It uses MAC addresses for 
+        device identification and includes protocols to detect and correct errors in the data transmission process.
+        Define Control over shared medium, who will tranfer the data at what time(aloha, slotted aloha, CSMA, CSMA CD)
+        Sliding Window, CRC, Checksum all are studied here because this layer provides error free tranfer of data.
+
+    > Network:
+        The Network Layer manages the routing of data packets between different networks. It uses logical addressing (e.g., IP addresses) 
+        to determine the best path for data transmission and facilitates communication across multiple interconnected networks.
+
+    > Transport:
+        The Transport Layer ensures reliable and ordered delivery of data between host systems. It manages error detection, 
+        retransmission of lost packets, and flow control, utilizing protocols such as TCP for connection-oriented communication and 
+        UDP for faster, connectionless communication.
+
+    > Session:
+        The Session Layer establishes, manages, and terminates connections (sessions) between applications. It ensures that sessions 
+        remain active during data exchange and can manage multiple sessions simultaneously.
+
+    > Presentation:
+        The Presentation Layer translates data between the application and network formats. It handles data encoding, compression, and 
+        encryption, ensuring that data is presented in a usable format for the application layer.
+
+
+    > Application:
+        The Application Layer provides network services directly to user applications and facilitates communication over the network. 
+        It supports various protocols for web browsing (HTTP), file transfers (FTP), and email services (SMTP).
+
+TCP/IP Model:
+    The TCP/IP model, also known as the Internet Protocol Suite, is a set of protocols that allow computers to communicate over a network.
+    It consists of four layers:
+    > Application: 
+        This layer provides protocols for specific data communications services on a process-to-process level. It facilitates the end-user
+        services, such as email, file transfer, and web browsing.
+
+    > Transport:
+        This layer ensures that data is transferred reliably and without errors between the host systems. It provides end-to-end 
+        communication services for applications.
+
+    > Internet:
+        The Internet layer handles the movement of packets across the network. It is responsible for logical addressing, routing, and 
+        packet forwarding.
+
+    > Link: 
+        This layer manages the physical transmission of data over the network hardware and includes the hardware-specific protocols. 
+        It handles addressing and protocol rules for data packets within a single network.
+
+Cable Types:
+    > Ethernet Cable (Twisted Pair):
+        Used for wired networks, Ethernet cables consist of twisted pairs to minimize interference. 
+        1 Gbps to 10 Gbps speeds.
+
+    > Coaxial Cable:
+        Coaxial cables feature a single copper wire with insulation and shielding, ideal for cable TV and internet. They are commonly 
+        used in broadband connections and traditional television services.
+
+    > Fiber Optic Cable:
+        Fiber optic cables transmit data as light signals through glass or plastic fibers, enabling high-speed, long-distance 
+        communication. Single-mode fibers are used for long distances, while multi-mode fibers serve shorter ranges.
+
+Media Access Control:
+    When nodes or stations are connected using common link we need to has some protocols to coordinate the links.
+    A MAC address (Media Access Control address) is a unique identifier assigned to a network interface card (NIC) for communications 
+    at the data link layer of a network segment.
+    Operates at the Data Link Layer (Layer 2) of the OSI model.
+    Imagine a network with several devices, such as computers, printers, and smartphones. Each of these devices has a unique MAC 
+    address. When you send a file from your computer to a printer, the data packet includes the MAC address of the printer. This 
+    ensures that the network knows exactly where to deliver the data, even if multiple devices are connected to the same network.
+
+Multiple Access Protocols:
+    > Random Access Protocol
+        > Aloha  : A simple, early network protocol where devices send data whenever they have data to send, leading to potential collisions.
+        > CSMA   : Devices sense the carrier (channel) before transmitting data to reduce collisions, waiting if the channel is busy.
+        > CSMA/CD: An enhancement of CSMA where devices detect collisions during transmission and stop, then retry after a random delay.
+        > CSMA/CA: Similar to CSMA, but devices take steps to avoid collisions by waiting for a clear channel and using acknowledgments.
+
+    > Controlled Access Protocol
+        > Reservation  : Devices reserve the channel in advance for their data transmission, ensuring no collisions.
+        > Polling      : A central controller polls each device in turn, giving permission to transmit data, thus avoiding collisions.
+        > Token Passing: A token circulates in the network; only the device holding the token can transmit data, preventing collisions.
+
+    > Channelization Protocol
+        > FDMA: The channel is divided into multiple frequency bands, and each device gets its own frequency band for communication.
+        > TDMA: The channel is divided into time slots, and each device gets its own time slot for transmission.
+        > CDMA: Each device uses a unique code to transmit over the entire frequency spectrum, allowing multiple devices to share the same channel.
+
+IP Address:
+    An IP address (Internet Protocol address) is a unique identifier assigned to each device connected to a network that uses the 
+    Internet Protocol for communication. It serves two main functions: identifying the host or network interface and providing the 
+    location of the host in the network.
+    Operates at the Network Layer (Layer 3) of the OSI model.
+    Punlic and Private are its 2 types.
+
+IPv4 V/S IPv6:
+    IPv4
+        > 32 bits Address Size
+        > Dotted-decimal (e.g., 192.168.1.1) Address Format
+        > Simpler header structure
+        > Often requires (Network Address Translation)
+        > Basic security (optional)
+        > Manual Configuration
+        > Still widely used, gradual transition to IPv6
+
+    IPv6
+        > 128 bits Address Size
+        > Hexadecimal (e.g., 2001:0db8::1) Address Format
+        > More complex header structure
+        > No need for NAT (Network Address Translation)
+        > More Security support
+        > Auto-configuration (stateless)
+        > Designed to coexist with IPv4 during transition
+
+TCP V/S UDP:
+    TCP (Transmission Control Protocol)
+        > TCP is a connection-oriented protocol. 
+        > Connection orientation means that the communicating devices should establish a connection before transmitting data and should close the connection after transmitting the data.
+        > TCP is reliable as it guarantees the delivery of data to the destination router.
+        > TCP provides extensive error-checking mechanisms. It is because it provides flow control and acknowledgment of data.
+        > An acknowledgment segment is present.
+        > Packets arrive in order at the receiver.
+        > TCP is comparatively slower than UDP.
+        > Heavy Weight
+        > Retransmission of lost packets is possible in TCP, but not in UDP.
+        > Uses handshakes such as SYN, ACK, SYN-ACK
+        > TCP is used by HTTP, HTTPs, FTP, SMTP and Telnet.
+        > This protocol is primarily utilized in situations when a safe and trustworthy communication procedure is necessary, such as in email, on the web surfing, and in military services.
+
+    User Datagram Protocol (UDP)
+        > UDP is the Datagram-oriented protocol. 
+        > This is because there is no overhead for opening a connection, maintaining a connection, or terminating a connection.
+        > The delivery of data to the destination cannot be guaranteed in UDP.
+        > UDP has only the basic error-checking mechanism using checksums.
+        > No acknowledgment segment.
+        > There is no sequencing of data in UDP. If the order is required, it has to be managed by the application layer.
+        > UDP is faster, simpler, and more efficient than TCP.
+        > There is no retransmission of lost packets in the User Datagram Protocol (UDP).
+        > Light Weight
+        > It’s a connectionless protocol i.e. No handshake
+        > UDP is used by DNS, SNMP, RIP
+        > This protocol is used in situations where quick communication is necessary but where dependability is not a concern, such as VoIP, game streaming, video, and music streaming, etc.
+
+Subnetting:
+    Subnetting is the process of dividing a larger network into smaller, more manageable sub-networks (subnets).
+    Improves network performance and security.
+    Efficiently utilizes IP address space.
+    Reduces network congestion and collision domains.
+
+    Network Address: Identifies the subnet.
+    Host Address: Identifies individual devices within the subnet.
+    Broadcast Address: Used to communicate with all devices in the subnet.
+
+Firewalls:
+    A firewall is a network security device or software that monitors and controls incoming and outgoing network traffic based on 
+    predetermined security rules.
+
+    Protects networks from unauthorized access and cyber threats.
+    Filters traffic to block harmful data packets while allowing legitimate ones.
+
+    Many firewalls perform NAT, which translates private IP addresses to public IP addresses and vice versa, hiding internal network 
+    structures from external threats.
+
+    Firewalls log traffic events and provide monitoring tools to detect suspicious activities and analyze traffic patterns.
+
+Types of Delays:
+    Propagation Delay: The time it takes for a signal to travel from the sender to the receiver over a physical medium.
+    Transmission Delay: The time required to push all the packet's bits onto the wire.
+    Processing Delay: The time taken by routers and switches to process the packet header and determine its destination.
+    Queuing Delay: The time a packet spends waiting in the queue before being transmitted.
+    Retransmission Delay: The delay caused by the need to retransmit packets that were lost or corrupted during transmission.
+
+3 Way Handshaking:
+    The 3-way handshake is a fundamental process in the Transmission Control Protocol (TCP) used to establish a reliable connection 
+    between a client and a server. 
+    Here’s how it works:
+
+    1. SYN: 
+        The client sends a TCP segment with the SYN (synchronize) flag set to the server. This is known as the SYN message.
+        The purpose of this message is to initiate a connection and inform the server of the client’s initial sequence number (ISN).
+        Example: The client sends a segment with the SYN flag set and a sequence number, say Seq = 1000.
+        
+    2. SYN + ACK:
+        Upon receiving the SYN message, the server responds with a TCP segment that has both the SYN and ACK (acknowledge) flags set. 
+        This is known as the SYN-ACK message.
+        The SYN flag indicates that the server agrees to establish the connection, and the ACK flag acknowledges the receipt of the 
+        client's SYN message by sending back the client's sequence number + 1.
+        The server also includes its own initial sequence number.
+        Example: The server responds with a segment having SYN and ACK flags set, acknowledging the client's sequence number (ACK = 1001) 
+        and providing its own sequence number, say Seq = 2000.
+
+    3. ACK:
+        Finally, the client sends a TCP segment with the ACK flag set. This acknowledges the receipt of the server's SYN-ACK message.
+        The ACK flag indicates that the client has received the server’s initial sequence number and is ready for data transfer.
+        The connection is now established, and data can be sent between the client and the server.
+        Example: The client sends a segment with the ACK flag set, acknowledging the server's sequence number (ACK = 2001).
+
+What happens when you write "google.com" in web browser?
+    When you enter "google.com" into a web browser, several key steps occur to retrieve and display the webpage. First, the browser 
+    performs a DNS lookup to translate the domain name "google.com" into an IP address, which is necessary for locating the server. 
+    If the IP address is not cached, the browser queries a DNS server. Once the IP address is obtained, the browser initiates a TCP 
+    connection with the server using a three-way handshake to establish a reliable communication channel. If the URL begins with "https," 
+    a TLS handshake follows to secure the connection, ensuring data privacy and integrity.
+
+    After the connection is established, the browser sends an HTTP GET request to the server, requesting the content of the "google.com"
+    webpage. The server processes this request and responds with the necessary resources, including HTML, CSS, JavaScript, and other 
+    assets. Upon receiving the response, the browser starts rendering the webpage. It parses the HTML to construct the Document Object 
+    Model (DOM) and applies styles from CSS to format the page visually. JavaScript is executed to enable interactivity, and additional 
+    resources like images and videos are fetched and integrated into the page.
+
+    Throughout this process, the browser handles various tasks concurrently to optimize loading speed and performance. Once all resources 
+    are loaded and rendered, the webpage becomes fully interactive, allowing the user to engage with elements, click links, and input 
+    data.
+
+VPN:
+    A VPN (Virtual Private Network) is a technology in computer networking that creates a secure, encrypted connection over the internet, 
+    allowing users to send and receive data as if they were on a private network. 
+    One of the primary advantages of using a VPN is enhanced security, as it encrypts internet traffic, protecting sensitive data from 
+    hackers, especially on public Wi-Fi networks. 
+    Additionally, VPNs offer privacy and anonymity by masking users' IP addresses, making it difficult for websites to track online 
+    activities. 
+    They also enable access to restricted content by bypassing geo-blocks, making it possible to view services that may be unavailable in 
+    certain regions. 
+    However, there are some disadvantages to consider. 
+    Using a VPN can result in reduced internet speed due to the encryption process and potential server distance, and many reliable VPN 
+    services require a subscription fee, which can be a barrier for some users. 
+    Setting up a VPN can also be complex for those who are not tech-savvy, and not all VPN providers are trustworthy, with some 
+    potentially logging user data or selling information to third parties. 
+    Finally, certain websites actively block VPN traffic, which can limit access to specific services while connected to a VPN.
+
+
