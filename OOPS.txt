@@ -553,9 +553,9 @@ Abstraction:
 Interface: 
     It is the instance of a class which tells what to do and not how to do it. I guarantees 100% abstraction. 
 
-    1. In previous versions (before 8) all the methods in the interface class are public abstract by default(not even need to write).
-    2. In 8th version default concrete methods and static methods were introduced.
-    3. In 9th version private methods were also allowed.
+    1. All Methods in the Interface class are public + abstract by default.
+    2. All the Variables int the interface class are public + abstract + final.
+    3. We can make reference variable of interface but should make object of class only. Line 578 comment.
     4. If a normal class implements an interface class then all the abstract methods in that class needs to be implemented in that class else it will show error.
     5. Making object of implement class is not allowed.
 
@@ -575,7 +575,7 @@ Interface:
         {
             public static void main(String args[])
             {
-                Test t=new Test();
+                Test t=new Test();   // Inter t = new Test() can also work.
                 t.show();
             }
         }
