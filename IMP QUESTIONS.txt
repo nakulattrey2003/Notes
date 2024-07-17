@@ -3,11 +3,8 @@ Questions:
 Operating System:
     What is the main purpose of an operating system? Discuss different types? 
     What is a socket, kernel and monolithic kernel ? 
-    Difference between process and program and thread? Different types of process. 
-    Define virtual memory, thrashing, threads.  
-    What is RAID ? Different types. 
-    What is a deadlock ? Different conditions to achieve a deadlock. 
-    What is fragmentation? Types of fragmentation. 
+    Difference between process and program and thread? Different types of proce    Define virtual memory, thrashing, threa
+    What is RAID ? Different typ    What is a deadlock ? Different conditions to achieve a deadlo    What is fragmentation? Types of fragmentation. 
     What is spooling ? 
     What is semaphore and mutex (Differences might be asked)? Define Binary semaphore. 
     Belady’s Anomaly
@@ -91,3 +88,52 @@ Compute Networks:
     Hub vs Switch 
     VPN, advantages and disadvantages of it 
     LAN 
+
+
+OOPS:
+    What is meant by the term OOPs?
+    What is the need for OOPs?
+    What are some major Object Oriented Programming languages?
+    What are some other programming paradigms other than OOPs?
+    What is meant by Structured Programming?
+    What are the main features of OOPs?
+    What are some advantages of using OOPs?
+    Why is OOPs so popular?
+    What is a class?
+    What is an object?
+    What is encapsulation?
+    What is Polymorphism?
+    What is Compile time Polymorphism and how is it different from RuntimePolymorphism?
+    How does C++ support Polymorphism?
+    What is meant by Inheritance?
+    What is Abstraction?
+    How much memory does a class occupy?
+    Is it always necessary to create objects from class?
+    What is a constructor?
+    What are the various types of constructors in C++?
+    What is a copy constructor?
+    What is a destructor?
+    Are class and structure the same? If not, what's the difference between a class and a structure?
+    Explain Inheritance with an example?
+    Are there any limitations of Inheritance?
+    What are the various types of inheritance?
+    What is a subclass?
+    Define a superclass?
+    What is an interface?
+    What is meant by static polymorphism?
+    What is meant by dynamic polymorphism?
+    What is the difference between overloading and overriding?
+    How is data abstraction accomplished?
+    What is an abstract class?
+    How is an abstract class different from an interface?
+    What are access specifiers and what is their significance?
+    What is an exception?
+    What is meant by exception handling?
+    What is meant by Garbage Collection in OOPs world?
+    Can we run a Java application without implementing the OOPs concept?
+    What is the output of the below code?
+    What will be the output of the below code?
+    Predict the output?
+    What will be the output in below code?
+    Predict the output?
+    What is the output of the below program?
