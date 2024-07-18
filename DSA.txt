@@ -39,6 +39,20 @@ PriorityQueue
     Size: pq.size();
     Clear: pq.clear();
 
+Deque:
+    Initialization: Deque<Integer> deque = new LinkedList<>();
+    Offer: deque.offer(element);
+    Poll: Integer firstElement = deque.poll();
+    Peek: Integer firstElement = deque.peek();
+    Size: int size = deque.size();
+    Add First: deque.addFirst(element);
+    Add Last: deque.addLast(element);
+    Remove First: Integer firstElement = deque.removeFirst();
+    Remove Last: Integer lastElement = deque.removeLast();
+    Peek First: Integer firstElement = deque.peekFirst();
+    Peek Last: Integer lastElement = deque.peekLast();
+    Iterate: for (Integer element : deque) System.out.println(element);
+
 Map
     Initialization: Map<String, Integer> m = new HashMap<>();
     Insert: m.put(key, value);
