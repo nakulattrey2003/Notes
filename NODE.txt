@@ -270,6 +270,36 @@ Rate Limiting:
         In this approach all the requests are taken in the bucket and a small hole is made at the bottom of the bucket, controllable 
         number of requests leaks from that hole which is then handled by the nodejs server.
 
+Load Balancing:
+    Load balancing is a technique used to distribute workload (such as web traffic or application requests) across 
+    multiple servers, networks, or resources. Its primary goal is to optimize resource utilization, maximize 
+    throughput, minimize response time, and avoid overload on any single server or resource.
+    Load balancing techniques ensure that no single server or resource is overwhelmed by distributing workload 
+    efficiently across multiple resources. 
+
+    Techniques for Load Balancing:
+    > Round Robin: 
+        Requests are sequentially distributed to servers in a circular manner. Each server gets an equal share of 
+        requests in turn. It's simple to implement but doesn't consider server load or performance.
+    
+    > Weighted Round Robin: 
+        Similar to Round Robin, but servers are assigned weights based on their capacity or capability. Servers 
+        with higher weights receive more requests, allowing for more flexible distribution based on server 
+        capabilities.
+
+    > Least Connection: 
+        Requests are sent to the server with the fewest active connections at the time of request. This balances 
+        load based on current server usage, ensuring that heavily loaded servers receive fewer requests until 
+        their load decreases.
+
+    > Least Response Time: 
+        Requests are directed to the server with the shortest average response time or latency. This technique 
+        aims to minimize response times for users by sending requests to the fastest server available.
+
+    > IP Hashing: 
+        Requests are routed to servers based on a hash of the client's IP address or another identifier. This 
+        ensures that requests from the same client are consistently routed to the same server,
+
 SSL:
     Secure Socket Layer
     It provides a secure connection between web server and browser.
