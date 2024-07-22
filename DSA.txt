@@ -55,6 +55,17 @@ Deque:
 
 Map
     Initialization: Map<String, Integer> m = new HashMap<>();
+    Adding element:
+        for(int i=0;i<nums.length;i++)
+        {
+            m.put(nums[i], m.getOrDefault(nums[i], 0) + 1);
+        }
+        OR
+        for(int i=0;i<nums.length;i++)
+        {
+            if(m.containsKey(nums[i])) m.put(nums[i], m.get(nums[i]) + 1);
+            else m.put(nums[i], 1);
+        }
     Insert: m.put(key, value);
     Key Set: m.keySet();
     Traverse:
