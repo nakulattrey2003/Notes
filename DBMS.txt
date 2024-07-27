@@ -248,7 +248,21 @@ Schedule:
         A Schedule which is non serail but after swapping non conflicting instructions it becomes Seralizable then it becomes Conflict
         Seralizable Schedule and it is consistent.
 
-        
+Sharding:
+    Sharding is a database architecture pattern that improves performance and scalability by dividing a large database into smaller, 
+    more manageable pieces called shards. T
+    here are two main types of sharding: horizontal and vertical. 
+        > Horizontal sharding:
+            Horizontal Sharding also known as range-based sharding, involves splitting the data by rows, where each shard contains a 
+            subset of rows based on a specified range, such as user IDs or timestamps. This helps distribute the load evenly and allows 
+            for efficient query processing.
+        > Vertical sharding: 
+            Vertical Sharding on the other hand, involves dividing the database by columns, where each shard contains a subset of columns 
+            from the same table. This method is less common but can be useful for isolating specific parts of the database to improve 
+            performance and manageability. 
+
+        Both horizontal and vertical sharding address the challenges of handling large datasets by enabling better distribution and 
+        management of data, ultimately enhancing the overall system's performance and scalability.
 
 
 
