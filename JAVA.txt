@@ -194,6 +194,7 @@ JDBC:
             }
         }
 
+
 MultiThreading in JAVA:
 
 Defination:
