@@ -195,20 +195,146 @@ JDBC:
         }
 
 MultiThreading in JAVA:
-    Defination:
-        Multithreading in Java is a feature that allows a program to run multiple threads simultaneously, making it more efficient and 
-        responsive. Each thread can perform different tasks at the same time, helping to use the CPU better and improve the program’s 
-        performance.
-    
-    There are two main ways to implement multithreading:
-        > Extending the Thread Class:
-            You can create a new class that extends the Thread class and override its run() method.
-            Ex.
-            class A extends Thread
+
+Defination:
+    Multithreading in Java is a feature that allows a program to run multiple threads simultaneously, making it more efficient and 
+    responsive. Each thread can perform different tasks at the same time, helping to use the CPU better and improve the program’s 
+    performance.
+
+There are two main ways to implement multithreading:
+    > Extending the Thread Class:
+        You can create a new class that extends the Thread class and override its run() method.
+        Ex.
+        class A extends Thread
+        {
+            public void run()
             {
+                System.out.print("a");
+            }
+        }
+        public class Main
+        {
+            public static void main(String[] args) 
+            {
+                A a = new A();
+                a.start(); // though we have to call run method we still write start because there is a start method in Thread class which internally calls run method.
+            }
+        }
+
+    > Implementing the Runnable Interface:
+        You can create a new class that implements the Runnable interface and provide the implementation for the run() method.
+        Ex.
+        class A implements Runnable
+        {
+            public void run()
+            {
+                System.out.print("a");
+            }
+        }
+        public class Main
+        {
+            public static void main(String[] args) 
+            {
+                A a = new A(); // runnable itself does not have start() method so we need to create a Thread for it.
+                Thread t = new Thread(a);
+                t.start();
+            }
+        }
+
+Thread Scheduler:
+    In Java, the thread scheduler is a component of the Java Virtual Machine (JVM) that manages the execution of threads. It decides 
+    which thread runs at any given time based on a scheduling algorithm. The scheduler's primary goal is to allocate CPU time to 
+    threads in a fair and efficient manner. Java uses a preemptive scheduling model, meaning that the scheduler can interrupt a 
+    running thread to give time to another thread, ensuring that all threads get a chance to execute.
+
+Thread Lifecycle:
+
+    > New (Born):
+        The thread is created but not yet started.
+        Example: Thread t = new Thread();\
+
+    > Runnable (Ready to Run):
+        The thread is ready to run and waiting for CPU time.
+        Example: t.start(); - Starts the thread and moves it to the runnable state.
+
+    > Running:
+        The thread is currently executing.
+        Example: Code within the run() method is executing.
+
+    > Blocked:
+        The thread is waiting to acquire a lock on an object.
+        Example: synchronized(obj) {} - The thread is blocked until the lock is available.
+
+    > Waiting:
+        The thread is waiting indefinitely for another thread to perform a particular action.
+        Example: t.wait(); - The thread waits until another thread calls notify() or notifyAll().
+
+    > Terminated (Dead):
+        The thread has completed its execution.
+        Example: The run() method has finished executing, or t.stop() is called. 
+
+Thread Related Methods:
+    > sleep(long millis):
+        Purpose: Pauses the current thread for a specified amount of time.
+        Usage: Thread.sleep(1000); pauses the thread for 1000 milliseconds (1 second).
+        Important: It’s a static method and can be called from any thread, but it can throw an InterruptedException.
+
+    > join():
+        Purpose: Waits for the thread to complete its execution.
+        Usage: thread.join(); makes the current thread wait until thread finishes.
+        Important: Useful for synchronizing threads, ensuring one thread completes before another continues.
+
+    > suspend():
+        Purpose: Suspends a thread’s execution.
+        Usage: thread.suspend(); pauses the thread’s execution without releasing its resources.
+        Important: Deprecated due to potential issues with deadlock and resource management. Use higher-level concurrency utilities instead.
+    
+    > resume():
+        Purpose: Resumes a thread that was suspended.
+        Usage: thread.resume(); continues the thread’s execution after a suspend().
+        Important: Deprecated due to the issues associated with suspend(). Use wait() and notify() for thread coordination.
+
+    > stop():
+        Purpose: Terminates a thread immediately.
+        Usage: thread.stop(); forcibly stops the thread.
+        Important: Deprecated because it can leave shared resources in an inconsistent state. Prefer using interrupt() and handling thread termination more gracefully.
+
+    > interrupt():
+        Purpose: Requests the thread to stop its current operation.
+        Usage: thread.interrupt(); sets the interrupt flag for the thread, which can be checked using Thread.interrupted().
+        Important: Provides a safe way to signal a thread to stop what it’s doing, especially in long-running operations.
+
+    > yield():
+        Purpose: Hints to the thread scheduler that the current thread is willing to yield its current use of the CPU.
+        Usage: Thread.yield(); may allow other threads of the same or higher priority to run.
+        Important: It’s a hint, not a command; the actual behavior depends on the thread scheduler.
+
+Synchronization:
+    Synchronization in Java is a technique used to overcome difficulties arrised by multithreading by managing access to shared 
+    resources by multiple threads, ensuring that only one thread can access a resource at a time. This prevents conflicts and ensures 
+    that operations on shared data are performed consistently, avoiding errors and data corruption in a multi-threaded environment.
+
+    This is classified in 2 Types:
+    > Method Level:
+        Method-level synchronization uses the synchronized keyword to lock an entire method, ensuring only one thread can execute it 
+        on the same object at a time.
+        Ex. 
+            class A implements Runnable
+            {
+                int seat = 1;
                 public void run()
+                // public synchronized void run()
                 {
-                    System.out.print("a");
+                    if(seat >= 1)
+                    {
+                        String name = Thread.currentThread().getName();
+                        System.out.println(name + " gets Seat");
+                        seat--;
+                    }
+                    else
+                    {
+                    System.out.println("No seat is Empty"); 
+                    }
                 }
             }
             public class Main
@@ -216,113 +342,42 @@ MultiThreading in JAVA:
                 public static void main(String[] args) 
                 {
                     A a = new A();
-                    a.start(); // though we have to call run method we still write start because there is a start method in Thread class which internally calls run method.
+                    
+                    Thread t1 = new Thread(a);
+                    Thread t2 = new Thread(a);
+                    Thread t3 = new Thread(a);
+                    
+                    t1.setName("Amy");
+                    t2.setName("Bob");
+                    t3.setName("Cat");
+                    
+                    t1.start();
+                    t2.start();
+                    t3.start();
                 }
             }
 
-        > Implementing the Runnable Interface:
-            You can create a new class that implements the Runnable interface and provide the implementation for the run() method.
-            Ex.
+            // normal will give
+            // Amy gets Seat
+            // Cat gets Seat
+            // Bob gets Seat
+
+            // and synchronized will give
+            // Amy gets Seat
+            // No seat is Empty
+            // No seat is Empty
+
+
+    > Block Level(Better):
+        Block-level synchronization uses the synchronized keyword within a method to lock only specific sections of code, allowing 
+        finer control over synchronization.
+        Ex.
             class A implements Runnable
             {
+                int seat = 1;
                 public void run()
                 {
-                    System.out.print("a");
-                }
-            }
-            public class Main
-            {
-                public static void main(String[] args) 
-                {
-                    A a = new A(); // runnable itself does not have start() method so we need to create a Thread for it.
-                    Thread t = new Thread(a);
-                    t.start();
-                }
-            }
-
-    Thread Scheduler:
-        In Java, the thread scheduler is a component of the Java Virtual Machine (JVM) that manages the execution of threads. It decides 
-        which thread runs at any given time based on a scheduling algorithm. The scheduler's primary goal is to allocate CPU time to 
-        threads in a fair and efficient manner. Java uses a preemptive scheduling model, meaning that the scheduler can interrupt a 
-        running thread to give time to another thread, ensuring that all threads get a chance to execute.
-
-    Thread Lifecycle:
-
-        > New (Born):
-            The thread is created but not yet started.
-            Example: Thread t = new Thread();\
-
-        > Runnable (Ready to Run):
-            The thread is ready to run and waiting for CPU time.
-            Example: t.start(); - Starts the thread and moves it to the runnable state.
-
-        > Running:
-            The thread is currently executing.
-            Example: Code within the run() method is executing.
-
-        > Blocked:
-            The thread is waiting to acquire a lock on an object.
-            Example: synchronized(obj) {} - The thread is blocked until the lock is available.
-
-        > Waiting:
-            The thread is waiting indefinitely for another thread to perform a particular action.
-            Example: t.wait(); - The thread waits until another thread calls notify() or notifyAll().
-
-        > Terminated (Dead):
-            The thread has completed its execution.
-            Example: The run() method has finished executing, or t.stop() is called. 
-
-    Thread Related Methods:
-        > sleep(long millis):
-            Purpose: Pauses the current thread for a specified amount of time.
-            Usage: Thread.sleep(1000); pauses the thread for 1000 milliseconds (1 second).
-            Important: It’s a static method and can be called from any thread, but it can throw an InterruptedException.
-
-        > join():
-            Purpose: Waits for the thread to complete its execution.
-            Usage: thread.join(); makes the current thread wait until thread finishes.
-            Important: Useful for synchronizing threads, ensuring one thread completes before another continues.
-
-        > suspend():
-            Purpose: Suspends a thread’s execution.
-            Usage: thread.suspend(); pauses the thread’s execution without releasing its resources.
-            Important: Deprecated due to potential issues with deadlock and resource management. Use higher-level concurrency utilities instead.
-        
-        > resume():
-            Purpose: Resumes a thread that was suspended.
-            Usage: thread.resume(); continues the thread’s execution after a suspend().
-            Important: Deprecated due to the issues associated with suspend(). Use wait() and notify() for thread coordination.
-
-        > stop():
-            Purpose: Terminates a thread immediately.
-            Usage: thread.stop(); forcibly stops the thread.
-            Important: Deprecated because it can leave shared resources in an inconsistent state. Prefer using interrupt() and handling thread termination more gracefully.
-
-        > interrupt():
-            Purpose: Requests the thread to stop its current operation.
-            Usage: thread.interrupt(); sets the interrupt flag for the thread, which can be checked using Thread.interrupted().
-            Important: Provides a safe way to signal a thread to stop what it’s doing, especially in long-running operations.
-
-        > yield():
-            Purpose: Hints to the thread scheduler that the current thread is willing to yield its current use of the CPU.
-            Usage: Thread.yield(); may allow other threads of the same or higher priority to run.
-            Important: It’s a hint, not a command; the actual behavior depends on the thread scheduler.
-
-    Synchronization:
-        Synchronization in Java is a technique used to overcome difficulties arrised by multithreading by managing access to shared 
-        resources by multiple threads, ensuring that only one thread can access a resource at a time. This prevents conflicts and ensures 
-        that operations on shared data are performed consistently, avoiding errors and data corruption in a multi-threaded environment.
-    
-        This is classified in 2 Types:
-        > Method Level:
-            Method-level synchronization uses the synchronized keyword to lock an entire method, ensuring only one thread can execute it 
-            on the same object at a time.
-            Ex. 
-                class A implements Runnable
-                {
-                    int seat = 1;
-                    public void run()
-                    // public synchronized void run()
+                    synchronized(this)
                     {
                         if(seat >= 1)
                         {
@@ -336,90 +391,38 @@ MultiThreading in JAVA:
                         }
                     }
                 }
-                public class Main
+            }
+            public class Main
+            {
+                public static void main(String[] args) 
                 {
-                    public static void main(String[] args) 
-                    {
-                        A a = new A();
-                        
-                        Thread t1 = new Thread(a);
-                        Thread t2 = new Thread(a);
-                        Thread t3 = new Thread(a);
-                        
-                        t1.setName("Amy");
-                        t2.setName("Bob");
-                        t3.setName("Cat");
-                        
-                        t1.start();
-                        t2.start();
-                        t3.start();
-                    }
+                    A a = new A();
+                    
+                    Thread t1 = new Thread(a);
+                    Thread t2 = new Thread(a);
+                    Thread t3 = new Thread(a);
+                    
+                    t1.setName("Amy");
+                    t2.setName("Bob");
+                    t3.setName("Cat");
+                    
+                    t1.start();
+                    t2.start();
+                    t3.start();
                 }
+            }
 
-                // normal will give
-                // Amy gets Seat
-                // Cat gets Seat
-                // Bob gets Seat
+            // normal will give
+            // Amy gets Seat
+            // Cat gets Seat
+            // Bob gets Seat
 
-                // and synchronized will give
-                // Amy gets Seat
-                // No seat is Empty
-                // No seat is Empty
+            // and synchronized will give
+            // Amy gets Seat
+            // No seat is Empty
+            // No seat is Empty
 
-
-        > Block Level(Better):
-            Block-level synchronization uses the synchronized keyword within a method to lock only specific sections of code, allowing 
-            finer control over synchronization.
-            Ex.
-                class A implements Runnable
-                {
-                    int seat = 1;
-                    public void run()
-                    {
-                        synchronized(this)
-                        {
-                            if(seat >= 1)
-                            {
-                                String name = Thread.currentThread().getName();
-                                System.out.println(name + " gets Seat");
-                                seat--;
-                            }
-                            else
-                            {
-                            System.out.println("No seat is Empty"); 
-                            }
-                        }
-                    }
-                }
-                public class Main
-                {
-                    public static void main(String[] args) 
-                    {
-                        A a = new A();
-                        
-                        Thread t1 = new Thread(a);
-                        Thread t2 = new Thread(a);
-                        Thread t3 = new Thread(a);
-                        
-                        t1.setName("Amy");
-                        t2.setName("Bob");
-                        t3.setName("Cat");
-                        
-                        t1.start();
-                        t2.start();
-                        t3.start();
-                    }
-                }
-
-                // normal will give
-                // Amy gets Seat
-                // Cat gets Seat
-                // Bob gets Seat
-
-                // and synchronized will give
-                // Amy gets Seat
-                // No seat is Empty
-                // No seat is Empty
-
+    Method-level synchronization is easier to implement but can lead to unnecessary blocking, while block-level synchronization is more 
+    efficient as it locks only the necessary part of the code.
 
 
