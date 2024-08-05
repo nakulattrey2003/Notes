@@ -76,6 +76,8 @@ Map
     Contains Key: m.containsKey(key);
     Contains Value: m.containsValue(value);
     Delete: m.remove(key);
+    All Keys: m.keySet();
+    All Values: m.values();
 
 String
     Initialization: String str = "Hello, World!";
