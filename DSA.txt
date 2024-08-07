@@ -36,6 +36,7 @@ PriorityQueue
     Insert: pq.add(element); or pq.offer(element);
     Delete: pq.remove(); or pq.poll();
     Access: pq.peek(); // Access the head
+    Contains: pq.contains(num);
     Size: pq.size();
     Clear: pq.clear();
 
