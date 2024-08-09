@@ -213,4 +213,19 @@ Graph:
         > Kruskal:
             Used to find MST.
 
+Collection Hirearichy:
+    > List
+        > ArrayList
+        > LinkedList
+        > Vector
+        > Stack
 
+    > Set
+        > HashSet (Unordered)
+        > LinkedHashSet (Ordered)
+        > TreeSet (Ordered and Sorted)
+
+    > Queue
+        > PriorityQueue
+        > Deque
+        > ArrayDeque
