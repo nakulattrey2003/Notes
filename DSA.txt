@@ -1,6 +1,7 @@
 DSA:
 
 ArrayList:
+    Stores in form of array
     Initialization: ArrayList<Integer> arr = new ArrayList<>();
     Insert: arr.add(element);
     Delete: arr.remove(index); or arr.remove(Integer.valueOf(element));
@@ -8,6 +9,22 @@ ArrayList:
     Update: arr.set(index, element);
     Size: arr.size();
     Clear: arr.clear();
+
+LinkedList:
+    Stores in form of doubly linked list.
+    Initialization: LinkedList<Integer> arr = new LinkedList<>();
+    Insert: arr.add(element);
+    Add First: arr.addFirst(element);
+    Add Last: arr.addLast(element);    // same as add but its proffesional.
+    Add At Index: arr.add(3, element); // add at 3rd position.
+    Delete from Start: arr.remove(); or arr.removeFirst();
+    Delete At Index: arr.remove(1);
+    Delete from Last: arr.removeLast();
+    Access: arr.get(index);
+    Update: arr.set(index, element);
+    Size: arr.size();
+    Clear: arr.clear();
+    Iterate: normal for loop or for each loop. 
 
 Stack:
     Initialization: Stack<Integer> s = new Stack<>();
