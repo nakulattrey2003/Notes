@@ -5,6 +5,7 @@ ArrayList:
     Initialization: ArrayList<Integer> arr = new ArrayList<>();
     Insert: arr.add(element);
     Delete: arr.remove(index); or arr.remove(Integer.valueOf(element));
+    Delete All: arr.removeAll(Collections.singleton(element));
     Access: arr.get(index);
     Update: arr.set(index, element);
     Size: arr.size();
