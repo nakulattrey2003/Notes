@@ -1,4 +1,3 @@
-
 OOPS:
     
 Object Oriented Programming System : 
@@ -134,7 +133,7 @@ Constructor:
 
 Methods of initializing/putting value in object:
     1. By reference 
-        class Animal
+        class Main
         {
             int age;
             String color;
@@ -147,7 +146,7 @@ Methods of initializing/putting value in object:
         }
 
     2. By method
-        class Animal
+        class Main
         {
             int age;
             String color;
@@ -193,46 +192,31 @@ Inheritance:
     Every class has maximum one parent class as java does'nt support Multiple Inheritance.
     Any change in Parent class creates a change in child class.
     Syntax:
-    class Animal 
+    class Animal
     {
-        // Method in the base class
-        void eat() 
+        public void eat()
         {
-            System.out.println("This animal eats food");
+            System.out.print("eat);
         }
     }
-
-    // Dog is a subclass that inherits from the Animal class
-    class Dog extends Animal 
+    class Dog extends Animal
     {
-        // Method in the derived class
-        void bark() 
+        public static void main(String[] args)
         {
-            System.out.println("The dog barks");
+            Dog d=new Dog();
+            d.eat();
         }
     }
-
-    public class Main 
-    {
-        public static void main(String[] args) 
-        {
-            Dog myDog = new Dog();
-            
-            // The Dog class can use the eat method from the Animal class
-            myDog.eat();
-            
-            // The Dog class can also use its own bark method
-            myDog.bark();
-        }
-    }
-
     Here we are extending properties of Animal class into Dog class.
     Here Animal is a parent/super class and Dog is a child/sub class.
     They are having IS A relation (Dog IS A Animal);
 
 
     NOTE -  
-       Base class variable = Derived class object (is always correct but vice versa is not true)
+       
+       Base class variable = Derived class object (is always correct but vi)
+
+
 
     Types of Inheritance:
     1. Single: A -> B (Class B is inheriting properties of Class A)
@@ -375,8 +359,6 @@ Inheritance:
     5. Hybrid: Combination of any 2 Inheritances (Not possible in java)
 
 Association: 
-    Here classes are not blood related, any change in parent class does not reflect change in child class.
-    It is HAS A Relationship
     Syntax:
     class Engine
     {
@@ -434,35 +416,28 @@ Polymorphism:
             > Same argument(No. of args && Sequence of args && Type of args)
             > Inheritance (IS A Relationship)
         Ex.
-            class Test 
+            Class Test
             {
-                void show() 
+                void show()
                 {
                     System.out.print("1");
                 }
             }
-
-            class XYZ extends Test 
+            class XYZ extends Test
             {
-                void show() 
+                void show()
                 {
                     System.out.print("2");
                 }
-
-                public static void main(String[] args) 
+                public static void main(String[] args)
                 {
-                    Test t = new Test();
+                    Test t=new Test();
                     t.show(); // will call 1
 
-                    XYZ x = new XYZ();
-                    x.show(); // will call 2
-
-                    // Demonstrating polymorphism
-                    Test t2 = new XYZ();
-                    t2.show(); // will call 2
+                    XYZ x=new XYZ();
+                    x.show() // will call 2
                 }
             }
-
             We can provide different return type but parent return type should be a parent class of child return type. For example parent return type is Object and child return type is String (they can be equal also).
             We should provide an equal or greater access modifier to the child class.
             Without Inheritance we cant achieve overriding.
@@ -471,8 +446,7 @@ Polymorphism:
     Case2: Overriding and Access-modifiers -> child's class access-modifier should be greater than access-modifier of parent' class, else it will be a compile time error.
 
 Access-modifier/Access-specifier : 
-    These modifiers help to restrict the scope of a class, constructor, variable, method, or data member. It provides security, 
-    accessibility, etc to the user depending upon the access modifier used with the element.
+    These modifiers help to restrict the scope of a class, constructor, variable, method, or data member. It provides security, accessibility, etc to the user depending upon the access modifier used with the element.
     
     Areas / Modifiers               Default  | Private | Protected | Public
     Same Class                    |   Yes       Yes         Yes        Yes
@@ -510,8 +484,9 @@ Non Access-modifier:
 Abstraction: 
     It is data hiding internal implementation and just highlighting the setup services we are offering.
     It is achieved by Abstract class(0% - 100% abstraction) and by interface(I guarantees 100% abstraction).
-    For Example: To a driver, the staring, wheels, clutch, break etc are shown because they are necessary for driving, but the inner 
-    implementation of those things are irrelevant for the driver thus they are hidden.
+    For Example: To a driver, the staring, wheels, clutch, break etc are shown because they are necessary for driving, but the inner implementation of those things are irrelevant for the driver thus they are hidden.
+
+    In abstraction we can write concerete methods also along side with abstract method but in interface we can only write abstract method.
 
     1. A method without body is known as abstract method.
     2. If any class has an abstract method then it is necessary to make that class as abstract class but if any class is abstract then it is not necessary that it has abstract methods.
@@ -522,7 +497,14 @@ Abstraction:
     Ex. 
     abstract class Vehicle
     {
+        // Abstract method – no body
         abstract void start();
+
+        // Concrete method – with body
+        void pressAccelerator() 
+        {
+            System.out.println("Vehicle is accelerating...");
+        }
     }
     class Car extends Vehicle
     {
@@ -544,6 +526,7 @@ Abstraction:
         {
             Car c=new Car();
             c.start();
+            c.pressAccelerator();
 
             Activa a=new Activa();
             a.start();
@@ -551,32 +534,61 @@ Abstraction:
     }
 
 Interface: 
-    It is the instance of a class which tells what to do and not how to do it. I guarantees 100% abstraction. 
+    It is the instance of a class which tells what to do and not how to do it. It guarantees 100% abstraction. 
 
-    1. All Methods in the Interface class are public + abstract by default.
-    2. All the Variables int the interface class are public + abstract + final.
-    3. We can make reference variable of interface but should make object of class only. Line 578 comment.
+    Interface = Remote Control
+    A TV remote has buttons like:
+        powerOn()
+        changeChannel()
+        increaseVolume()
+
+    But the remote doesn't know how each TV model performs these actions — that's the job of the TV (implementation).
+    So:
+    The remote control is the interface.
+    Different TV brands (Samsung, LG, Sony) implement the remote's actions in their own way.
+
+    1. In previous versions (before 8) all the methods in the interface class are public abstract by default(not even need to write).
+    2. In 8th version default concrete methods and static methods were introduced.
+    3. In 9th version private methods were also allowed.
     4. If a normal class implements an interface class then all the abstract methods in that class needs to be implemented in that class else it will show error.
     5. Making object of implement class is not allowed.
 
     Ex.
-        interface Inter
+        // Interface = Remote
+        interface RemoteControl 
         {
-            void show();
+            void powerOn();
+            void changeChannel(int channel);
+            void increaseVolume();
         }
-        class Test implements Inter
+
+        // Implementation = Samsung TV
+        class SamsungTV implements RemoteControl 
         {
-            public void show() // we have to write public because the access modifier in child class should be greater than that of implements class, as implements class is public by default so we have to write public by ourself.
+            public void powerOn() 
             {
-                System.out.print("Test is called");
+                System.out.println("Samsung TV is turning on...");
+            }
+
+            public void changeChannel(int channel) 
+            {
+                System.out.println("Samsung TV changing to channel " + channel);
+            }
+
+            public void increaseVolume() 
+            {
+                System.out.println("Samsung TV volume increased");
             }
         }
-        class Main
+
+        public class Main 
         {
-            public static void main(String args[])
+            public static void main(String[] args) 
             {
-                Test t=new Test();   // Inter t = new Test() can also work.
-                t.show();
+                RemoteControl remote = new SamsungTV(); // Interface reference, actual object
+                remote.powerOn();
+                remote.changeChannel(5);
+                remote.increaseVolume();
             }
         }
 
@@ -611,10 +623,8 @@ Encapsulation:
         }
 
 Wrapper:
-    Wrapper, in general, is referred to a larger entity that encapsulates a smaller entity. Here in Java, the wrapper class is an object 
-    class that encapsulates the primitive data types. 
-    Java contains 8 wrapper classes. They are Boolean, Byte, Short, Integer, Character, Long, Float, and Double. Further, custom wrapper 
-    classes can also be created in Java.
+    Wrapper, in general, is referred to a larger entity that encapsulates a smaller entity. Here in Java, the wrapper class is an object class that encapsulates the primitive data types. 
+    Java contains 8 wrapper classes. They are Boolean, Byte, Short, Integer, Character, Long, Float, and Double. Further, custom wrapper classes can also be created in Java.
 
     1. Wrapper classes are final and immutable
     2. Provides methods like valueOf(), parseInt(), etc.
@@ -679,9 +689,7 @@ static:
     we use static keyword
     >  when we want the variable belongs to the class itself rather than to instances of the class. This means there will be only one copy of the variable shared among all instances of the class. when we want the variable to be constant
     >  when we want the method belongs to the class itself rather than to instances of the class. Static methods can be called directly on the class without the need to create an instance of the class.
-    >  Java does not allow classes to be marked as static. Classes are inherently static in Java, meaning they are loaded into memory once and shared across all instances of the class. However, you can use the final keyword with a class to prevent it from being extended or inherited.
-
-
+    >  Java does not allow classes to be marked as static. Classes are inherently static in Java, meaning they are loaded into memory once and shared across all instances of the class. However, you can use the final keyword with a class to prevent it from being extended or inherited
 
 
 
