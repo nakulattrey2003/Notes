@@ -1,0 +1,147 @@
+Questions:
+
+Operating System:
+    What is the main purpose of an operating system? Discuss different types? 
+    What is a socket, kernel and monolithic kernel ? 
+    Difference between process and program and thread? Different types of proce    Define virtual memory, thrashing, threa
+    What is RAID ? Different typ    What is a deadlock ? Different conditions to achieve a deadlo    What is fragmentation? Types of fragmentation. 
+    What is spooling ? 
+    What is semaphore and mutex (Differences might be asked)? Define Binary semaphore. 
+    Belady’s Anomaly
+    Starving and Aging in OS
+    Why does trashing occur? 
+    What is paging and why do we need it? 
+    Demand Paging, Segmentation 
+    Real Time Operating System, types of RTOS. 
+    Difference between main memory and secondary memory. 
+    Dynamic Binding 
+    FCFS Scheduling 
+    SJF Scheduling 
+    SRTF Scheduling 
+    LRTF Scheduling 
+    Priority Scheduling 
+    Round Robin Scheduling 
+    Producer Consumer Problem 
+    Banker’s Algorithm 
+    Explain Cache
+    Diff between direct mapping and associative mapping 
+    Diff between multitasking and multiprocessing 
+
+
+DBMS: 
+    What is DBMS ? Mention advantages.. 
+    What is Database? 
+    What is a database system? 
+    What is RDBMS ? Properties.. 
+    Types of database languages 
+    ACID properties (VVVVV IMP) 
+    Difference between vertical and horizontal scaling 
+    What is sharding 
+    Keys in DBMS 
+    Types of relationship 
+    Data abstraction in DBMS, three levels of it 
+    Indexing in DBMS 
+    What is DDL (Data Definition Language) 
+    What is DML (Data Manipulation Language)
+    What is normalization ? Types of them .. 
+    What is denormalization ? 
+    What is functional dependency ? 
+    E-R Model ? 
+    Conflict Serializability in DBMS .. 
+    Explain Normal forms in DBMS 
+    What is CCP ? (Concurrency Control Protocols) 
+    Entity, Entity Type, Entity Set, Weak Entity Set.. 
+    What are SQL commands ? Types of them.. 
+    Nested Queries in SQL ? 
+    What is JOIN .. Explain types of JOINs 
+    Inner and Outer Join 
+    Practice sql queries from leetcode
+    Diff between 2 tier and 3 tier architecture 
+    Diff between TRUNCATE and DELETE command .. 
+    Difference between Intension and Extension in a DataBase
+    Difference between share lock and exclusive lock, definition of lock 
+
+
+Compute Networks: 
+    Define network 
+    What do you mean by network topology, and explain types of them 
+    Define bandwidth, node and link ? 
+    Explain TCP model .. 
+    Layers of OSI model 
+    Significance of Data Link Layer
+    Define gateway, difference between gateway and router .. 
+    What does ping command do ? 
+    What is DNS, DNS forwarder, NIC, ? 
+    What is MAC address ? 
+    What is IP address, private IP address, public IP address, APIPA ? 
+    Difference between IPv4 and IPv6
+    What is subnet ? 
+    Firewalls 
+    Different type of delays 
+    3 way handshaking 
+    Server-side load balancer
+    RSA Algorithm 
+    What is HTTP and HTTPS protocol ? 
+    What is SMTP protocol ? 
+    TCP and UDP protocol, prepare differences
+    What happens when you enter “google.com” (very very famous question) 
+    Hub vs Switch 
+    VPN, advantages and disadvantages of it 
+    LAN 
+
+
+OOPS:
+    What is meant by the term OOPs?
+    What is the need for OOPs?
+    What are some major Object Oriented Programming languages?
+    What are some other programming paradigms other than OOPs?
+    What is meant by Structured Programming?
+    What are the main features of OOPs?
+    What are some advantages of using OOPs?
+    Why is OOPs so popular?
+    What is a class?
+    What is an object?
+    What is encapsulation?
+    What is Polymorphism?
+    What is Compile time Polymorphism and how is it different from RuntimePolymorphism?
+    How does C++ support Polymorphism?
+    What is meant by Inheritance?
+    What is Abstraction?
+    How much memory does a class occupy?
+    Is it always necessary to create objects from class?
+    What is a constructor?
+    What are the various types of constructors in C++?
+    What is a copy constructor?
+    What is a destructor?
+    Are class and structure the same? If not, what's the difference between a class and a structure?
+    Explain Inheritance with an example?
+    Are there any limitations of Inheritance?
+    What are the various types of inheritance?
+    What is a subclass?
+    Define a superclass?
+    What is an interface?
+    What is meant by static polymorphism?
+    What is meant by dynamic polymorphism?
+    What is the difference between overloading and overriding?
+    How is data abstraction accomplished?
+    What is an abstract class?
+    How is an abstract class different from an interface?
+    What are access specifiers and what is their significance?
+    What is an exception?
+    What is meant by exception handling?
+    What is meant by Garbage Collection in OOPs world?
+    Can we run a Java application without implementing the OOPs concept?
+    What is the output of the below code?
+    What will be the output of the below code?
+    Predict the output?
+    What will be the output in below code?
+    Predict the output?
+    What is the output of the below program?
+
+
+
+
+
+
+
+    

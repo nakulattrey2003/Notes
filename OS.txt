@@ -1,0 +1,467 @@
+Opertaing System:
+
+Defination:
+    Acts as an intermediary between user and hardware.
+    It manages ans allocated resources to different process.
+    Acts as a platform on which applications can run.
+    Choose which process will go next to the CPU.
+    Provides Security and Protection also.
+    Handles 
+        > Process Management
+        > Memory Management
+        > I/O Management
+        > File Management
+        > Network Management
+        > Disk Management
+
+Spooling:
+    Simultaneous Peripheral Operations Online
+    The Input Output process is very slow as compared to the execution done on those process by the CPU. Even you write very fast or the 
+    printer prints very fast it will never match the CPU speed of executing the process. This results in CPU waiting.
+    For this we have made a process Spooling by which the input goes to the secondary memory instead of the main memory and whenever the
+    main memory(CPU) wants the data it gets it from the secondary memory. By this CPU is not directly dependent o I/O Devices.
+
+Multiprogramming:
+    CPU loads several processes into the main memory and start executing them one by one.
+    Suppose it is executing Process A and suddenly Process A needs to do some I/O Operations so in the mean time the CPU wont wait and
+    will context switch with the next available Process in the main memory.
+    After the I/O opertion is done is will go into the ready queuue, then according to the Algorithm we are working at that time it 
+    will do context switch.
+    If we are working with pre-emptive Algorithm then it will do a context switch instantly else it will do context switch.
+    This saves time and makes sure that CPU is working all the time.
+    Allows multiple process to share a CPU.
+    Requires One CPU.
+
+Mutliprocessing:
+    It utilizes mutliple CPU's to perform mutliple process.
+    All the process are executing parallely.
+    Requires Multiple CPU's
+    It is more complex and cost ineffective due to mutliple CPU's
+
+Multitasking:
+    Multitasking is a method where multiple programs are loaded into a computer's memory simultaneously, allowing the CPU to 
+    switch between them to maximize utilization and minimize idle time.
+    It seems that more than 1 process is executing at a time but in reality CPU just speedily context switching between those process in 
+    the main memory.
+    It is like Multiprogramming with Round Robin.
+
+Multithreading:
+    Multithreading is a technique where a single process is divided into multiple smaller tasks, called threads, that can run 
+    simultaneously. This allows a program to perform multiple operations at the same time, improving efficiency and speed, especially 
+    for tasks that can be done in parallel, like handling multiple user requests or performing background operations while keeping the 
+    main program responsive.
+
+Kernel:
+    The kernel is the core part of an operating system that manages system resources and hardware. 
+    It handles tasks like memory management, process scheduling, and hardware communication, acting as a bridge between s/w and h/w
+
+    Microkernel:
+        A microkernel is a minimalistic approach to kernel design, where only essential functions like communication between hardware 
+        and software and basic process management run in the kernel space.
+
+    Monolithic Kernel:
+        A monolithic kernel is a type of kernel where all the operating system's core services (like file system management, device 
+        drivers, and memory management) run in the same memory space. 
+        This can make it faster but also more complex and potentially less stable since a bug in one part can crash the entire system.
+
+Process Management:
+    Process management is a core function of an operating system that handles the creation, scheduling, execution, and termination of 
+    processes. 
+    It ensures efficient utilization of CPU and system resources while maintaining process states and handling communication between 
+    processes.
+
+    Program: 
+        A program is a static set of instructions written in a programming language, stored on a disk, that tells the computer how to 
+        perform a specific task when executed. 
+        It is not currently running and does not perform any action by itself.
+        Eg. Notepad sotred on computer drive.
+
+    Process: 
+        A Program in execution. 
+        It includes the program's code, its current activity, and the resources it uses, such as CPU, memory, and I/O.
+        Eg. When you open Notepad and start typing, the running Notepad application is a process.
+
+        It consists of following sections:
+        > Text Section: Code to be executed is written here.
+        > Stack: Contains Temporary Data(Variables, Functions) used in code.
+        > Heap: Value of the variables and the whole function resides here, String pool also resides in heap.
+
+    PCB:
+        The Process Control Block (PCB) is a data structure used by the operating system to store all the information about a process. 
+        It acts as the identity card of a process, containing essential details needed for process management.
+        It contains Process State, Process Id, Process Counter etc. It is just like an Adhaar Card.
+
+    Process State:
+        A process state refers to the current status of a process in the operating system's lifecycle. 
+        It indicates what the process is doing at any given time, helping the OS manage processes effectively.
+
+        New        : The process is being created and has not yet been admitted to the ready queue.
+        Ready      : The process is loaded into memory and is waiting for the CPU to execute it.
+        Running    : The process is currently being executed by the CPU.
+        Waiting    : The process cannot proceed until some condition is met or an I/O operation completes.
+        Terminated : The process has finished execution and is waiting to be removed from memory.
+
+    Scheduler:
+        Schedulers are components of an operating system responsible for managing the execution of processes. 
+        They determine the order in which processes run on the CPU.
+
+        > Long Term Scheduler   : Selects processes from the ready queue to be loaded into memory
+        > Medium Term Scheduler : Temporarily removes processes from memory (swapping) to improve the process memory more effectively.
+        > Short Term Scheduler  : Decides which process in memory should be executed by the CPU from all the process in ready queue.
+        > Dispatcher            : Dispatcher is a component of the operating system responsible for giving control of the CPU to a process selected by the short-term scheduler.
+
+CPU Scheduling:
+    CPU scheduling is the process of determining which of the ready, in-memory processes are to be assigned to the CPU for execution. 
+    It is crucial for maximizing CPU utilization and system responsiveness.
+
+    Common Algorithms:
+        > First-Come First-Served (FCFS): 
+            Processes are scheduled in the order they arrive, leading to simple implementation but can cause long wait times (convoy effect).
+
+        > Shortest Job Next (SJN): 
+            Selects the process with the shortest execution time next, minimizing average waiting time but may lead to starvation of longer 
+            processes.
+
+        > Round Robin (RR): 
+            Each process is assigned a fixed time slice in a cyclic order, ensuring fair CPU allocation and responsiveness for time-sharing 
+            systems.
+
+        > Priority Scheduling: 
+            Each process is assigned a priority, and the CPU is allocated to the process with the highest priority. Lower priority processes 
+            may starve.
+
+        > Multilevel Queue Scheduling: 
+            Processes are divided into different queues based on priority or type, with each queue having its own scheduling algorithm.
+
+    Common Terminologies:
+        > Arrival Time(AT)      : Time at which proceess enters the ready state.                    12:00 arrived
+        > Burst Time(BT)        : Time Required by the CPU to complete a process.                   30 minutes
+        > Completion Time(CT)   : Time at which Process finish its execution.                       12:50 completed
+        > Turn Around Time(TAT) : For how much time the process was in the system. CT-AT || WT+BT.  50 min was with the system.
+        > Waiting Time(WT)      : For how much time the process had waited. TAT-BT.                 20 min waited
+
+Race Condition:
+    A race condition occurs in a multi-threaded or multi-process environment when two or more processes or threads access shared 
+    resources simultaneously, leading to unpredictable results. 
+    This can cause data corruption or inconsistent states if the processes interfere with each other during execution.
+
+    Prevention Methods:
+    > Mutexes (Mutual Exclusion): Use locks to ensure that only one thread or process can access a critical section of code at a time.
+    > Progrees: Only send those process which are willing to go in the critical section. There should be no deadlock.
+    > Bounded Waiting: There exists a bound on the number of times a process is allowed in the critical section.
+    > Semaphores: Use counting mechanisms to control access to shared resources among multiple processes.
+    > Atomic Operations: Ensure that certain operations are completed without interruption, preventing inconsistencies.
+
+Semaphores:
+    Semaphores are simple integer variables. Once you have intialized these then you cannot access them.
+    Only 2 operations are allowed on them Wait(S) and Signal(S).
+    Wait(S)                                                Signal(S)
+    {                                                      {
+        while(s<=0)                                            s++;
+        s--                                                }
+    }
+
+    Semaphores are synchronization tools used in operating systems to solve n-problem solution and prevent race conditions. 
+    They help control multiple processes or threads' access to critical sections of code.
+
+Producer Consumer Problem:
+    The Producer-Consumer Problem is a classic scenario in programming where two types of processes work together using a shared space, 
+    like a buffer. 
+    Producers create data and place it in the buffer, while consumers take data out for processing. 
+    The challenge arises because the buffer has limited space; if it’s full, producers must wait to add more data, and if it’s empty, 
+    consumers must wait to retrieve data. 
+    To manage this, tools like semaphores are used. 
+    An empty semaphore tracks available spaces in the buffer, while a full semaphore counts the filled spaces. 
+    This ensures that producers and consumers operate smoothly without interfering with each other, maintaining proper synchronization 
+    in the system.    
+
+Deadlock:
+    A deadlock is a situation in a multi-threaded or multi-process environment where two or more processes are unable to proceed because 
+    each is waiting for the other to release a resource. 
+    This creates a cycle of dependency that prevents any of the processes from moving forward.
+
+    Key Conditions for Deadlock
+        Mutual Exclusion: 
+            At least one resource must be held in a non-shareable mode, meaning only one process can use the resource at a time.
+            Example: Printer access. If one process is using a printer, no other process can print until the first one is done.
+
+        Hold and Wait: 
+            Processes holding resources are allowed to request additional resources without releasing their current ones.
+            Example: A chef in a kitchen who is cooking with one pot while also needing a cutting board. The chef continues 
+            cooking without releasing the pot, waiting for the board to become available.
+
+        No Preemption: 
+            Resources cannot be forcibly taken from a process; they must be voluntarily released.
+            Example: A person holding a parking spot while waiting for another car to move. The person cannot simply take the spot back 
+            if another driver is waiting for it.
+
+        Circular Wait: 
+            There exists a set of processes such that each process is waiting for a resource held by the next process in the cycle.
+            Example: Three friends trying to borrow items:
+            Friend A has a book and needs a game from Friend B.
+            Friend B has the game and needs a movie from Friend C.
+            Friend C has the movie and needs the book from Friend A.
+            Each is waiting for another, creating a circular dependency.
+
+    Example:
+    Imagine two processes:
+
+    Process A holds Resource 1 and needs Resource 2 to proceed.
+    Process B holds Resource 2 and needs Resource 1 to proceed.
+    Neither process can continue, resulting in a deadlock.
+
+    Deadlock Hanlding Methods:
+        > Prevention:
+            Modify system conditions to prevent deadlock from occurring by ensuring that at least one of the necessary conditions is 
+            never satisfied.
+        
+        > Avoidance:
+            Dynamically examine resource allocation to ensure the system remains in a safe state. This often uses algorithms like Banker's
+            Algorithm.
+            Banker's Algorithm:
+                Banker's Algorithm is a deadlock avoidance algorithm used to allocate resources in a way that avoids deadlock. 
+                It is named after the way banks manage loans and ensures that resources are allocated only if the resulting state is safe.
+
+
+        > Detection and Recovery:
+            Allow deadlocks to occur but regularly check for them. If detected, take action to recover.
+
+        > Ignorance:
+            We can ignore the deadlock and pretend that deadlock never happened in the system.
+
+Fragmentation:
+    Fragmentation refers to the inefficient use of memory space that can occur during the allocation and deallocation of memory blocks.
+    It is categorized into two types:
+    > Internal Fragmentation: 
+        This occurs when allocated memory blocks are larger than necessary, resulting in unused space within the allocated block. 
+        For example, if a process requests 30 MB but is allocated a 32 MB block, the remaining 2 MB is wasted.
+
+    > External Fragmentation: 
+        This happens when free memory is split into small, non-contiguous blocks over time, making it difficult to allocate larger 
+        contiguous blocks. 
+        For instance, if several processes are allocated and freed, the remaining free memory may be scattered, preventing the 
+        allocation of a large process even if the total free memory is sufficient.
+
+    Solutions for Fragmentation
+        1. Compaction: 
+            Rearranging memory to combine free blocks into larger contiguous spaces, reducing external fragmentation. 
+            This process can be time-consuming and may require moving active processes.
+
+        2. Paging: 
+            In paging, a process is divided into several fixed-size parts called pages, and the location of each page in memory is 
+            recorded in a page table. This allows the operating system to know where each part of the process is stored, even if the 
+            pages are located in different places in memory.
+
+        3. Segmentation: 
+            Segmentation divides a process into different logical parts, such as code, heap, and stack, rather than randomly like in 
+            paging. Each part is stored in memory, and the segment table keeps track of where each segment is located. This makes it 
+            easier to manage memory according to the structure of the program.
+
+        4. Memory Pooling: 
+            Allocating blocks of memory in predefined sizes to reduce internal fragmentation and improve allocation efficiency by using 
+            fixed-size blocks for specific types of requests.
+
+        5. Dynamic Allocation: 
+            Using dynamic memory allocation strategies, such as best fit or next fit, to allocate memory more efficiently and minimize 
+            fragmentation over time.
+
+Memory Management:
+    Memory management is a crucial function of an operating system (OS) that handles the allocation, management, and organization of 
+    computer memory. It ensures that each process has enough memory to execute while optimizing the use of available memory and 
+    preventing conflicts.
+
+    There are 2 types how process are stored in the memory:
+    > Contigous Allocation:
+        Contiguous allocation stores each process in a single contiguous block of memory.
+        1. Fixed-Size Partitions:
+            Fixed-size partitions divide memory into equal-sized blocks, leading to internal fragmentation and limited flexibility, as 
+            partitions cannot accommodate processes larger than their size.
+
+        2. Variable-Size Partitions:
+            Variable-size partitions allocate memory based on process size, reducing internal fragmentation and offering more flexibility, 
+            but can cause external fragmentation, scattering free memory blocks.
+
+        Space Allocation Methods that works on both parts:
+        a. First Fit: First Fit allocates the first available memory block that is large enough to satisfy the request.
+        b. Best Fit: Best Fit allocates the smallest available memory block that can accommodate the request, minimizing wasted space.
+        c. Worst Fit: It allocates the largest available memory block to the request, aiming to leave larger free blocks for future processes.
+        d. Next Fit: Modified version of best fit, where the next block is searched not from starting and searches from the current position.
+            
+    > Non Contigous Allocation: 
+        Non-contiguous memory allocation allows processes to occupy multiple, scattered blocks of memory rather than requiring a single 
+        contiguous block. This approach improves memory utilization and reduces fragmentation.
+
+        1. Paging: 
+            Paging is a way that operating systems manage memory by breaking up programs into small, fixed-size pieces called pages. 
+            Instead of needing a large block of memory all in one place, a program can be spread out across different locations in memory. 
+            Each page is stored in frames, which are equal-sized blocks of physical memory.
+
+            When a program runs, the operating system uses a page table to keep track of where each page of the program is located in 
+            memory. This allows the computer to easily find the right place to read or write data. For example, if a program needs to 
+            access data on page 2, the operating system looks it up in the page table to find out which frame in memory holds that page.
+
+            Paging helps prevent problems with memory being split into small, unusable pieces (external fragmentation) because it can use 
+            any available frame for any page. However, if a page isn’t completely filled with data, the extra space within that page goes 
+            unused (internal fragmentation). Overall, paging makes memory management easier and more efficient for running programs.
+
+        2. Segmentation: 
+            Segmentation is a memory management technique that divides a program into different parts called segments, which are based on 
+            the logical structure of the program. Each segment can represent a different type of data or functionality, such as code, 
+            data, or stack.
+
+            Unlike paging, where all pages are the same size, segments can vary in size depending on what they contain. For example, a 
+            segment might hold a function, an array, or a specific data structure. Each segment has its own address and can grow or 
+            shrink as needed.
+
+            The operating system keeps track of where each segment is located in memory using a segment table. This table maps segment 
+            numbers to their starting memory addresses. When a program needs to access a specific segment, the operating system looks it 
+            up in the segment table to find its location.
+
+            Segmentation helps make memory use more efficient and reflects the way programmers think about their code, but it can lead to 
+            external fragmentation, as free memory can become scattered over time.
+
+Virtual Memory:
+    Virtual memory is a memory management technique that creates the illusion of a large, continuous memory space for each process, 
+    even if the physical memory (RAM) is limited. It allows programs to run as if they have access to a larger amount of memory by using 
+    both RAM and disk space.
+
+    Pure Demand Paging: 
+        Pure demand paging is a memory management technique where pages of a process are loaded into memory only when they are needed, 
+        rather than loading the entire process at once. This approach optimizes memory usage and reduces the initial loading time for 
+        processes. When a program tries to access a page that is not in memory, a page fault occurs, prompting the operating system to 
+        load the required page from secondary memory (disk) into RAM. This method, known as lazy loading, 
+
+    Thrashing:
+        Thrashing is a situation in a computer's memory management system where the operating system spends most of its time swapping 
+        pages in and out of memory rather than executing actual processes. This occurs when there is insufficient physical memory (RAM) 
+        to hold the active pages of processes, leading to excessive page faults.
+
+    Page Replacement Algorithm: 
+        A page replacement algorithm is a method used by operating systems to decide which pages to remove from memory when new pages 
+        need to be loaded and physical memory is full. These algorithms aim to minimize page faults and optimize performance by 
+        determining the best candidate for replacement based on various criteria. They are crucial in virtual memory management, 
+        ensuring efficient use of RAM and maintaining system responsiveness during program execution.
+
+        1. Least Recently Used (LRU)
+            LRU replaces the page that has not been used for the longest time, aiming to keep frequently accessed pages in memory.
+
+        2. First-In, First-Out (FIFO)
+            FIFO replaces the oldest page in memory, using a simple queue structure to manage page order.
+
+        3. Optimal Page Replacement
+            Optimal replaces the page that will not be used for the longest period in the future, minimizing page faults but requiring 
+            future knowledge, that's why this is only in theory.
+
+        Belady's Anomaly:
+            Belady's Anomaly is a phenomenon in certain page replacement algorithms, such as FIFO, where increasing the number of page 
+            frames results in an increase in the number of page faults instead of a decrease.
+
+Disk Management:
+    Magnetic Disks serve as a main secondary storage in computers. Each disk has a flat circular platter with Magnetic surfaces for data storage.
+    A read write head hovers over these surfaces.
+    Platters have tracks divided into several sectors for logical data storage.
+    Note: (Total Transfer Time = Seek Time + Rotational Latency + Transfer Time).
+    • Seek Time: The time it takes for the read/write head to move to the correct track on the disk.
+    • Rotational Latency: The time it takes for the disk to rotate to the correct sector under the read/write head.
+    • Transfer Time: The time it takes to actually read or write the data once the read/write head is in position.
+
+    
+    Disk Scheduling Algorithms:
+        Disk scheduling algorithms are methods used by the operating system to determine the order in which disk I/O (Input/Output) 
+        requests are processed.
+
+        1. First-Come, First-Served (FCFS)
+            FCFS services disk I/O requests in the order they arrive, providing fairness but potentially leading to long wait times and 
+            poor performance.
+
+        2. Shortest Seek Time First (SSTF)
+            SSTF selects the I/O request closest to the current head position, minimizing seek time but potentially causing starvation 
+            for distant requests.
+
+        3. Elevator (SCAN)
+            SCAN, also known as the elevator algorithm, moves the disk arm in one direction fulfilling requests until it reaches the end, 
+            then reverses direction, reducing seek time.
+
+        4. Circular SCAN (C-SCAN)
+            C-SCAN moves the disk arm in one direction fulfilling requests and, upon reaching the end, quickly returns to the beginning 
+            without servicing requests on the return trip, providing uniform wait time.
+
+        5. LOOK
+            LOOK is similar to SCAN but only goes as far as the last request in each direction before reversing, reducing unnecessary movement.
+
+        6. Circular LOOK (C-LOOK)
+            C-LOOK is similar to C-SCAN but only moves to the last request in one direction before quickly returning to the start, 
+            ensuring more efficient service.
+
+File Management:
+    This tells us how Files are stored in secondary memory.
+
+    Continuous Allocation:
+        Continuous allocation stores each file in a contiguous block of disk space. This method ensures fast sequential access and simple 
+        implementation, as the entire file can be read in a single read operation. However, it suffers from fragmentation and difficulty 
+        in finding large enough contiguous spaces for new files or for growing files.
+        This is like an array.
+
+    Linked Allocation:
+        Linked allocation uses a linked list of disk blocks to store files. Each block contains a pointer to the next block in the 
+        sequence. This method eliminates the problem of finding contiguous space and allows files to grow easily. However, it results in 
+        slower random access because the system must follow pointers from one block to the next, and it incurs additional storage 
+        overhead for the pointers.
+        This is like a linked list.
+
+    Indexed Allocation:
+        Indexed allocation uses an index block to keep track of all the disk blocks that a file occupies. The index block contains 
+        pointers to each data block of the file. This method provides efficient random access and overcomes fragmentation issues. 
+        However, it requires extra space for the index block and can introduce complexity in managing the index blocks, especially 
+        for very large files.
+        This is like a tree.
+
+RAID:
+    RAID (Redundant Array of Independent/Inexpensive Disks) is a technology that combines multiple physical disk drives into a single logical unit to 
+    enhance performance, increase storage capacity, and provide data redundancy.
+    Data is stored, duplicated or mutliplied according to the needs so as to make sure that backup data is available if any error occurs 
+    to the original data.
+
+    There are several types of RAID, each with its own advantages and trade-offs. 
+    > RAID 0 (Stripping):
+        Improves performance and capacity by splitting data across multiple disks, but it lacks redundancy, so data loss 
+        occurs if any disk fails.
+        Eg, Data A B C D is splitted into several parts and stored into different disks. D1(A1, B1, C1, D1) and D2(A2, B2, C2, D2)
+        
+    > RAID 1 (Mirroring) :
+        Duplicates data across two or more disks, offering high data redundancy and reliability, though it effectively halves the storage 
+        capacity.
+        Ex. Data A B C D is duplicated and is stored in 2 or more disks. D1(A, B, C, D) and D2(A, B, C, D)
+
+    > RAID 1+0(Nested):
+        It takes the mix of both the techniques used in RAID 0 and RAID 1.
+        Ex. Data A B C D is duplicated and splitted and is stored in 2 or more disks. 
+        D1(A1, B1, C1, D1) , D2(A1, B1, C1, D1) , D3(A2, B2, C2, D2) , D4(A2, B2, C2, D2)
+        Used in real life beacuse it provides both advantages of RAID 0 and RAID 1.
+        
+    > RAID 3:
+        Breaks Data into blocks and stores parity for data recovery.
+        Ex. Data A B C D
+        D1(A1, B1, C1, D1) , D2(A2, B2, C2, D2) , D3(A3, B3, C3, D3) and 
+        D4(AP(A1+A2+A3), BP(B1+B2+B3), CP(C1+C2+C3), DP(D1+D2+D3)) Disk 4 is parity and can be made with any mathematical operation.
+        Here we have used plus and any one of the given disks fail we can recover it using parity bits.
+
+    > RAID 4:
+        It is same as RAID 3 main difference was RAID 3 uses byte-level striping, while RAID 4 uses block-level striping.
+    
+    > RAID 5:
+        If any read write operation happen in any of the disks we would have to change the parity bit also.
+        As all the parity bits are in one disk only so it will be very frequently access which will increase its load.
+        So in RAID 5 we distribute the parity bit on all the disks.
+        Ex. Data A B C D
+        D1(A1, B1, C1, DP(D1+D2+D3)) , D2(A2, B2, CP(C1+C2+C3), D2) , D3(A3, BP(B1+B2+B3), C3, D3) and 
+        D4(AP(A1+A2+A3), B3, C2, D1) Disk 4 is parity and can be made with any mathematical operation.
+        Here we have used plus and any one of the given disks fail we can recover it using parity bits.
+
+    > RAID 6:
+        Here there are 2 parity bits so if any 2 disks fails then we can recover them.
+
+
+
+
+

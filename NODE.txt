@@ -1,0 +1,344 @@
+NodeJs
+
+What is NodeJs
+    It is a javascript runtime environment. As javascript only runs inside an environment like browser so node provides the environment for it to run. Like
+    js can't be run on cli or terminal but if node is installed in the system then just write node and it will make an encvironment where you can write js.
+
+NodeJs Architecture:
+    Request Handling: When a client makes a request to a Node.js server, the server accepts the request and places it in the event queue.
+
+    Event Loop: The event loop is responsible for processing events in the event queue. It follows a FIFO (First In, First Out) approach, 
+    meaning it processes events in the order they were added to the queue.
+
+    Non-blocking and Blocking Operations:
+    For non-blocking (asynchronous) operations, such as I/O operations, the event loop delegates the task to a separate thread (handled 
+    by libuv in Node.js). When the operation completes, a callback is pushed into the event queue.
+    For blocking (synchronous) operations, such as CPU-bound tasks, the event loop can't handle them directly. It delegates these 
+    operations to the worker threads in the thread pool.
+
+    Response Handling: When a task completes (either synchronous or asynchronous), its corresponding callback is placed back into the 
+    event queue. The event loop then picks up this callback and processes it, which may involve sending a response to the client.
+
+    Thread Pool: Node.js maintains a thread pool (managed by libuv) for handling blocking operations. It allows Node.js to execute CPU-bound tasks without blocking the event loop.
+
+File handling in node:
+    const fs = require("fs");
+
+    // Sync ----->  it returns a value
+    fs.writeFileSync("./number.txt", "+9198765432 number 1");
+
+    const readingNumber = fs.readFileSync("./number.txt", "utf-8"); // creating
+    console.log(readingNumber); // reading
+
+    fs.appendFileSync("./number.txt", "new data is added in number 1");
+
+    fs.copyFileSync("./number.txt", "./copy1.txt");
+    fs.unlinkSync("./copy1.txt");
+
+    // Async  -----> do not return a value(void type)
+    fs.writeFile("./number2.txt", "+129876543 number 2", (err) => {});
+
+    fs.readFile("./number2.txt", "utf-8", (err, readingNumber2) => {
+    if (err) console.log("Error ", err);
+    else console.log(readingNumber2);
+    });
+
+    fs.appendFile("./number2.txt", " new data is added in number 2", (err) => {});
+
+creating a server and sending request to different pages:
+    const http = require("http");
+
+    const myServer = http.createServer((req, res) => {
+    console.log("New Request created");
+    if (req.url == "/") res.end("HomePage");
+    else if (req.url == "/about") res.end("AboutPage");
+    else res.end("Error 404");
+    });
+
+    myServer.listen(8000, () => {
+    console.log("Port Started");
+    });
+
+    // res.end is used to send a message when a new user joined
+    // we can also send some photo, video or even an html file
+
+HTTP Request Methods:
+    1. GET   : When user wants to get some data from the server. Eg searching google.com
+    2. POST  : When user wants to send data to the server. Eg Filling Forms
+    3. PUT   : When user wants to upload data to the server. Eg Uploading a Picture
+    4. PATCH : When user wants to change data of the server. Eg changing your name on facebook
+    5. DELETE: When user wants to delete data from the server. Eg Deleting Account on Facebook.
+
+Express:
+    Express is a web application framework for Node.js that makes it easier to build web applications and APIs by providing a set of 
+    features and tools. It simplifies tasks such as routing, handling HTTP requests and responses, managing middleware, and more. In 
+    simple terms, Express allows developers to create web servers and define routes for handling different types of requests, making 
+    it faster and easier to build powerful web applications.
+    Express allows you to define routes that match specific URLs and HTTP methods (like GET, POST, PUT, DELETE).
+
+    const express = require("express");
+
+    const app = express();
+
+    app.get("/", (req, res) => {
+    return res.end("Home Page");
+    });
+
+    app.get("/about", (req, res) => {
+    return res.end("Hello " + req.query.name + ", you are " + req.query.age);
+    });
+
+    app.listen(8000, () => {
+    console.log(Server Started on port 8000);
+    });
+
+    // no need for the below and no need for importing http
+    // const myServer = http.createServer(app);
+
+    // myServer.listen(8000, () => {
+    //   console.log("Port Started");
+    // });
+
+Status Codes:
+    1xx Informational: Request received, continuing process.
+        100: Continue
+        101: Switching Protocols
+
+    2xx Success: The request was successfully received, understood, and accepted.
+        200: OK
+        201: Created
+        202: Accepted
+        204: No Content
+
+    3xx Redirection: Further action needs to be taken to complete the request.
+        301: Moved Permanently
+        302: Found (Previously "Moved Temporarily")
+        304: Not Modified
+
+    4xx Client Errors: The request contains bad syntax or cannot be fulfilled.
+        400: Bad Request
+        401: Unauthorized
+        403: Forbidden
+        404: Not Found
+
+    5xx Server Errors: The server failed to fulfill an apparently valid request.
+        500: Internal Server Error
+        501: Not Implemented
+        503: Service Unavailable
+
+MongoDB Schema
+    // for finding the url mongodb://127.0.0.1:27017 you have to open cmd and write mongosh then you will get the link, then you can
+    write the name of the mongo Database yourself
+
+    const mongoose = require("mongoose");
+    // connecting to database
+    mongoose
+    .connect("mongodb://127.0.0.1:27017/DemoDB1")
+    .then(() => console.log("MongoDB Connected".green.bold))
+    .catch((err) => console.log("Error: ", err));
+
+    // Schema
+    const UserSchema = new mongoose.Schema(
+        {
+            firstName: { type: String, required: true },
+            lastName: { type: String, required: false },
+            email: { type: String, required: true, unique: true },
+            job_title: { type: String },
+            gender: { type: String },
+        },
+        { timestamps: true }
+    );
+
+    // Model
+    const userModel = mongoose.model("userModel", UserSchema);
+
+JWT:
+    JSON Web Token are the tokens that are used for authorization and information exchange in the web application. These are stateless 
+    and most popular for authentication and authorization. Whereas sessions are statefull.
+    JWT consists of 3 parts
+        > Header   : This tells us about the algorithm type used for encryption.
+        > Payload  : This contains the actual data to be sent.
+        > Signature: This is the space where you provide you secret_key to modify the data.
+    
+    Working: 
+        Whenever a user signs in or registers (according to needs) the JWT token is created and for any request first the token is 
+        verfied (which is sent in the headers with the request) that if the user is authorized to use that resource or not.
+
+    Using in project:
+        // signing token during login
+            const jwt = require("jsonwebtoken");
+            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);     // user is sent as "id" and token is signed using secret_key
+
+        // token is verfied and data is taken from it
+            const jwt = require("jsonwebtoken");
+            const token = req.headers["authorization"].split(" ")[1];   // token is taken from the header
+                jwt.verify(token, "nakul", (err, decode) => {           // verfied using secret_key
+                // (err, decode) means that, there will be error or the token will be decoded
+                if (err) {
+                    return res.status(400).send({
+                    success: false,
+                    message: "Unauthorized User",
+                    });
+                } else {
+                    // console.log(req.body);
+                    req.body.userid = decode.userid;
+                    next();
+                }
+            });
+
+Hashing:
+    When the user is created using username and password then it will be easy for anyone to see those details, where username is public
+    and can be easily accessible we need to make sure that the password is hashed properly.
+    For that we make use of bcryptjs library
+        // hashing
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+MVC:
+    files in node js
+
+    there will be 3 main folders in nodejs
+    1. controllers
+    2. models
+    3. routes
+
+    controllers will be having function which will controls all the things about the models,
+    models will be the one responsible for showing the data on the routes,
+    routes will handle all the routes,
+    there is also views folder which contains all the ejs files which is used to write the form structure or anything that uses html.
+
+CRUD:
+    Certainly! Here's how you can perform all CRUD operations (Create, Read, Update, Delete) using Mongoose in Node.js:
+
+    Create (C):
+        Create a new document
+        const newUser = await User.create({ fullName: "John Doe", email: "john@example.com" });
+
+    Read (R):
+        Read all documents:
+        const allUsers = await User.find();
+
+        Read a single document by ID:
+        const user = await User.findById(userId);
+
+        Read documents based on conditions:
+        const users = await User.find({ age: { $gt: 18 } });
+
+    Update (U):
+        Update a single document by ID:
+        await User.findByIdAndUpdate(userId, { age: 25 });
+
+        Update multiple documents:
+        await User.updateMany({ age: { $lt: 18 } }, { status: "minor" });
+
+    Delete (D):
+        Delete a single document by ID:
+        await User.findByIdAndDelete(userId);
+
+        Delete multiple documents:
+        await User.deleteMany({ age: { $gte: 60 } });
+
+    These examples demonstrate how to perform CRUD operations using Mongoose in a Node.js application connected to a MongoDB database.
+
+Web Sockets:
+    In normal communication between client and server, the client sends a request to the server and server sends a response to the client.
+    After this the session is broken and for any further communication the same steps are done.
+    But for the real time applications like chatting this approach will be causing time, space and money.
+    For real time applications we upgrade our connection and server makes a 2 way connection with the client or said as full duplex.
+    With the connection now any new message from client is directly seen by the server.
+    And the server breaks when the user wants.
+
+    For Implementing it we first create the server using socket.io instead of normal app.listen();
+    const { Server } = require("socket.io");
+    const server = http.createServer(app);
+
+    web sockets -- socket io
+    1. when the send button is called socket.emit is called and userMessage is send to the backend.
+    2. io.on("connection") is called and socket.on('userMessage') is called inside it which sends io.emit('message') which is send to the connections.
+    3. then socket.on('message') this receives the message and displays it.
+
+Rate Limiting:
+    This is an approach or a method in which we control the number of requests are made. Helps in coping with attacks like DDOS.
+    For example the number of requests to the Gemini AI API Key is 15 per min.
+
+    > Token Bucket:
+        It is one of the approach to Implement rate limiting. In this approach certain number of tokens are provided in the bucket and
+        when a request comes it takes that token, if the request is having a token then only the request is handled else the request is
+        rejected or added in the queue according to the needs.
+
+    > Leaky Bucket: 
+        In this approach all the requests are taken in the bucket and a small hole is made at the bottom of the bucket, controllable 
+        number of requests leaks from that hole which is then handled by the nodejs server.
+
+Load Balancing:
+    Load balancing is a technique used to distribute workload (such as web traffic or application requests) across 
+    multiple servers, networks, or resources. Its primary goal is to optimize resource utilization, maximize 
+    throughput, minimize response time, and avoid overload on any single server or resource.
+    Load balancing techniques ensure that no single server or resource is overwhelmed by distributing workload 
+    efficiently across multiple resources. 
+
+    Techniques for Load Balancing:
+    > Round Robin: 
+        Requests are sequentially distributed to servers in a circular manner. Each server gets an equal share of 
+        requests in turn. It's simple to implement but doesn't consider server load or performance.
+    
+    > Weighted Round Robin: 
+        Similar to Round Robin, but servers are assigned weights based on their capacity or capability. Servers 
+        with higher weights receive more requests, allowing for more flexible distribution based on server 
+        capabilities.
+
+    > Least Connection: 
+        Requests are sent to the server with the fewest active connections at the time of request. This balances 
+        load based on current server usage, ensuring that heavily loaded servers receive fewer requests until 
+        their load decreases.
+
+    > Least Response Time: 
+        Requests are directed to the server with the shortest average response time or latency. This technique 
+        aims to minimize response times for users by sending requests to the fastest server available.
+
+    > IP Hashing: 
+        Requests are routed to servers based on a hash of the client's IP address or another identifier. This 
+        ensures that requests from the same client are consistently routed to the same server,
+
+SSL:
+    Secure Socket Layer
+    It provides a secure connection between web server and browser.
+    SSL certificate: This is a digital certificate provided by a certificate issuing authority to prove the validity of a public key.
+
+    Symmetric Key: When same key can encrypt and decrypt the data.
+    Asymmetric Key: When different keys encrypt and decrypt the data.
+
+    Flow of sending data:-
+        Firstly the server make use of Asymmetric Keys and send the puclic key to the client ans takes the private key for himself.
+        Now for the first time, the client encrypts the Symmetric Key with the server's public key and sends it to the server.
+        The server decrypts the Symmetric Key with the server's own private key.
+        Now both client and server are having Symmetric key so the client can send encrypted data using Symmetric key and server can decrypt using the same key.
+        This solves our pronlem of securing the connection.
+
+    But this method has a chance of hacking due to which SSL Certificate is there:-
+        The hacker can send his own public key to the client and then rather than sending than data to server, the client unintentionally sends its data to the hacker.
+        So to validate that public key been recieved by the client we uses SSL Certificate.
+        With the public key now a certificate will also be sent attached to it which is created by certificate issuing authority which may charge you
+        because of the certificate.
+        The certificate includes the server's public key and the certain will be signed.
+        The signature consists of (server's public key  + certificate issuing authority's public key)
+        Now the client will have certficate issuer's public key, server's public key and the certificate.
+        And now he can check if the signature is verified or not.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
