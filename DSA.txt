@@ -302,7 +302,7 @@ Sorting Algos:
                 // Move elements greater than key one position ahead
                 while (j >= 0 && arr[j] > key) 
                 {
-                    arr[j + 1] = arr[j];
+                    arr[j + 1] = arr[j]; // we will shift each element till we find a smaller element from our current element
                     j--;
                 }
                 arr[j + 1] = key;
