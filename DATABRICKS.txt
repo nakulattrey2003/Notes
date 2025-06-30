@@ -1,0 +1,128 @@
+DATABRICKS:
+
+Defination:
+    Databricks is a cloud-based platform that helps you process and analyze large amounts of data using tools like Apache Spark. It makes it easy for teams to work together on big data projects, run data pipelines, and build machine learning models.
+
+    Example:
+    Imagine you have a huge amount of sales data from an online store. With Databricks, you can quickly clean, analyze, and visualize this data to find trends, like which products are selling best or what times of year have the most sales.
+
+Spark Cluster:
+    A cluster is a group of nodes(computers) that work together as a team.
+    For example, if you have three computer labs with 30 computers each, putting them together makes a cluster of 90 computers. Now if any work comes then we distribute it among these computers and they start working parallely increasing efficieny and decreasing time.
+    Clusters help us do bigger tasks faster by sharing the work.
+    You can make one computer stronger by adding more memory (vertical scaling), but there is a limit.
+    With clusters, you can just add more computers (horizontal scaling), and there is no real limit.
+
+    A Spark cluster is a group of computers working together to process large amounts of data using Apache Spark. Each computer in the cluster has a specific role:
+    Driver: Coordinates the work.
+    Workers: Do the actual data processing.
+    This setup allows Spark to handle big data quickly by splitting the work across many machines.
+
+Spark Architecture:
+    Apache Spark is a big data processing tool. It helps you process large amounts of data quickly.
+    Main Parts of Spark Architecture:
+        Driver Program: This is the main controller. It tells Spark what to do.
+        Cluster Manager: This manages the resources (computers, memory, etc.) for Spark.
+        Executors: These are workers. They do the actual data processing.
+
+    How It Works (Example):
+        Imagine you want to count how many times each word appears in a big book.
+        The Driver Program sends the task to the cluster.
+        The Cluster Manager finds computers to do the work.
+        The Executors split the book into parts and count the words in each part. 
+
+Microsoft Azure:
+    Microsoft Azure is a cloud platform, which means it is a collection of computers and services available over the internet. Instead of buying and maintaining your own computers, you can use Azure to rent computing power, storage, and other services whenever you need them.
+
+    Real-life Example:
+        Imagine you want to open a bakery, but you don’t want to buy your own ovens and kitchen. Instead, you rent a kitchen that already has everything you need. You can use it as much or as little as you want, and you only pay for the time you use it.
+        In the same way, with Azure, you can run your programs, store your data, and use powerful computers without having to buy or manage the hardware yourself. This makes it easy to scale up or down based on your needs.
+
+    Parts:
+        > Resource Group:
+            A Resource Group in Azure is like a folder where you keep all your related services or resources together. It helps in organizing, managing, and monitoring resources easily.
+            ✅ Example:
+            Imagine you’re building a data project. You can create a resource group called DataProjectRG and put all the services in it, like:
+            > Databricks workspace
+            > Storage account
+            > SQL database
+            > Virtual machines
+            This way, you know everything in DataProjectRG is related to your one project.
+
+        > Storage Account:
+            A Storage Account is where you store data (like files, tables, queues, or blobs). It's name should be unique.
+            By default, when you create a storage account, Azure gives you Blob Storage (for unstructured data like images, videos, documents, etc.). But you can upgrade it to more advanced types depending on your need.
+
+            1. Blob Storage:
+                is Azure’s basic storage service used for storing unstructured data like images, videos, and backups. 
+                It has a flat structure, meaning it doesn’t support folders or directories.
+
+            2. Data Lake Storage Gen2: 
+                which is built on top of Blob Storage but adds a hierarchical folder structure, access control, and is optimized for analytics tools like Spark and Databricks. 
+            
+            3. Delta Lake:
+                which is not a storage type but a file format. Delta Lake adds powerful features like ACID transactions (safe updates/deletes), time travel (access old versions of data), and schema enforcement, making it ideal for building reliable, large-scale data pipelines.
+
+
+            So inside the Storage Account you Basically create two containers, one act as source and the other act as destination.
+
+
+    Eg.
+    Resource Group
+    {
+        Storage Account
+        {
+            DataLake
+            {
+                Container 1 - source
+                Container 2 - destination
+            }
+        }
+        Databricks
+        {
+            // This requires a Managed Resource Group name.
+            // When you create a Databricks workspace in Azure, Azure automatically creates a "Managed Resource Group" for Databricks.
+            // This group is managed by Databricks itself and contains resources (like virtual networks, storage, etc.) that Databricks needs to run.
+            // You only provide the name; Azure and Databricks handle everything inside it.
+            // Example: If your workspace is "my-databricks", the managed group might be "databricks-rg-my-databricks-xxxx".
+        }
+    }
+        
+Databricks Platform:
+    UI Overview:
+        > Workspace
+            The Workspace in Databricks is your personal or team-based area where you store notebooks, dashboards, libraries, and scripts. It acts like a development environment or file system, helping you organize and manage your work. You can create folders, share content with teammates, and access your code easily from here.
+
+        > Catalog
+            The Catalog is where all your data lives. It organizes data in a structured format as Catalog → Schema → Tables/Views. With Unity Catalog, you also get better control over data permissions, ownership, and governance. It centralizes access to all your databases and helps you maintain data security across teams and projects.
+
+        > Compute
+            The Compute section is where you manage the machines (called clusters or SQL warehouses) that actually run your code. Whether you're doing data processing, machine learning, or SQL queries, compute resources handle the workload. You can configure autoscaling, choose instance types, and monitor usage here.
+
+        > Workflows
+            Workflows allow you to automate tasks like running notebooks, scripts, or SQL queries. You can schedule these jobs to run at specific times or trigger them based on events. This is especially useful for recurring data tasks like daily data processing, reports, or machine learning model retraining.
+
+DBFS:
+    DBFS (Databricks File System) acts as an abstraction layer over your cloud storage (like Azure Data Lake, AWS S3, or GCP GCS). That means:
+    You don’t directly deal with complex storage APIs.
+    Instead, you work with a simplified file system interface, like local files on your laptop.
+    Behind the scenes, DBFS maps your actions to real cloud storage operations.
+
+    Let’s say your actual data is stored in Azure Data Lake Storage (ADLS).
+    You don’t need to write long URLs like: "wasbs://mycontainer@storageaccount.blob.core.windows.net/myfile.csv"
+    Instead, DBFS lets you use: "/dbfs/mnt/my-data/myfile.csv"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

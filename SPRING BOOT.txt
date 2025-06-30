@@ -43,10 +43,53 @@ Architecture:
 
     Frontend (UI) → Controller → Service → Repository → Database → Repository → Service → Controller → Frontend (Response)
 
-IOC & Dependency Injection:
+IOC:
     In Spring, the IoC (Inversion of Control) container is the core part of the framework that manages the lifecycle and dependencies of objects (called beans). Instead of your code creating objects manually using new, Spring creates and manages them for you. This concept is called Inversion of Control, because control of object creation is "inverted" from the developer to the container.
+    Application Context is a way to acheive IOC Container.
+    IOC scans the provided package and all the classes in it but only registers those classe which has @Component annotation on them.
 
+Dependency Injection:
     Dependency Injection is a type of IoC. It means that instead of a class creating its own dependencies, those dependencies are injected by the container, typically through constructor injection or field injection. This promotes loose coupling, easier testing, and better structure.
+
+    Eg.
+        Spring Boot example using your Dog and Car classes, demonstrating constructor-based Dependency Injection (DI) the traditional way Spring does it.
+        
+        1. Dog class — mark it as a Spring bean with @Component
+
+        import org.springframework.stereotype.Component;
+
+        @Component
+        public class Dog 
+        {
+            public void bark() 
+            {
+                System.out.println("Dog is barking!");
+            }
+        }
+
+        2. Car class — inject Dog via constructor
+
+        import org.springframework.stereotype.Component;
+
+        @Component
+        public class Car 
+        {
+
+            @Autowired
+            private Dog dog;
+
+            // Spring will automatically inject Dog bean here
+            public Car(Dog dog) 
+            {
+                this.dog = dog;
+            }
+
+            public void start() 
+            {
+                System.out.println("Car started.");
+                dog.bark();
+            }
+        }
 
 Bean:
     What is a Bean?
@@ -62,7 +105,7 @@ Annotations:
             Marks the main class of a Spring Boot app. It’s a combination of @Configuration, @EnableAutoConfiguration, and @ComponentScan. Basically, it tells Spring: “Start here, set up everything automatically, and scan for components.”
 
         > @Component
-            Marks a generic Spring-managed bean. Spring scans and registers classes with this annotation as beans.
+            Spring scans and registers classes with this annotation as beans in IOC container.
 
         > @Service
             A specialized form of @Component used for service-layer classes (business logic). It’s mainly for clarity and semantics.
