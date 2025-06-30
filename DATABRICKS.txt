@@ -112,7 +112,37 @@ DBFS:
     You don’t need to write long URLs like: "wasbs://mycontainer@storageaccount.blob.core.windows.net/myfile.csv"
     Instead, DBFS lets you use: "/dbfs/mnt/my-data/myfile.csv"
 
+Getting Data in Databricks from Datalake:
+    Databricks  <--  Access Credentials  -->  Data Lake
+    To connect Databricks to your Data Lake, you need to create access credentials (like a service principal or access key) with the necessary permissions on the Data Lake. Then, configure Databricks to use these credentials to securely access and work with your data.
 
+    Steps:
+    a. Create a Key:-
+        1. Choose Microsoft Entra ID in Azure Portal, then choose App Registerations.
+        2. Click new registeration and name your application.
+        3. Copy your Application(Client) ID and Directory(Tenant) ID, these will be usefull.
+        4. Go to certificate and secret and create new client secret.
+        5. It will show a value (IMP) copy it else it will disappear.
+
+    Note: Now you will use these copies values in your notebook.
+
+    b. Provide Access to the Key:-
+        6. Now we have to provide this application(key) access to the datalake.
+        7. Go to Access Control (IAM) inside your datalake settings in Azure Portal.
+        8. Click on add and search for "Storage Blob Data Contributor".
+        9. Click on Next button and search members(key) to whom to give access.
+
+    c. Use this key in Databricks:-
+        10. Search "Access datalake using Databricks" on google and copy the code from the documentation.
+        {
+            spark.conf.set("fs.azure.account.auth.type.<storage-account>.dfs.core.windows.net", "OAuth")
+            spark.conf.set("fs.azure.account.oauth.provider.type.<storage-account>.dfs.core.windows.net", "org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider")
+            spark.conf.set("fs.azure.account.oauth2.client.id.<storage-account>.dfs.core.windows.net", "<application-id>")
+            spark.conf.set("fs.azure.account.oauth2.client.secret.<storage-account>.dfs.core.windows.net", service_credential)
+            spark.conf.set("fs.azure.account.oauth2.client.endpoint.<storage-account>.dfs.core.windows.net", "https://login.microsoftonline.com/<directory-id>/oauth2/token")
+        }
+        11. Replace the variables with the real names.
+        12. Run the code and it is done.
 
 
 
