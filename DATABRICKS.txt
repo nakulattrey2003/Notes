@@ -144,9 +144,88 @@ Getting Data in Databricks from Datalake:
         11. Replace the variables with the real names.
         12. Run the code and it is done.
 
+DB Utilities:
+    > dbutils.fs():
+        This utility provides us with the information that what is inside the source storage account.
+        Syntax: dbutils.fs.ls("abfss://sourceName@datalakeName.dfs.core.windows.net/")
+
+    > dbutils.widgets():
+        This utility is used to get input from user and then we can store it into a variable and use it anywhere in the notebook.
+        dbutils.widgets.text("inputName", "defaultValue")
+        var = dbutils.widgets.get("inputName") to get the input value.
+        then use this var anywhere in the notebook.
+
+    > dbutils.secret():
+        This utility allows you to securely access sensitive information such as access keys, passwords, or tokens. 
+        It integrates with Azure Key Vault (or other supported secret scopes) to fetch secrets without exposing them in your code.
+        Example usage:
+            dbutils.secrets.get(scope="my-keyvault-scope", key="my-secret-key")
+        This helps keep credentials safe and separate from your notebooks.
+
+        dbutils.secret.list(scope = "scopeName") to get all secrets name you have in azure keyvault
+        dbutils.secret.get(scope = "scopeName", key = "keyName")
+
+Data Reading:
+    This means loading data from your storage (like Azure Data Lake or DBFS) into Databricks so you can process or analyze it.
+
+    Example:
+    Suppose you have a CSV file stored in your data lake at "abfss://source@yourdatalake.dfs.core.windows.net/sales.csv".
+    You can read this file into a Spark DataFrame in Databricks using:
+
+    df = spark.read
+        .format("csv") \                # defines the format of the data
+        .option("header", True)         # Use first row as column names
+        .option("inferSchema", True)    # Automatically detect data types
+        .csv("abfss://source@yourdatalake.dfs.core.windows.net/sales.csv")  # Path to your CSV file
+
+    df.show()                           # Display first few rows
 
 
+    This code loads the CSV file into a DataFrame called `df` and displays the first few rows. Now you can analyze or process this data in Databricks.
 
+Delta vs Parquet:
+    Parquet:
+        - Parquet is a columnar file format used to store large datasets efficiently.
+        - It is fast for reading and writing, and saves storage space.
+        - Parquet is best for storing read-only data, but does not support updates, deletes, or advanced features like transactions.
+        - Widely supported by big data tools (Spark, Hive, etc.).
+
+        # Example: Convert Parquet to Delta
+        df = spark.read.parquet("/mnt/source/parquet_folder")
+        df.write.format("delta").save("/mnt/destination/delta_folder")
+
+    Delta Lake:
+        - Delta Lake builds on Parquet and adds extra features:
+            * ACID transactions (safe updates and deletes)
+            * Time travel (access old versions of data)
+            * Schema enforcement (prevents bad data)
+        - Delta Lake is ideal for reliable data pipelines and when you need to update or delete data.
+
+        # Example: Convert Delta to Parquet
+        df = spark.read.format("delta").load("/mnt/source/delta_folder")
+        df.write.format("parquet").save("/mnt/destination/parquet_folder")
+
+    Summary:
+        - Use Parquet for efficient, read-only storage.
+        - Use Delta Lake when you need reliability, updates, and versioning.
+
+%run: 
+    This is a Databricks notebook command used to include and run another notebook inside your current notebook. It helps you modularize your code by splitting it into reusable pieces.
+
+    Example:
+    Suppose you have a notebook called "notebook_a" with a variable:
+
+    # notebook_a
+    x = 10
+
+    Now, in another notebook, you can use %run to include "notebook_a":
+
+    # notebook_b
+    %run ./notebook_a
+
+    print(x)  # This will print 10
+
+    This will execute all the code in "notebook_a" as if it were part of your current notebook, making its variables and functions available for use.
 
 
 

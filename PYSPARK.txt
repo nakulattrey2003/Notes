@@ -1,0 +1,102 @@
+PYSPARK:
+
+
+Spark Cluster:
+    A cluster is a group of nodes(computers) that work together as a team.
+    For example, if you have three computer labs with 30 computers each, putting them together makes a cluster of 90 computers. Now if any work comes then we distribute it among these computers and they start working parallely increasing efficieny and decreasing time.
+    Clusters help us do bigger tasks faster by sharing the work.
+    You can make one computer stronger by adding more memory (vertical scaling), but there is a limit.
+    With clusters, you can just add more computers (horizontal scaling), and there is no real limit.
+
+    A Spark cluster is a group of computers working together to process large amounts of data using Apache Spark. Each computer in the cluster has a specific role:
+    Driver: Coordinates the work.
+    Workers: Do the actual data processing.
+    This setup allows Spark to handle big data quickly by splitting the work across many machines.
+
+Spark Architecture:
+    Apache Spark is a big data processing tool. It helps you process large amounts of data quickly.
+    Main Parts of Spark Architecture:
+        Driver Program: This is the main controller. It tells Spark what to do.
+        Cluster Manager: This manages the resources (computers, memory, etc.) for Spark.
+        Executors: These are workers. They do the actual data processing.
+
+    How It Works (Example):
+        Imagine you want to count how many times each word appears in a big book.
+        The Driver Program sends the task to the cluster.
+        The Cluster Manager finds computers to do the work.
+        The Executors split the book into parts and count the words in each part. 
+
+Why Choose Spark Over Hadoop:
+    - In-Memory Computation: Spark processes data in memory, making it much faster than Hadoop, which writes data to disk after each step.
+    - Lazy Evaluation: Spark waits until an action is called before executing transformations, optimizing the processing steps.
+    - Fault Tolerance: Spark automatically recovers lost data and tasks if a node fails, ensuring reliable processing.
+    - Efficient Partitioning: Spark splits data into partitions and processes them in parallel, improving speed and scalability.
+
+Data Reading:
+    This means loading data from your storage (like Azure Data Lake or DBFS) into Databricks so you can process or analyze it.
+
+    Example:
+    Suppose you have a CSV file stored in your data lake at "abfss://source@yourdatalake.dfs.core.windows.net/sales.csv".
+    You can read this file into a Spark DataFrame in Databricks using:
+
+    df = spark.read
+        .format("csv") \                # defines the format of the data (backslash is used when you need to write the rest of the code in different line)  
+        .option("header", True)         # Use first row as column names
+        .option("inferSchema", True)    # Automatically detect data types
+        .csv("abfss://source@yourdatalake.dfs.core.windows.net/sales.csv")  # Path to your CSV file
+
+    df.show()                           # Display first few rows
+    when the data is not looking in good format then use df.display() function.
+
+
+    This code loads the CSV file into a DataFrame called `df` and displays the first few rows. Now you can analyze or process this data in Databricks.
+
+
+
+| order_id  | customer_id  | product        | category    | quantity | price | order_date  | city      | payment_method  | total_amount  |
+| --------- | ------------ | -------------- | ----------- | -------- | ----- | ----------- | --------- | --------------- | ------------- |
+| 1001      | C001         | iPhone 13      | Electronics | 1        | 70000 | 2023-01-05  | Mumbai    | Credit Card     | 70000         |
+| 1002      | C002         | Samsung TV     | Electronics | 1        | 50000 | 2023-01-06  | Delhi     | Net Banking     | 50000         |
+| 1003      | C001         | Nike Shoes     | Footwear    | 2        | 8000  | 2023-01-07  | Mumbai    | Debit Card      | 16000         |
+| 1004      | C003         | Levi's Jeans   | Apparel     | 1        | 3000  | 2023-01-07  | Bangalore | UPI             | 3000          |
+| 1005      | C004         | Dell Laptop    | Electronics | 1        | 60000 | 2023-01-08  | Hyderabad | Credit Card     | 60000         |
+| 1006      | C002         | Adidas T-shirt | Apparel     | 3        | 1500  | 2023-01-09  | Delhi     | UPI             | 4500          |
+| 1007      | C005         | Sandals        | Footwear    | 2        | 1200  | 2023-01-10  | Chennai   | Debit Card      | 2400          |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
