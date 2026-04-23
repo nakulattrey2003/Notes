@@ -1,0 +1,83 @@
+Simlification:
+    > Square: 
+        Case 1:
+            Normal Number:
+            Kisi number ka square karna hai to unit digit wale ka square karna hai(6) or uske aage ke number ka square karna hai(..5)
+            Dono ko saath me rakhna hai to die hue number ko aapas me multiply karne ke baad 20 se multiply add karna hai or add karna hai.
+            Eg 56^2
+            5^2  6^2  (5*6*2)
+            2536
+            +600
+            ----
+            3136
+            
+
+        Case 2: 
+            Number jiske unit digit me 5 ho
+            Pahle unit digit ke 5 ka square karna hai baaki bache hue number ko +1 karke multiply karna hai(4*(4+1))
+            or fir dono ko saath me rakhdena hai
+            Eg 65^2
+            6*7  5^2  
+            = 4225
+
+    > Square Root:
+        Case 1:
+            Perfect Roots:
+            Die hue number ke last ke 2 digits ko alag rakhna hai or aage ki baaki ko alag
+            Fir wo number likhne hai jinka square karne se unit digit match ho jae.
+            Fir wo number likhna hai jiske square karne ke baad jo root me aage ka bacha hua number tha wo usse bada ho.
+            ab (wo number) * (wo number + 1) karne ke baad root me bacha hua number bada hai to (wo number + 1) aega warna (wo number) aega.
+            Eg.
+            Root(7056)
+                = 70/56
+                    6 | 4  
+                    70 number 8^2 se bada hai to 8*9 karenge
+                    ab kyonki 8*9 = 72 number 70 se bada hai isliye 86 aega agar chota ya equal hota to 84 ata
+
+        Case 2:
+            Non Perfect Roots:
+            Jin numbers ka unit digit 2, 3, 7, 8 hota hai wo sab non-perfect hote hai
+            Solve karne ka tarika ->
+                root(c) = root(a+-b) = root(a)+-(b/2*root(a))
+                Ex. root(60) = root(64-4) = root(64)-(4/2*root(64)) = 8.25
+
+    > Cube Root:
+        Die hue number ke last 3 digits ko saath me rakhna hai baaki bache hue ko saath mein
+        Check karna hai konse number ke cube ka unit digit given number ke unit digit se match hota hai or usko likh lena hai.
+        Bache hue number ko dekhna hai ki wo konse cube ke beech mein ata hai or chote wale number ko likh lena hai.
+        Ex: root3(1860867)
+            1860/867
+                 3 ka cube 27 hota hai, unit digit match ho gaya or 1860 12 or 13 ke cube ke beech me ata hai to yahan se 12 lelenge
+                 ans = 123
+
+    > Multiplication:
+        Jo bhi number dia hai usko base ke paas lear ao. Base jaise 100, 200, 500
+        Jis number jo jitna bhi chota karoge calculation utni asaan hogi.
+        Ex. 106*212
+        = (100 + 6) * 212
+        = 21200 + 1272
+        = 22472
+
+    > Divisibility Rule:
+        By 2: Last digit is even (0, 2, 4, 6, 8).
+        By 3: Sum of digits is divisible by 3.
+        By 4: Number formed by last two digits is divisible by 4.
+        By 5: Last digit is 0 or 5.
+        By 6: Number is divisible by both 2 and 3.
+        By 7:
+            Identify the last digit and double it.
+            Subtract this doubled value from the rest of the number.
+            Check if the difference is 0, a multiple of 7, or apply the rule again
+            to the difference.
+        By 8: Number formed by last three digits is divisible by 8.
+        By 9: Sum of digits is divisible by 9.
+        By 10: Last digit is 0
+        By 11: 
+            Take (sum of digits in odd positions) - (sum of digits in even
+            positions); if result is 0 or a multiple of 11, the number is divisible
+            by 11.
+                
+
+
+    
+    
