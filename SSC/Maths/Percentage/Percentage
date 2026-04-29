@@ -1,0 +1,42 @@
+PERCENTAGE:
+
+Concepts: 
+    1. % formula = (a/b)*100 jiske saath comparison hai usko niche lagaenge
+        Ex: a=40, b=50 so a is what % of b
+            => (40/50)*100 = 80%
+    
+    Note. Agar kisi question me percentage lagana hai to 100 se multiply karna padega
+    2. More than ya Less than poocha hai to difference karna padega.
+        Ex:  a=75, b=90 so b is what percent more than a.
+            => to more than hai to dono me difference 15 ka hai or kyonki comparison a ke saath hai to niche a aega.
+            => (15/75)*100
+            => 20%
+
+    3. Succefull % Increase formula:  x + y + xy/100
+        Agar koi number hoga to bhi same formula lagega but number ko negative lena hai
+        Ex. A number increased by 20% and then decreased by 30% find overall increase/decrease
+        => 20 + (-30) + (20*(-30))/100
+        => -16 so overall 16% decrease
+        Note: Ye same formula area wale question me bhi chalega usme x or y same ho jaenge
+        Ye cube me bhi kaam aa jaega 
+        pahle normal square jaise karenge fir jo answer aega usko leke firse karenge.
+        Ex. x=10, increased by 10% find % increase
+        => 10+10+(10*10)/100 = 21
+        => 21+10+(21*10)/100 = 33.1
+
+    4. Some Important Percentages:
+        1. 11.11% = (1/9) or iska koi bhi multiple aise hi hoge jaise 44.44% = (4/9)
+        2. 09.09% = (1/11) similarly 36.36% = (4/11)
+        3. 12.50% = (1/8) 
+        4. 16.67% = (1/6)
+
+    5. Direct formula in these types of questions:
+        Q. The price of sugar increased by 10% then what percent consumption
+        should be reduced so that expenditure does not change?
+        Formula = (R/(100 +- R))*100
+        Ans = (10/(100+10))*100
+        => 100/11 that is 9.09%
+
+    6. Price and Quantity are inversly proportional to each other
+    If Price increase then quantity decreases if the expenditure is same and vice versa.
+    

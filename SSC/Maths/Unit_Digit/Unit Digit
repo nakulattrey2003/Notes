@@ -1,0 +1,51 @@
+UNIT DIGIT:
+
+Power:
+    Case 0: n = 0 -> Unit digit will be 0
+    Case 1: n = 1 -> Unit digit will be 1
+    Case 2: n = 2 -> 
+                    If power is 0 then Unit digit will be 6
+                    If power is 1 then Unit digit will be 2
+                    If power is 2 then Unit digit will be 4
+                    If power is 3 then Unit digit will be 8
+                    If power is 4 then Unit digit will be 6
+    Case 3: n = 3 -> 
+                    If power is 0 then Unit digit will be 1
+                    If power is 1 then Unit digit will be 3
+                    If power is 2 then Unit digit will be 9
+                    If power is 3 then Unit digit will be 7
+                    If power is 4 then Unit digit will be 1   
+    Case 4: n = 4 -> 
+                    If power is even then Unit digit will be 4
+                    If power is odd then Unit digit will be 6
+    Case 5: n = 5 -> Unit digit will be 5
+    Case 6: n = 6 -> Unit digit will be 6
+    Case 7: n = 7 -> 
+                    If power is 0 then Unit digit will be 1
+                    If power is 1 then Unit digit will be 7
+                    If power is 2 then Unit digit will be 9
+                    If power is 3 then Unit digit will be 3
+                    If power is 4 then Unit digit will be 1
+    Case 8: n = 8 -> 
+                    If power is 1 then Unit digit will be 8
+                    If power is 2 then Unit digit will be 4
+                    If power is 3 then Unit digit will be 2
+                    If power is 4 then Unit digit will be 6
+    Case 5: n = 9 ->
+                    If power is even then Unit digit will be 9
+                    If power is odd then Unit digit will be 1
+
+    Note: Asaan bhasha me bolun to jo bhi number dia hua hai power me use 4(cyclicity) se divide kardo or jo remainder bachega usko power maane solve karo or unit digit nikalo
+    2, 3, 4, 8 wale case me agar power poora poora cancel ho jaega to wo ansewer aega to n ki power 4 karne pe unit digit pe aega.
+
+Factorial:
+    Note: 1 or 0 ko chood ke baaki saare factorial even hote hai
+    Case 1: n = 1 -> Unit digit will be 1
+    Case 2: n = 2 -> Unit digit will be 2
+    Case 3: n = 3 -> Unit digit will be 6
+    Case 4: n = 4 -> Unit digit will be 2
+    Case 5: n = 5 -> Unit digit will be 0
+    Nore: 5 or 5 ke aage wale sabhi factorials ka unit digit 0 hota hai.
+
+
+Sum of Natural Numbers: n(n+1)/2

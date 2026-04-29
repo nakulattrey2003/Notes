@@ -1,4 +1,4 @@
-Simlification:
+SIMPLIFICATION:
     > Square: 
         Case 1:
             Normal Number:
@@ -19,6 +19,38 @@ Simlification:
             Eg 65^2
             6*7  5^2  
             = 4225
+
+        Number (n) Square (n2)
+        1 1
+        2 4
+        3 9
+        4 16
+        5 25
+        6 36
+        7 49
+        8 64
+        9 81
+        10 100
+        11 121
+        12 144
+        13 169
+        14 196
+        15 225
+        16 256
+        17 289
+        18 324
+        19 361
+        20 400
+        21 441
+        22 484
+        23 529
+        24 576
+        25 625
+        26 676
+        27 729
+        28 784
+        29 841
+        30 900
 
     > Square Root:
         Case 1:
@@ -47,8 +79,32 @@ Simlification:
         Bache hue number ko dekhna hai ki wo konse cube ke beech mein ata hai or chote wale number ko likh lena hai.
         Ex: root3(1860867)
             1860/867
-                 3 ka cube 27 hota hai, unit digit match ho gaya or 1860 12 or 13 ke cube ke beech me ata hai to yahan se 12 lelenge
+                 3 ka cube 27 hota hai, unit digit match ho gaya or 1860 -> 12 or 13 ke cube ke beech me ata hai to yahan se 12 lelenge
                  ans = 123
+
+    > Cube:
+        Mushkil hai ye rahne de
+        Number (n) Cube (n3)
+        1 1
+        2 8
+        3 27
+        4 64
+        5 125
+        6 216
+        7 343
+        8 512
+        9 729
+        10 1000
+        11 1331
+        12 1728
+        13 2197
+        14 2774
+        15 3375
+        16 4096
+        17 4913
+        18 5832
+        19 6859
+        20 8000
 
     > Multiplication:
         Jo bhi number dia hai usko base ke paas lear ao. Base jaise 100, 200, 500
@@ -77,7 +133,6 @@ Simlification:
             positions); if result is 0 or a multiple of 11, the number is divisible
             by 11.
                 
-
 
     
     
