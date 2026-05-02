@@ -1,0 +1,101 @@
+RATIO AND PROPORTION:
+
+> Concepts: 
+    1. Jab a:b, b:c, c:d dia ho question mein like below
+        If a : b = 2 : 3 , b : c = 4 : 5 and c : d = 6 :7 then find a: b : c:d?
+        To iska tarika normal wala nahi hai. ise aise solve karna hai
+        a b c d
+        2 3
+        4 5
+            6 7
+        aise likhe ke baad ab jo jagah khaali hai use bharenge
+        a b c d
+        2 3 3 3
+        4 4 5 5 
+        6 6 6 7 or sabka multiply niche likh kar common nikal lenge
+        _______
+        48:72:90:105
+        16:24:30:35 = ans
+
+    2. Mean Proportion:
+        a or b ka mean proportion hoga root(a * b)
+        logic = suppose mean proportion = y so (a/y) should be equal to (y/b)
+        Eg. find mean proportion of 25 and 9
+        Ans is root(25*9) = 15
+
+    3. Third Proportion:    
+        a or b ka third proportion hoga b^2/a
+        logic = suppose mean proportion = y so (a/b) should be equal to (b/y)
+        Eg. find third proportion of 36 and 12
+        Ans is 4
+
+    4. Fourth Proportion:
+        a, b, c ka Fourth proportion hoga bc/a
+        logic = suppose mean proportion = y so (a/b) should be equal to (c/y)
+        Eg. find Fourth proportion of 4, 9 and 12
+        Ans is 27
+
+    5. Duplicate Ratio:
+        a or b ka Duplicate ratio hoga a^2, b^2
+        Eg. find Duplicate ratio of 7 and 8
+        Ans is 49, 64
+
+    6. Sub Duplicate Ratio:
+        a or b ka Sub Duplicate ratio hoga root(a), root(b)
+        Eg. find Duplicate ratio of 121 and 64
+        Ans is 11, 8
+
+    7. Triplicate Ratio:
+        a or b ka Triplicate ratio hoga a^3, b^3
+        Eg. find Duplicate ratio of 2 and 4
+        Ans is 8, 64
+
+    8. Sub Triplicate Ratio:
+        a or b ka Sub Triplicate Ratio hoga cuberoot(a), cuberoot(b)
+        Eg. find Duplicate ratio of 27, 1331
+        Ans is 3, 11
+
+> IES:
+    Income = Expenditure + Saving
+
+> Mixtures:
+    Type 1: Same Ratio:
+        Eg. Two alloys contains gold and copper in ratio 4 : 5 and 1 : 5 respectively. If
+        these two alloys are mixed to form a third alloy in same ratio then find ratio of
+        gold and copper in new alloy.
+        => Agar question me same ratio bola hai to uska matlab 1:1 hai
+        dono ratio ko ek saath likh lena (meaning quantities ko equal karenge)
+                    G   C
+        Alloy 1:    4   5  sum = 9
+        Alloy 2:    1   5  sum = 6
+        dono ke sum ke lcm leke multiply karenge
+                    G   C  LCM = 18
+        Alloy 1:    8   10
+        Alloy 2:    3   15
+                   +______
+        Sum:        11  25 = ans
+    
+    Type 2: Different Ratio:
+        Two jar contains milk and water in ratio 5 : 7 and 8 : 7. If these two jar are
+        mixed in ratio 2 : 3 then find the ratio of milk and water in new mixture?
+        => Agar question me same ratio bola hai to uska matlab 1:1 hai
+        dono ratio ko ek saath likh lena (meaning quantities ko equal karenge)
+                M   W
+        Jar 1:  5   7  sum = 12
+        Jar 2:  8   7  sum = 15
+        dono ke sum ke lcm leke multiply karenge or kyonki 2:3 me add karna hai to  ko 2 se or W ko 3 se multiply karenge
+                M       W  LCM = 60
+        Jar 1:  5*5*2   7*5*3
+        Jar 2:  8*4*2   7*4*3
+               +_____________
+        Sum:    146     154
+        Ans:     73      77
+
+    
+
+
+
+
+
+
+

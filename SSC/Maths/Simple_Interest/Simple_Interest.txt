@@ -1,0 +1,18 @@
+SIMPLE INTEREST:
+
+SI = PRT/100
+A = P + I
+
+P = Principle / Initial Sum / Invested Sum / Certain Sum
+I/SI = Interest / Simple Interest
+T = Time
+A = Amount
+
+Agar aap bank mein 1000Rs deposit karte ho or 1 saal baad withdraw karte ho or bank aapko 1200Rs deta hai to
+P = 1000, T = 1, A = 1200, I = 200
+
+Trick: If in the question it is mentioned that P is 'x' times then I is (x-1)*100%
+
+Note: Examlple ke lie - Agar question me %rate 20% dia hai or years 2 years and 6 months dia hai to 2 years ke lie %rate 20% hi rahega but 6 months ke Interest (6/12)*20% = 10% ho jaega
+
+
