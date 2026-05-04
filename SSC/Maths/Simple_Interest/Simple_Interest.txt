@@ -15,4 +15,17 @@ Trick: If in the question it is mentioned that P is 'x' times then I is (x-1)*10
 
 Note: Examlple ke lie - Agar question me %rate 20% dia hai or years 2 years and 6 months dia hai to 2 years ke lie %rate 20% hi rahega but 6 months ke Interest (6/12)*20% = 10% ho jaega
 
+Installment question:
+Q. What annual payment will discharge a debt of Rs 5664 in 4 years at 12% per annum simple interest.
+Installement=(100×A)/(100×T+RT(T-1)/2) ye iska formula hai but hum isse nahi karenge.
+Humara tarika: 4 saal hai to 
+100 100 100 100  12% hai to 
+    +12 +12 +12 = 100 + 36(extra) = 136, agla 12%
+        +12 +12 = 100 + 24(extra) = 124. agla 12%
+            +12 = 100 + 12(extra) = 112
+            total = 472 but question ne bola hai 5664
+            so 5664/472 = 12 or ek saal ka Principle = 100 so answer is 500
+        
+
+
 
