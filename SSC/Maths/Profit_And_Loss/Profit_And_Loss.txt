@@ -1,0 +1,31 @@
+PROFIT AND LOSS:
+
+Profit = SP − CP
+Loss = CP − SP
+
+Profit% = Profit/CP × 100
+Loss% = Loss/CP × 100
+
+SP (profit) = CP * (1 + Profit%/100)
+SP (loss) = CP * (1 - Loss%/100)
+
+CP (profit) = SP / (1 + Profit%/100)
+CP (loss) = SP / (1 - Loss%/100)
+
+Note: When Loss% and Profit% is same then CP=(SP1+SP2)/2
+
+Ex. A man bought 21 pens for a rupee. How many pens should he sell for a rupee to gain 40%?
+Ans. In this case we will be finding the Price1 : Price2 and as Price is inversely proportional to Quantity so we will find the Quantity as well from there.
+P1:P2 = 100%:140% = 5:7
+Q1:Q2 = 7:5  now it is not 7 it is 21 so 1 = 3 and 5 equals 5*3 = 15 so 15 is the answer
+
+Discount = MP - SP
+Discount% = (Discount / MP) * 100
+
+SP after discount = MP * (1 - Discount%/100)
+
+Net Discount% (two discounts) = a + b - (a*b)/100
+
+Final SP (successive profit/loss) = CP * (100+p)/100 * (100-l)/100
+
+No profit no loss condition = SP = CP
