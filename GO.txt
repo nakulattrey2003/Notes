@@ -1,0 +1,1420 @@
+GO-LANG
+
+Go is a simple, fast and concurrent programming language.
+In short Go = C + strings + garbage collector + concurrency
+
+Features:
+    1. Compile Time: 
+        Google has historically struggled with long compile times for its projects having large codebases.
+        Go is designed for faster compilation without the need for dependency checking.
+
+    2. String processing: 
+        Google frequently processes and analyzes large amounts of text data in the form of web pages, requiring efficient manipulation of strings.
+        Go programming language has a comprehensive set of string functions. which also uses garbage collection to make working with strings more efficient compared to some other languages like C++.
+    
+    3. Garbage collection: 
+        Go includes a garbage collector that automatically manages memory, making it easier for developers to write code without having to worry about memory management.
+
+    4. Concurrency: 
+        Concurrency in Go refers to the ability of a program to execute multiple tasks independently but not necessarily simultaneously. It's about structuring your program in a way that allows different parts of it to run independently, making efficient use of available resources.
+
+        While concurrency is about managing many tasks, parallelism is about executing tasks simultaneously.
+        For example, if there are four tasks and two executors And the two executors are performing their task. Suppose task executor 1 has completed its task so it will not be waiting for the executer 2 to complete its task. And it will be picking up the next available task.
+
+        In Go, a goroutine is a lightweight thread managed by the Go runtime.
+
+
+Hello World:
+    package main
+
+    import "fmt"
+
+    func main(){
+        fmt.Println("Hello World")
+    }
+
+
+Folder Structure:
+    myapp/
+    │
+    ├── main.go              -> Entry point
+    ├── go.mod               -> Project dependencies
+    │
+    ├── handlers/            -> Handles requests/responses
+    ├── services/            -> Business logic
+    ├── repositories/        -> Database queries
+    ├── models/              -> Structs / data models
+    ├── routes/              -> API routes
+    ├── middleware/          -> Auth, logging, etc.
+    ├── utils/               -> Helper functions
+    └── config/              -> DB/config setup
+
+
+    IMPORTANT POINTS
+    1. All .go files inside same folder belong to same package. 
+    2. Package names are tightly coupled with folders.
+    3. In Go, for a file to be the entry point of an executable program, it must belong to the main package and contain a main function. This is a convention set by the Go programming language. The main package is special and is used for executable
+
+
+Variables:
+    VARIABLES IN GO
+
+    1. Variables store data.
+        Example: var name string = "Nakul"
+        Go can automatically detect type.
+        Example: var city = "Chandigarh"
+
+    2. Short Variable Declaration
+        Used inside functions only.
+        Example:
+        name := "Nakul"
+        age := 22
+
+    3. Multiple Variable Declaration
+        var a, b int = 10, 20
+        OR
+        x, y := 5, 10
+
+    4. Default Values
+        If value not assigned, Go gives default value.
+
+        int     -> 0
+        string  -> ""
+        bool    -> false
+
+        Example:
+        var num int
+        fmt.Println(num)
+
+        Output:
+        0
+
+    5. Constants
+    Value cannot change.
+    const pi = 3.14
+
+
+    6. Variable Naming Rules
+        - Cannot start with number
+        - No spaces
+        - Case-sensitive
+
+        Valid:
+        userName
+        age
+        totalAmount
+
+        Invalid:
+        1name
+        user name
+
+    7. Exported Variables
+        Capital letter -> public/exported  => you can use this variable in some other file as well
+            > var Name string = "public"
+        Small letter -> private
+            > var name string = "private"
+
+        same thing is applicable for finctions as well
+        this is the reason Println function is having capital letter so that it can be used across many files and folders
+
+
+INPUT AND OUTPUT:
+
+    OUTPUT IN GO
+
+        1. fmt.Print()
+
+        Prints output on same line.
+
+        Example:
+
+        fmt.Print("Hello")
+        fmt.Print("World")
+
+        Output:
+        HelloWorld
+
+
+        2. fmt.Println()
+
+        Prints output with new line.
+
+        Example:
+
+        fmt.Println("Hello")
+        fmt.Println("World")
+
+        Output:
+        Hello
+        World
+
+
+        3. fmt.Printf()
+
+        Used for formatted output.
+
+        Example:
+
+        name := "Nakul"
+        age := 22
+
+        fmt.Printf("My name is %s and age is %d", name, age)
+
+        Output:
+        My name is Nakul and age is 22
+
+
+        COMMON FORMAT SPECIFIERS
+
+        %s -> string
+        %d -> integer
+        %f -> float
+        %t -> boolean
+
+    ----------------------------------------
+
+    INPUT FROM USER
+
+        Used with fmt.Scan()
+
+        Example:
+
+        var name string
+
+        fmt.Print("Enter name: ")
+        fmt.Scan(&name)
+
+        fmt.Println("Hello", name)
+
+
+        IMPORTANT
+
+        &name means:
+        "store input at memory address of name variable"
+
+
+        MULTIPLE INPUTS
+
+        Example:
+
+        var a int
+        var b int
+
+        fmt.Scan(&a, &b)
+
+        fmt.Println(a + b)
+
+
+        Example Input:
+        10 20
+
+        Output:
+        30
+
+
+        TAKING FULL LINE INPUT
+
+        fmt.Scan() stops at space.
+
+        For full line input use:
+
+        bufio + os
+
+        Example:
+
+        reader := bufio.NewReader(os.Stdin)
+
+        text, _ := reader.ReadString('\n')
+
+
+    ----------------------------------------
+
+    SHORT SUMMARY
+
+    fmt.Print()    -> same line output
+    fmt.Println() -> output with new line
+    fmt.Printf()  -> formatted output
+    fmt.Scan()    -> user input
+    &variable     -> memory address
+
+
+ERROR HANDLING:
+    1. Go does not use try-catch.
+    2. Functions usually return:
+        value, err
+        Example:
+        result, err := someFunction()
+    3. Check errors:
+        if err != nil {
+            fmt.Println(err)
+        }
+    4. nil = no error
+    5. Ignore value using underscore (_)
+        Example:
+        _, err := someFunction()
+    6. Ignore error: result, _ := someFunction()
+    7. Create custom error: err := errors.New("invalid input")
+    8. panic() -> crashes program
+    9. recover() -> handles panic
+ 
+    Note: We use _ For the scenarios where we want to Ignore one of the outputs of the function.
+
+
+ARRAY VS SLICE:
+
+    ARRAY
+
+    1. Fixed size
+
+    var arr [3]int = [3]int{1,2,3}
+
+    OR
+
+    arr := [3]int{1,2,3}
+
+    2. Size is part of type
+
+    [3]int and [4]int are different types
+
+    3. Printing array
+
+    fmt.Println(arr)
+
+    Output:
+    [1 2 3]
+
+
+    ----------------------------------
+
+    SLICE
+
+    1. Dynamic size
+
+    slice := []int{1,2,3}
+
+    2. No fixed size
+
+    []int
+
+    3. Printing slice
+
+    fmt.Println(slice)
+
+    Output:
+    [1 2 3]
+
+
+    ----------------------------------
+
+    MAIN DIFFERENCE
+
+    Array  -> fixed size
+    Slice  -> dynamic size
+
+    [3]int -> array
+    []int  -> slice
+
+
+    SHORT SUMMARY
+
+    Array:
+    arr := [3]int{1,2,3}
+
+    Slice:
+    slice := []int{1,2,3}
+
+
+FOR LOOP:
+    1. Go has only one loop:
+    for
+
+    ----------------------------------
+
+    2. Basic loop
+
+    for i := 0; i < 5; i++ {
+        fmt.Println(i)
+    }
+
+    ----------------------------------
+
+    3. While loop style
+
+    i := 0
+
+    for i < 5 {
+        fmt.Println(i)
+        i++
+    }
+
+    ----------------------------------
+
+    4. Infinite loop
+
+    for {
+        fmt.Println("Running")
+    }
+
+    ----------------------------------
+
+    5. range loop
+
+    nums := []int{10,20,30}
+
+    for index, value := range nums {
+        fmt.Println(index, value)
+    }
+
+    ----------------------------------
+
+    6. Ignore value/index using _
+
+    for _, value := range nums {
+        fmt.Println(value)
+    }
+
+    SHORT SUMMARY
+
+    for -> loop
+    range -> iterate array/slice/map/string
+    _ -> ignore value
+
+
+MAPS:
+
+    1. Maps store key-value pairs.
+
+    Example:
+
+    student := map[string]int{
+        "Nakul": 90,
+        "Rahul": 85,
+    }
+
+    ----------------------------------
+
+    2. Create Empty Map
+
+    m := make(map[string]int)
+
+    ----------------------------------
+
+    3. Add Value
+
+    m["Nakul"] = 95
+
+    ----------------------------------
+
+    4. Access Value
+
+    fmt.Println(m["Nakul"])
+
+    ----------------------------------
+
+    5. Check Key Exists
+
+    value, exists := m["Nakul"]
+
+    ----------------------------------
+
+    6. Delete Key
+
+    delete(m, "Nakul")
+
+    ----------------------------------
+
+    7. Length of Map
+
+    len(m)
+
+    ----------------------------------
+
+    8. Iterate Map
+
+    for key, value := range m {
+        fmt.Println(key, value)
+    }
+
+    ----------------------------------
+
+    9. Ignore key/value
+
+    for _, value := range m {
+        fmt.Println(value)
+    }
+
+    ----------------------------------
+
+    10. Zero Value
+
+    If key not found:
+    - returns zero value
+
+    Example:
+
+    m["XYZ"] -> 0 (for int map)
+
+    ----------------------------------
+
+    11. Maps are Reference Types
+
+    Changes affect original map.
+
+    ----------------------------------
+
+    12. Nested Map
+
+    students := map[string]map[string]int{}
+
+    ----------------------------------
+
+    COMMON FUNCTIONS
+
+    make()   -> create map
+    delete() -> remove key
+    len()    -> map size
+
+    SHORT SUMMARY
+
+    map[keyType]valueType
+
+    Example:
+
+    map[string]int
+
+
+STRUCT:
+
+    1. Struct = custom data type
+    Used to group related data.
+
+    ----------------------------------
+
+    2. Create Struct
+
+    type User struct {
+        Name string
+        Age  int
+    }
+
+    ----------------------------------
+
+    3. Create Object
+
+    user := User{
+        Name: "Nakul",
+        Age:  22,
+    }
+
+    ----------------------------------
+
+    4. Access Fields
+
+    fmt.Println(user.Name)
+
+    ----------------------------------
+
+    5. Update Field
+
+    user.Age = 23
+
+    ----------------------------------
+
+    6. Struct Inside Struct
+
+    type Address struct {
+        City string
+        Pin  int
+    }
+
+    type User struct {
+        Name    string
+        Address Address
+    }
+
+    ----------------------------------
+
+    7. Usage
+
+    user := User{
+        Name: "Nakul",
+        Address: Address{
+            City: "Chandigarh",
+            Pin:  160019,
+        },
+    }
+
+    fmt.Println(user.Address.City)
+
+    ----------------------------------
+
+    SHORT SUMMARY
+
+    Struct -> custom object
+    Fields -> properties
+    Nested Struct -> struct inside another struct
+
+
+STRINGS PACKAGE:
+
+    Import:
+
+    import "strings"
+
+    ----------------------------------
+
+    1. strings.Contains()
+
+    Checks substring exists or not.
+
+    strings.Contains("Nakul Attrey", "Attrey")
+
+    Output:
+    true
+
+    ----------------------------------
+
+    2. strings.ToUpper()
+
+    strings.ToUpper("nakul")
+
+    Output:
+    NAKUL
+
+    ----------------------------------
+
+    3. strings.ToLower()
+
+    strings.ToLower("NAKUL")
+
+    Output:
+    nakul
+
+    ----------------------------------
+
+    4. strings.HasPrefix()
+
+    strings.HasPrefix("golang", "go")
+
+    Output:
+    true
+
+    ----------------------------------
+
+    5. strings.HasSuffix()
+
+    strings.HasSuffix("file.pdf", ".pdf")
+
+    Output:
+    true
+
+    ----------------------------------
+
+    6. strings.ReplaceAll()
+
+    strings.ReplaceAll("I like Java", "Java", "Go")
+
+    Output:
+    I like Go
+
+    ----------------------------------
+
+    7. strings.Split()
+
+    arr := strings.Split("a,b,c", ",")
+
+    Output:
+    [a b c]
+
+    ----------------------------------
+
+    8. strings.Join()
+
+    strings.Join([]string{"Go","Java"}, "-")
+
+    Output:
+    Go-Java
+
+    ----------------------------------
+
+    9. strings.TrimSpace()
+
+    strings.TrimSpace("  Nakul  ")
+
+    Output:
+    Nakul
+
+    ----------------------------------
+
+    10. strings.Count()
+
+    strings.Count("banana", "a")
+
+    Output:
+    3
+
+    ----------------------------------
+
+    11. strings.Index()
+
+    strings.Index("Golang", "la")
+
+    Output:
+    2
+
+    ----------------------------------
+
+    12. strings.Repeat()
+
+    strings.Repeat("Go ", 3)
+
+    Output:
+    Go Go Go
+
+    ----------------------------------
+
+    SHORT SUMMARY
+
+    Contains()   -> substring check
+    ToUpper()    -> uppercase
+    ToLower()    -> lowercase
+    Split()      -> string to slice
+    Join()       -> slice to string
+    ReplaceAll() -> replace text
+    TrimSpace()  -> remove spaces
+
+
+    Official Documentation:
+
+    [Go Strings Package Docs](https://pkg.go.dev/strings?utm_source=chatgpt.com)
+
+    :contentReference[oaicite:1]{index=1}
+    ::contentReference[oaicite:2]{index=2}                      
+
+
+FILE HANDLING:
+    Import:
+
+    import (
+        "fmt"
+        "os"
+    )
+
+    ----------------------------------
+
+    FLOW OF FILE HANDLING
+
+    Create/Open File
+            ↓
+    Read / Write Data
+            ↓
+    Close File
+
+    ----------------------------------
+
+    1. CREATE FILE
+
+    file, err := os.Create("test.txt")
+
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    defer file.Close()
+
+    ----------------------------------
+
+    2. WRITE TO FILE
+
+    file.WriteString("Hello Nakul")
+
+    ----------------------------------
+
+    3. READ FILE
+
+    data, err := os.ReadFile("test.txt")
+
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    fmt.Println(string(data))
+
+    ----------------------------------
+
+    4. APPEND DATA
+
+    file, _ := os.OpenFile(
+        "test.txt",
+        os.O_APPEND|os.O_WRONLY,
+        0644,
+    )
+
+    defer file.Close()
+
+    file.WriteString("\nNew Data")
+
+    ----------------------------------
+
+    5. DELETE FILE
+
+    os.Remove("test.txt")
+
+    ----------------------------------
+
+    6. RENAME FILE
+
+    os.Rename("old.txt", "new.txt")
+
+    ----------------------------------
+
+    7. CHECK FILE EXISTS
+
+    _, err := os.Stat("test.txt")
+
+    if err == nil {
+        fmt.Println("File exists")
+    }
+
+    ----------------------------------
+
+    IMPORTANT
+
+    defer file.Close()
+
+    Means:
+    Close file automatically at end.
+
+    ----------------------------------
+
+    SHORT SUMMARY
+
+    os.Create()   -> create file
+    os.ReadFile() -> read file
+    WriteString() -> write data
+    os.OpenFile() -> append/open
+    os.Remove()   -> delete file
+    os.Rename()   -> rename file
+    os.Stat()     -> check exists
+
+
+URL HANDLING:
+    Import:
+
+    import "net/url"
+
+    ----------------------------------
+
+    1. Parse URL
+
+    u, err := url.Parse("https://google.com/search?q=golang")
+
+    ----------------------------------
+
+    2. Access URL Parts
+
+    fmt.Println(u.Scheme)   // https
+    fmt.Println(u.Host)     // google.com
+    fmt.Println(u.Path)     // /search
+    fmt.Println(u.RawQuery) // q=golang
+
+    ----------------------------------
+
+    3. Get Query Params
+
+    params := u.Query()
+
+    fmt.Println(params["q"])
+
+    Output:
+    [golang]
+
+    ----------------------------------
+
+    4. Add Query Param
+
+    params.Add("page", "1")
+
+    u.RawQuery = params.Encode()
+
+    ----------------------------------
+
+    5. Final URL
+
+    fmt.Println(u.String())
+
+    ----------------------------------
+
+    6. Create URL
+
+    u := url.URL{
+        Scheme: "https",
+        Host:   "google.com",
+        Path:   "/search",
+    }
+
+    fmt.Println(u.String())
+
+    ----------------------------------
+
+    SHORT SUMMARY
+
+    url.Parse() -> parse URL
+    u.Query()   -> get query params
+    params.Add() -> add query param
+    u.String()  -> final URL
+
+
+JSON ENCODING & DECODING:
+    Import:
+
+    import "encoding/json"
+
+    ----------------------------------
+
+    STRUCT EXAMPLE
+
+    type User struct {
+        Name string
+        Age  int
+    }
+
+    ----------------------------------
+
+    1. JSON ENCODING
+    (Go -> JSON)
+
+    user := User{
+        Name: "Nakul",
+        Age:  22,
+    }
+
+    data, err := json.Marshal(user)
+
+    fmt.Println(string(data))
+
+    Output:
+    {"Name":"Nakul","Age":22}
+
+    ----------------------------------
+
+    2. JSON DECODING
+    (JSON -> Go)
+
+    jsonData := `{"Name":"Nakul","Age":22}`
+
+    var user User
+
+    json.Unmarshal([]byte(jsonData), &user)
+
+    fmt.Println(user.Name)
+
+    Output:
+    Nakul
+
+    ----------------------------------
+
+    3. JSON TAGS
+
+    type User struct {
+        Name string `json:"name"`
+        Age  int    `json:"age"`
+    }
+
+    Output:
+    {"name":"Nakul","age":22}
+
+    ----------------------------------
+
+    IMPORTANT
+
+    Marshal()   -> encode to JSON
+    Unmarshal() -> decode JSON
+
+    ----------------------------------
+
+    SHORT SUMMARY
+
+    Go Struct -> Marshal() -> JSON
+    JSON -> Unmarshal() -> Struct
+
+
+CRUD:
+    GET:
+        package main
+
+        import (
+            "encoding/json"
+            "fmt"
+            "io"
+            "net/http"
+        )
+
+        type UserData struct {
+            UserId int `json:"userId"`
+            Id     int `json:"id"`
+            Title  string `json:"title"`
+            Completed bool `json:"completed"`
+        }
+
+        func main() {
+            myurl := "https://jsonplaceholder.typicode.com/todos/1"
+            // sample data
+            // {
+                // "userId": 1,
+                // "id": 1,
+                // "title": "delectus aut autem",
+                // "completed": false
+            // }
+            res, err1 := http.Get(myurl) // here res will be having all the metadata which is coming from the server and err1 will be having the error if there is any error
+
+            if(err1 != nil) {
+                panic(err1)
+            }
+            defer res.Body.Close()
+
+            data, err2 := io.ReadAll(res.Body)  // this will read the data from the response body in format array of bytes
+            if(err2 != nil) {
+                panic(err2)
+            }
+            fmt.Println("data: ", string(data))
+            
+            // realData := string(data) // this will convert the array of bytes into string format
+            // fmt.Println("userData: ", realData.userId) // but hum ise aise use nahi kar sakte kyuki go ko nahi pata ki json me kya exist karta hai isliye ise hume struct me convert karna padega
+
+            var userData UserData
+            json.Unmarshal(data, &userData); // this will convert the json data into struct format and store it in userData variable
+            fmt.Println("userData: ", userData)
+            fmt.Println("userId: ", userData.UserId)
+            fmt.Println("id: ", userData.Id)
+            fmt.Println("title: ", userData.Title)
+            fmt.Println("completed: ", userData.Completed)
+
+        }
+
+    POST:
+        func handlePostRequest(myurl string) {
+            // post funtion third argument me data lega jo ki Reader format me hoga isliye hume struct ko Reader format me convert karna padega
+            // Struct -> JSON -> String -> Reader
+            newUser1 := UserData{
+                UserId: 101,
+                Title: "New Todo",
+                Completed: false,
+            }
+
+            jsonData, err := json.Marshal(newUser1) // this will convert the struct data into json format and store it in jsonData variable
+            if err != nil {
+                panic(err)
+            }
+
+            // option 1: json to string to reader
+            jsonToString:= string(jsonData) // this will convert the json data into string format
+            jsonToReader := strings.NewReader(jsonToString) // this will convert the json data into reader format which is required by the post function
+
+            // option 2: json to reader
+            // jsonToReader := bytes.NewBuffer(jsonData) // this will convert the json data into reader format which is required by the post function
+
+            postRes, postError := http.Post(myurl, "application/json", jsonToReader) // this will send a post request to the server with the data in json format
+
+            // post kia hua data dekhne ke liye
+            if postError != nil {
+                panic(postError)
+            }
+            defer postRes.Body.Close()
+            postData, _ := io.ReadAll(postRes.Body) // this will read the data from the response body in format array of bytes
+            fmt.Println("postData: ", string(postData))
+
+        }
+
+    UPDATE:
+        func handlePutRequest(myurl string) {
+            // put funtion third argument me data lega jo ki Reader format me hoga isliye hume struct ko Reader format me convert karna padega
+            // Struct -> JSON -> String -> Reader
+
+            putUrl := myurl + "/1" // this will update the data of the user with id 1 from the server
+            updatedUser1 := UserData{
+                UserId: 101,
+                Title: "Updated Todo",
+                Completed: false,
+            }
+
+            jsonData, err := json.Marshal(updatedUser1) // this will convert the struct data into json format and store it in jsonData variable
+            if err != nil {
+                panic(err)
+            }
+
+            // option 1: json to string to reader
+            jsonToString:= string(jsonData) // this will convert the json data into string format
+            jsonToReader := strings.NewReader(jsonToString) // this will convert the json data into reader format which is required by the put function
+
+            // option 2: json to reader
+            // jsonToReader := bytes.NewBuffer(jsonData) // this will convert the json data into reader format which is required by the put function
+
+            putReq, _ := http.NewRequest("PUT", putUrl, jsonToReader) // direct PUT method nahi hai isliye hume NewRequest function ka use karna padega aur usme method, url aur data dena padega
+            // isse sirf abhi request create hui hai
+            putReq.Header.Set("Content-Type", "application/json") // isse hum content type set kar rahe hai ki hum json format me data bhej rahe hai or ye important hai kyuki server ko pata chalega ki hum kis format me data bhej rahe hai
+
+            client := &http.Client{} // isse hum ek client create kar rahe hai jo ki request ko server tak bhejega
+            res, err := client.Do(putReq) // isse hum request ko server tak bhej rahe hai aur res me server se aane wala response store ho jayega aur err me agar koi error aata hai to wo store ho jayega
+            if err != nil {
+                panic(err)
+            }
+
+            defer res.Body.Close()
+            putData, _ := io.ReadAll(res.Body) // this will read the data from the response body in format array of bytes
+            fmt.Println("putData: ", string(putData))
+
+        }
+    
+    DELETE:
+        func handleDeleteRequest(myurl string) {
+            deleteUrl := myurl + "/201" // this will delete the data of the user with id 1 from the server
+            deleteReq, _ := http.NewRequest("DELETE", deleteUrl, nil) // direct DELETE method nahi hai isliye hume NewRequest function ka use karna padega aur usme method, url aur data dena padega
+            client := &http.Client{}
+            res, err := client.Do(deleteReq) // isse hum request ko server tak bhej rahe hai aur res me server se aane wala response store ho jayega aur err me agar koi error aata hai to wo store ho jayega
+            if err != nil {
+                panic(err)
+            }
+            defer res.Body.Close()
+            fmt.Println(res.Status)
+        }
+
+    FULL CODE:
+        package main
+
+        import (
+            "encoding/json"
+            "fmt"
+            "io"
+            "net/http"
+            "strings"
+        )
+
+        type UserData struct {
+            UserId int `json:"userId"`
+            Id     int `json:"id"`
+            Title  string `json:"title"`
+            Completed bool `json:"completed"`
+        }
+
+        func handleGetRequest(myurl string) {
+            getUrl := myurl + "/1" // this will get the data of the user with id 1 from the server
+            res, err1 := http.Get(getUrl) // here res will be having all the data which is coming from the server and err1 will be having the error if there is any error
+
+            if(err1 != nil) {
+                panic(err1)
+            }
+            defer res.Body.Close()
+
+            data, err2 := io.ReadAll(res.Body)  // this will read the data from the response body in format array of bytes
+            if(err2 != nil) {
+                panic(err2)
+            }
+            fmt.Println("data: ", string(data))
+            // sample data
+            // {
+                // "userId": 1,
+                // "id": 1,
+                // "title": "delectus aut autem",
+                // "completed": false
+            // }
+            // realData := string(data) // this will convert the array of bytes into string format
+            // fmt.Println("userData: ", realData.userId) // but hum ise aise use nahi kar sakte kyuki go ko nahi pata ki json me kya exist karta hai isliye ise hume struct me convert karna padega
+
+            var userData UserData
+            json.Unmarshal(data, &userData); // this will convert the json data into struct format and store it in userData variable
+            fmt.Println("userData: ", userData)
+            fmt.Println("userId: ", userData.UserId)
+            fmt.Println("id: ", userData.Id)
+            fmt.Println("title: ", userData.Title)
+            fmt.Println("completed: ", userData.Completed)
+        }
+
+
+        func handlePostRequest(myurl string) {
+            // post funtion third argument me data lega jo ki json format me hoga isliye hume struct ko json format me convert karna padega
+            newUser1 := UserData{
+                UserId: 101,
+                Title: "New Todo",
+                Completed: false,
+            }
+
+            jsonData, err := json.Marshal(newUser1) // this will convert the struct data into json format and store it in jsonData variable
+            if err != nil {
+                panic(err)
+            }
+
+            // option 1: json to string to reader
+            jsonToString:= string(jsonData) // this will convert the json data into string format
+            jsonToReader := strings.NewReader(jsonToString) // this will convert the json data into reader format which is required by the post function
+
+            // option 2: json to reader
+            // jsonToReader := bytes.NewBuffer(jsonData) // this will convert the json data into reader format which is required by the post function
+
+            postRes, postError := http.Post(myurl, "application/json", jsonToReader) // this will send a post request to the server with the data in json format
+
+            // post kia hua data dekhne ke liye
+            if postError != nil {
+                panic(postError)
+            }
+            defer postRes.Body.Close()
+            postData, _ := io.ReadAll(postRes.Body) // this will read the data from the response body in format array of bytes
+            fmt.Println("postData: ", string(postData))
+
+        }
+
+
+        func handlePutRequest(myurl string) {
+            // put funtion third argument me data lega jo ki Reader format me hoga isliye hume struct ko Reader format me convert karna padega
+            // Struct -> JSON -> String -> Reader
+
+            putUrl := myurl + "/1" // this will update the data of the user with id 1 from the server
+            updatedUser1 := UserData{
+                UserId: 101,
+                Title: "Updated Todo",
+                Completed: false,
+            }
+
+            jsonData, err := json.Marshal(updatedUser1) // this will convert the struct data into json format and store it in jsonData variable
+            if err != nil {
+                panic(err)
+            }
+
+            // option 1: json to string to reader
+            jsonToString:= string(jsonData) // this will convert the json data into string format
+            jsonToReader := strings.NewReader(jsonToString) // this will convert the json data into reader format which is required by the put function
+
+            // option 2: json to reader
+            // jsonToReader := bytes.NewBuffer(jsonData) // this will convert the json data into reader format which is required by the put function
+
+            putReq, _ := http.NewRequest("PUT", putUrl, jsonToReader) // direct PUT method nahi hai isliye hume NewRequest function ka use karna padega aur usme method, url aur data dena padega
+            // isse sirf abhi request create hui hai
+            putReq.Header.Set("Content-Type", "application/json") // isse hum content type set kar rahe hai ki hum json format me data bhej rahe hai or ye important hai kyuki server ko pata chalega ki hum kis format me data bhej rahe hai
+
+            client := &http.Client{} // isse hum ek client create kar rahe hai jo ki request ko server tak bhejega
+            res, err := client.Do(putReq) // isse hum request ko server tak bhej rahe hai aur res me server se aane wala response store ho jayega aur err me agar koi error aata hai to wo store ho jayega
+            if err != nil {
+                panic(err)
+            }
+
+            defer res.Body.Close()
+            putData, _ := io.ReadAll(res.Body) // this will read the data from the response body in format array of bytes
+            fmt.Println("putData: ", string(putData))
+
+        }
+
+
+        func handleDeleteRequest(myurl string) {
+            deleteUrl := myurl + "/201" // this will delete the data of the user with id 1 from the server
+            deleteReq, _ := http.NewRequest("DELETE", deleteUrl, nil) // direct DELETE method nahi hai isliye hume NewRequest function ka use karna padega aur usme method, url aur data dena padega
+            client := &http.Client{}
+            res, err := client.Do(deleteReq) // isse hum request ko server tak bhej rahe hai aur res me server se aane wala response store ho jayega aur err me agar koi error aata hai to wo store ho jayega
+            if err != nil {
+                panic(err)
+            }
+            defer res.Body.Close()
+            fmt.Println(res.Status)
+        }
+
+        func main() {
+            myurl := "https://jsonplaceholder.typicode.com/todos"
+
+            // handleGetRequest(myurl)
+            // handlePostRequest(myurl)
+            // handlePutRequest(myurl)
+            handleDeleteRequest(myurl)
+        }
+
+
+GOROUTINES:
+    lightweight thread managed by Go runtime
+    GOROUTINES is used to concurrently process two tasks at a time. 
+    We do not need to wait for one task to complete to Start another task 
+    Normal:
+        Cook food
+        THEN
+        Wash clothes
+        THEN
+        Watch TV
+
+    GO:
+        Food cooking
+        while
+        you wash clothes
+
+    Code:
+        package main
+
+        import (
+            "fmt"
+            "time"
+        )
+
+        func task(name string) {
+
+            for i := 1; i <= 5; i++ {
+
+                fmt.Println(name, i)
+
+                time.Sleep(500 * time.Millisecond)
+            }
+        }
+
+        func main() {
+
+            go task("Task A")
+
+            go task("Task B")
+
+            time.Sleep(4 * time.Second)
+        }
+        Output:
+        Task A 1
+        Task B 1
+        Task B 2
+        Task A 2
+        Task A 3
+        Task B 3
+        Task B 4
+        Task A 4
+        Task A 5
+        Task B 5
+        Goroutines do NOT guarantee order.
+
+
+WAITGROUP:
+    WaitGroup (sync package)
+
+    // Used to wait for goroutines to finish.
+    // Without WaitGroup:
+    // main() may finish early
+    // → all goroutines stop
+
+    // --------------------------------------------
+
+    // Import
+
+    import "sync"
+
+    // --------------------------------------------
+
+    // Create WaitGroup
+
+    var wg sync.WaitGroup
+
+    // --------------------------------------------
+
+    // Important Functions
+
+    // 1. Add(n)
+    // Tells Go how many goroutines to wait for
+
+    wg.Add(3)
+
+    // --------------------------------------------
+
+    // 2. Done()
+    // Marks one goroutine as completed
+
+    defer wg.Done()
+
+    // --------------------------------------------
+
+    // 3. Wait()
+    // Blocks execution until all goroutines finish
+
+    wg.Wait()
+
+    // --------------------------------------------
+
+    // Flow
+
+    /*
+    Add()
+    ↓
+    Start Goroutines
+    ↓
+    Done()
+    ↓
+    Wait()
+    ↓
+    Program Ends
+    */
+
+    // --------------------------------------------
+
+    // Example
+
+    package main
+
+    import (
+        "fmt"
+        "sync"
+    )
+
+    func task(name string, wg *sync.WaitGroup) {
+
+        defer wg.Done()
+
+        fmt.Println(name)
+    }
+
+    func main() {
+
+        var wg sync.WaitGroup
+
+        wg.Add(2)
+
+        go task("A", &wg)
+        go task("B", &wg)
+
+        wg.Wait()
+
+        fmt.Println("All Tasks Completed")
+    }
+
+    // --------------------------------------------
+
+    // Important Notes
+
+    // WaitGroup only synchronizes goroutines.
+    // It does NOT:
+    // - create threads
+    // - control scheduler
+    // - guarantee execution order
+
+    // Best Practice:
+    // Use defer wg.Done() inside goroutine.
+    CODE:
+        package main
+
+        import (
+            "fmt"
+            "sync"
+        )
+
+        func task(name string, wg *sync.WaitGroup) {
+            defer wg.Done() // Signal completion when the function returns
+
+            fmt.Println(name)
+        }
+
+        func main() {
+            fmt.Println("Started")
+
+            var wg sync.WaitGroup
+            wg.Add(2) // matlab 2 goroutine ka wait karna hai
+
+            go task("Task A", &wg) // Start a goroutine for Task A
+            go task("Task B", &wg) // Start a goroutine for Task B
+
+            wg.Wait() // Wait for all goroutines to finish
+
+            fmt.Println("Finished")
+        }
+
+
+
+
