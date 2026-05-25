@@ -14,17 +14,44 @@ CP (loss) = SP / (1 - Loss%/100)
 
 Note: When Loss% and Profit% is same then CP=(SP1+SP2)/2
 
-Ex. A man bought 21 pens for a rupee. How many pens should he sell for a rupee to gain 40%?
-Ans. In this case we will be finding the Price1 : Price2 and as Price is inversely proportional to Quantity so we will find the Quantity as well from there.
-P1:P2 = 100%:140% = 5:7
-Q1:Q2 = 7:5  now it is not 7 it is 21 so 1 = 3 and 5 equals 5*3 = 15 so 15 is the answer
+Price and Quantity:
+    Ex. 
+        A man bought 21 pens for a rupee. How many pens should he sell for a rupee to gain 40%?
+    Ans. 
+        In this case we will be finding the Price1 : Price2 and as Price is inversely proportional to Quantity so we will find the Quantity as well from there.
+
+        P1:P2 = 100%:140% = 5:7
+        Q1:Q2 = 7:5  now it is not 7 it is 21 so 1 = 3 and 5 equals 5*3 = 15 so 15 is the answer
+
+Dishonest Seller:
+    When there is a question about dishonest seller then there will be an Imaginary CP which the seller is telling and we have to solve the question based on that only.
+    Ex. 
+        A dishonest seller promises to sell his goods at 20% profit but he uses 200 gram less weight instead of 1 kg. Find his profit percent.
+    Ans. 
+        Yahan seller ne bola wo 20%  profit par sell karega to ek Imaginary CP hai hamare paas = 1000(1000 le rahe hai kyonki 1000 asaan rahega because 1 kg = 1000g) suppose, ab 20% profit matlab SP = 1200
+        but wo dishonest tha or usne 200g weight kam use kia to ye 200 Imaginary CP me se hatega or us calculation se real CP aega jo hoga 1000-200 = 800g
+        to profit % = Profit/CP * 100 = 200/800 * 100 = 50%x
+
+
+
+DISCOUNT:
+
+Any discount that will be there will be from marked price/market price/list price/print price/MRP
 
 Discount = MP - SP
 Discount% = (Discount / MP) * 100
 
+Q. Buy 4 get 1 free, find discount %
+A. MP = Dukaandar ko kitne ka paisa laga = 5 ka
+   Or uske paas kitne ke paise waapis aye = 4
+   Discount = 1
+   Discount% = (1/5)*100 = 20%
+
+SP = MP - Discount
+
 SP after discount = MP * (1 - Discount%/100)
 
-Net Discount% (two discounts) = a + b - (a*b)/100
+Net/successive Discount% (two discounts) = a + b - (a*b)/100
 
 Final SP (successive profit/loss) = CP * (100+p)/100 * (100-l)/100
 
