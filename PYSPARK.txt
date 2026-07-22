@@ -26,6 +26,8 @@ Spark Architecture:
         The Cluster Manager finds computers to do the work.
         The Executors split the book into parts and count the words in each part. 
 
+    In one Spark Cluster there can be multiple Spark Applications going on, but in every Spark Application will have there separate driver and executors.
+
 Why Choose Spark Over Hadoop:
     - In-Memory Computation: Spark processes data in memory, making it much faster than Hadoop, which writes data to disk after each step.
     - Lazy Evaluation: Spark waits until an action is called before executing transformations, optimizing the processing steps.
@@ -53,15 +55,140 @@ Data Reading:
 
 
 
-| order_id  | customer_id  | product        | category    | quantity | price | order_date  | city      | payment_method  | total_amount  |
-| --------- | ------------ | -------------- | ----------- | -------- | ----- | ----------- | --------- | --------------- | ------------- |
-| 1001      | C001         | iPhone 13      | Electronics | 1        | 70000 | 2023-01-05  | Mumbai    | Credit Card     | 70000         |
-| 1002      | C002         | Samsung TV     | Electronics | 1        | 50000 | 2023-01-06  | Delhi     | Net Banking     | 50000         |
-| 1003      | C001         | Nike Shoes     | Footwear    | 2        | 8000  | 2023-01-07  | Mumbai    | Debit Card      | 16000         |
-| 1004      | C003         | Levi's Jeans   | Apparel     | 1        | 3000  | 2023-01-07  | Bangalore | UPI             | 3000          |
-| 1005      | C004         | Dell Laptop    | Electronics | 1        | 60000 | 2023-01-08  | Hyderabad | Credit Card     | 60000         |
-| 1006      | C002         | Adidas T-shirt | Apparel     | 3        | 1500  | 2023-01-09  | Delhi     | UPI             | 4500          |
-| 1007      | C005         | Sandals        | Footwear    | 2        | 1200  | 2023-01-10  | Chennai   | Debit Card      | 2400          |
+    | order_id  | customer_id  | product        | category    | quantity | price | order_date  | city      | payment_method  | total_amount  |
+    | --------- | ------------ | -------------- | ----------- | -------- | ----- | ----------- | --------- | --------------- | ------------- |
+    | 1001      | C001         | iPhone 13      | Electronics | 1        | 70000 | 2023-01-05  | Mumbai    | Credit Card     | 70000         |
+    | 1002      | C002         | Samsung TV     | Electronics | 1        | 50000 | 2023-01-06  | Delhi     | Net Banking     | 50000         |
+    | 1003      | C001         | Nike Shoes     | Footwear    | 2        | 8000  | 2023-01-07  | Mumbai    | Debit Card      | 16000         |
+    | 1004      | C003         | Levi's Jeans   | Apparel     | 1        | 3000  | 2023-01-07  | Bangalore | UPI             | 3000          |
+    | 1005      | C004         | Dell Laptop    | Electronics | 1        | 60000 | 2023-01-08  | Hyderabad | Credit Card     | 60000         |
+    | 1006      | C002         | Adidas T-shirt | Apparel     | 3        | 1500  | 2023-01-09  | Delhi     | UPI             | 4500          |
+    | 1007      | C005         | Sandals        | Footwear    | 2        | 1200  | 2023-01-10  | Chennai   | Debit Card      | 2400          |
+
+RDD:
+    Resilient(khud ko heel karne ki kshamta) Distributed(bata hua) Dataset(Data ka collection)
+    Ex. An array can be converted into an RDD using parallelize() function.
+        In Look they both will look similar but when you will the numnber of partitions for the array it will be 0 whereas RDD will have a few number of partitions
+    An RDD is immutable so you cannot change that array, however you can run a function on that RDD which will return a new RDD with the output as the function intended.
+
+    Nothing is stored in the RDD, it just flows through the variables defined (Spark ke execution plan ke andar se data baha raha hai).
+    And this is also called DAG
+    
+    RDD Operations  
+        Transformations (Lazy)
+        > Map
+        > flatMap 
+        > Filter 
+        > Union 
+        > Intersection 
+        > groupByKey 
+        > Join  
+        > sort  
+            Types of Transformations:
+            Narrow:
+                No dependency on others, no shuffling
+                Map, FlatMap, Filter, union
+
+            Wide:
+                Dependency on others, Data is shuffled across multiple partitions
+                Intersection, groupByKey, reduceByKey, Join
+
+        Actions (Eager)
+        > Collect 
+        > Take 
+        > First  
+        > saveAsTextFile
+
+    Note: None of the transformations will work unless one action has been performed
+
+Spark Execution Hierarchy:
+    Spark Application
+       │
+       ▼
+     Job(s)
+       │
+       ▼
+    Stage(s)
+       │
+       ▼
+     Task(s)
+
+    Spark Application:
+        A Spark Application is the entire program you run.
+        Everything from creating the Spark session until the program ends is one Spark Application.
+        It contains:
+            One Driver
+            Multiple Jobs
+            Multiple Stages
+            Multiple Tasks
+
+    Job:
+        A Job is created whenever Spark encounters an Action.
+        Actions include:
+            show()
+            collect()
+            count()
+            write()
+            save()
+            take()
+        
+    Stage:
+        A Stage is a group of tasks that can execute together.
+        Spark creates a new stage whenever it encounters a Shuffle Operation.
+        Shuffle Operations
+        Examples:
+            groupBy()
+            join()
+            distinct()
+            orderBy()
+            repartition()
+        These require data to move between machines.
+
+    Task:
+        A Task is the smallest unit of work.
+        Each partition gets one task.
+        If a DataFrame has 8 partitions it has 8 tasks.
+
+    Spark Application
+            │
+            ▼
+            Job 1
+            │
+            ├───────────────┐
+            ▼               ▼
+        Stage 1         Stage 2
+        (Read CSV)      (GroupBy)
+
+            │               │
+            ▼               ▼
+        4 Tasks           4 Tasks
+        (one per         (one per
+        partition)      partition)
+                
+Deploy Modes:
+    Cluster:
+        In Client Mode, the Spark Driver runs on the machine where you submit the job (your local machine or edge node).
+        Usage:
+            Development and testing
+            Debugging applications
+            When you want to see logs directly in your terminal
+
+        Cons:
+            If your local machine disconnects, the job may fail.
+            Driver resources are limited by your local machine.
+
+    Client:
+        In Cluster Mode, the Spark Driver runs inside the cluster along with the executors.
+
+        Usage:
+            Production jobs
+            Long-running ETL pipelines
+            Scheduled jobs (Airflow, Azure Synapse, Databricks, etc.)
+
+        Cons:
+            Harder to debug
+            Driver logs must be viewed from the cluster UI or log system
+
 
 
 

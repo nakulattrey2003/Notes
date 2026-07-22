@@ -1,0 +1,36 @@
+SPEED TIME DISTANCE:
+
+Formula:
+    > DISTANCE = SPEED * TIME
+    > Avg. speed = Total Distance/Total Time    
+    > km/h * 5/18 = m/s
+
+Questions:
+    Q. The speed of a bus is 54 km/hr without stoppage and 45 km/hr with stoppage. For how many minutes does the bus stops per hour?
+    A. Difference = 9km/h
+        Now Time = D/S = 9/(first distance) = (9/54)*60 = 10min
+
+Train Questions:
+    1. Train passing a pole/tree will also cover the distance of its own length, so distance = length of train.
+    2. Train passing a station will have distance of train + station
+
+Relative Speed:
+    > In same direction speeds is subtracted
+    > In opposite direction speed is added
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
