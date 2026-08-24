@@ -1,6 +1,249 @@
 PYSPARK:
 
 
+GPT:
+
+    Phase 1 — PySpark Core
+    Phase 2 — Joins Deep Dive
+    Phase 3 — Performance & Optimization
+    Phase 4 — Spark SQL
+    Phase 5 — Real ETL Problems
+    Phase 6 — Advanced Data Handling
+    Phase 7 — Interview Round
+
+    Phase 1 — PySpark Core
+        SparkSession / basic architecture:
+            SparkSession is the entry point for working with Spark. It is used to create DataFrames and run Spark operations. Spark distributes data across partitions and processes them using executors.
+
+        DataFrame & Schema:
+            DataFrame is a distributed collection of data organized into rows and columns. Schema defines the structure of the DataFrame, including column names and data types.
+
+        Transformations & Actions:
+            Transformations create a new DataFrame and are not executed immediately, e.g. select(), filter(), withColumn(), groupBy(). Actions trigger execution and return or display results, e.g. show(), count(), collect(), write().
+
+        Lazy Evaluation:
+            Spark does not execute transformations immediately. It builds a plan and executes it only when an action is called. This allows Spark to optimize the execution.
+
+        select, filter, withColumn:
+            select() chooses columns, filter() removes rows based on a condition, and withColumn() creates or replaces a column. These are transformations and do not modify the original DataFrame.
+
+        groupBy & aggregations:
+            groupBy() groups rows based on one or more columns and is usually followed by aggregations such as sum(), avg(), count(), max(), and min(). GroupBy can cause shuffle, so it can be expensive.
+
+        distinct, dropDuplicates:
+            distinct() removes completely duplicate rows based on all columns. 
+            dropDuplicates(["name"]) removes duplicates based only on the specified columns.
+            Example:
+                id  name   salary
+                1   Rahul  50000
+                1   Rahul  50000
+                2   Rahul  60000
+                3   Amit   70000
+
+                distinct() → exact duplicate row remove karega:
+                1 Rahul 50000
+                2 Rahul 60000
+                3 Amit  70000
+
+                dropDuplicates(["name"]) → same name wali rows mein sirf ek row rakhega:
+                1 Rahul 50000
+                3 Amit  70000
+
+        NULL handling:
+            NULL means a value is missing or unknown. 
+            isNull() → NULL check, 
+            isNotNull() → NOT NULL check, 
+            dropna() → NULL wali rows remove karta hai, 
+            fillna() → NULL ko given value se replace karta hai, 
+            eqNullSafe() → NULL-safe comparison. NULL check ke liye == None use nahi karte.
+
+        Joins basics:
+            Joins combine rows from two DataFrames based on a matching condition or key.
+
+            inner → Sirf matching rows return karta hai.
+            left → Left DataFrame ki saari rows + matching right rows return karta hai.
+            right → Right DataFrame ki saari rows + matching left rows return karta hai.
+            full → Dono DataFrames ki saari rows return karta hai; jahan match nahi hota wahan NULL aata hai.
+            left_semi → Left ki sirf woh rows return karta hai jinka match right mein exist karta hai; right ke columns return nahi hote.
+            left_anti → Left ki sirf woh rows return karta hai jinka match right mein exist nahi karta.
+
+            Join key unique hona mandatory nahi hai; dono sides par duplicate keys hone par many-to-many row multiplication ho sakti hai.
+
+            Example: customers table mein customer details hain aur orders table mein orders hain. customer_id common key hai.
+                inner → Sirf un customers ke records deta hai jinke orders hain.
+                left → Saare customers deta hai, aur jinke orders hain unki order details bhi.
+                right → Saare orders deta hai, aur matching customer details bhi.
+                full → Saare customers aur saare orders deta hai, chahe match ho ya na ho.
+                left_semi → Sirf woh customers deta hai jinka order exist karta hai.
+                left_anti → Sirf woh customers deta hai jinka koi order exist nahi karta.
+
+        union / unionByName:
+            union() combines two DataFrames vertically and matches columns by position. 
+            unionByName() matches columns by column name, so it is safer when column positions are different. Both DataFrames must have compatible schemas.
+
+        Window Functions:
+            Window functions perform calculations across related rows without collapsing them into a single row. Window.partitionBy() defines groups and orderBy() defines the order within each group. Common functions are row_number(), rank(), dense_rank(), lag(), and lead().
+
+        Window Ranking Functions:
+            Sample Data:
+                name   salary
+                Rahul  90000
+                Priya  90000
+                Amit   80000
+                Neha   70000
+                Ravi   70000
+
+                row_number() → Gives a unique number to every row. Even if salaries are same, each row gets a different number.
+                Rahul  1
+                Priya  2
+                Amit   3
+                Neha   4
+                Ravi   5
+
+                rank() → Same values get the same rank, but the next rank is skipped.
+                Rahul  1
+                Priya  1
+                Amit   3
+                Neha   4
+                Ravi   4
+
+                dense_rank() → Same values get the same rank, but no rank is skipped.
+                Rahul  1
+                Priya  1
+                Amit   2
+                Neha   3
+                Ravi   3
+
+        String functions:
+            String functions are used to clean and transform text data. Common functions include upper(), lower(), trim(), length(), substring(), concat(), split(), regexp_replace(), and regexp_extract().
+
+        Date & Timestamp functions:
+            Date and timestamp functions are used to work with dates, timestamps, extraction, formatting, and date calculations. Common functions include to_date(), to_timestamp(), year(), month(), day(), datediff(), date_add(), and date_sub().
+
+        Conditional logic (when / otherwise):
+            when() and otherwise() are used to create conditional logic similar to if-else. Example: F.when(F.col("salary") > 60000, "High").otherwise("Low").
+
+        Type conversion / casting:
+            cast() is used to convert a column from one data type to another. Example: F.col("salary").cast("double"). Correct data types are important for calculations, comparisons, joins, and writing data.
+
+        Reading & writing data:
+            cast() is used to convert a column from one data type to another. Example: F.col("salary").cast("double"). Correct data types are important for calculations, comparisons, joins, and writing data.
+            # Read
+            df = spark.read.format("format").load("path")
+
+            # Write
+            df.write.format("format").mode("mode").save("path")
+
+        CSV / JSON / Parquet basics:
+            CSV is simple and human-readable but has limited type information. JSON supports nested and semi-structured data. Parquet is a columnar format that is efficient for analytics and supports schema and compression. Parquet is generally preferred for Spark-based data processing.
+
+        Array / basic complex-column operations:
+            Spark supports complex data types such as arrays, structs, and maps. Common array operations include explode(), size(), array_contains(), and element_at(). explode() converts each array element into a separate row.
+
+
+    Phase 2 — Joins Deep Dive
+        Join ka actual execution:
+            Spark joins two DataFrames by matching their join keys. For large joins, Spark may shuffle data so that matching keys come to the same partition, then it performs the join.
+
+        Join strategies:
+            Spark can use different join strategies depending on the data size, join condition, and configuration. Common strategies include Broadcast Hash Join and Sort Merge Join.
+
+        Shuffle Join:
+            Spark moves data across partitions based on the join key. This is called shuffle. Shuffle is expensive because data may need to move across the network and use disk.
+
+        Broadcast Join:
+            If one table is small, Spark can copy it to the executors and join it with the large table locally. This avoids shuffling the large table and can make the join faster.
+
+        Large vs small table join:
+            For a large table + small table, consider Broadcast Join. 
+            For two large tables, broadcast is usually not suitable and Spark may use a shuffle-based join strategy.
+
+        Join optimization:
+            Common ways to optimize joins are broadcasting a small table, filtering data before the join, selecting only required columns, pre-aggregating data, and handling data skew.
+
+        Data skew in joins:
+            Data skew happens when some join keys have much more data than others. During shuffle, this data can go to one or a few partitions, making some tasks much slower. 
+            AQE and salting can help handle skew.
+
+            AQE (Adaptive Query Execution): 
+                Spark checks the actual data and partition sizes at runtime. If it finds a very large/skewed partition during a join, it can split that partition into smaller pieces so multiple tasks can process it in parallel. AQE does not change the original business data; it changes how Spark executes the query.
+
+            Salting: 
+                We add an extra artificial value called a salt to the skewed join key so that the same hot key can be spread across multiple partitions. The corresponding rows on the other side also need matching salt values. This is more manual and is mainly used when the skew is severe.
+
+        Duplicate keys ka impact:
+            The join key does not have to be unique. If a key appears M times on the left and N times on the right, the join can produce M × N rows for that key. Duplicates on both sides can cause many-to-many row multiplication.
+
+        Real-world join problems:
+            Common join problems are large shuffles, wrong join type, duplicate keys, data skew, NULL keys, and unnecessary data. Before joining, check the table size, join-key distribution, duplicates, and the actual business requirement.
+
+
+
+    Phase 3:
+    Driver
+    Executor
+    Cluster Manager
+    Job
+    Stage
+    Task
+    Partition
+    Shuffle
+    Narrow vs Wide Transformation
+    DAG
+    Catalyst Optimizer
+    Tungsten / execution basics
+    explain()
+    Cache / Persist
+    Repartition / Coalesce
+    Broadcast
+    Data Skew
+    Small Files Problem
+    Predicate Pushdown
+    Partition Pruning
+    Performance troubleshooting
+
+    Phase 4:
+    SQL + DataFrame API
+    Temporary Views
+    SQL joins
+    SQL aggregations
+    SQL windows
+    SQL execution basics
+
+    Phase 5:
+    Latest record
+    Deduplication
+    Incremental processing
+    SCD basics
+    CDC
+    Multiple-source ETL
+    Data validation
+    Business rules
+    Aggregation pipelines
+
+    Phase 6 — Advanced Data Handling
+    Struct
+    Array
+    Map
+    explode
+    Nested JSON
+    Complex schemas
+    UDFs
+    Pandas UDF
+    JSON flattening
+
+    Phase 7 — Interview Round 🔥
+    Coding questions
+    Optimization scenarios
+    Architecture questions
+    Debugging questions
+    "Why is this Spark job slow?"
+    "How would you process 1 TB?"
+    "Why did this join cause a shuffle?"
+    Real project scenarios
+    Mock interviews
+
+
 Spark Cluster:
     A cluster is a group of nodes(computers) that work together as a team.
     For example, if you have three computer labs with 30 computers each, putting them together makes a cluster of 90 computers. Now if any work comes then we distribute it among these computers and they start working parallely increasing efficieny and decreasing time.
@@ -188,17 +431,6 @@ Deploy Modes:
         Cons:
             Harder to debug
             Driver logs must be viewed from the cluster UI or log system
-
-
-
-
-
-
-
-
-
-
-
 
 
 
