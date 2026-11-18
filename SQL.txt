@@ -197,3 +197,183 @@ Group By:
         group by branch_name
         having avg(marks) > 50
     
+
+GPT:
+    JOINS – SHORT NOTES
+                    
+        1. INNER JOIN
+            Returns only matching rows from both tables.
+
+        2. LEFT JOIN
+            Returns all rows from the left table and matching rows from the right table. Unmatched right-side columns contain NULL.
+
+        3. RIGHT JOIN
+            Returns all rows from the right table and matching rows from the left table. Unmatched left-side columns contain NULL.
+
+        4. FULL OUTER JOIN
+            Returns all rows from both tables, including matched and unmatched rows. Missing values are represented by NULL.
+
+        5. CROSS JOIN
+            Returns every possible combination of rows from two tables.
+            Number of rows = Rows in Table A × Rows in Table B.
+
+        6. SELF JOIN
+            Joins a table with itself. Commonly used to find employee-manager relationships.
+
+        7. JOIN vs SUBQUERY
+            JOIN combines related rows from tables. A subquery is a query inside another query. Both can solve some of the same problems.
+
+        8. ON vs WHERE in JOINs
+            ON specifies the matching condition between tables. WHERE filters the result. A WHERE condition on the right table can remove unmatched rows from a LEFT JOIN.
+
+        9. Why JOINs Create Duplicate Rows
+            When one row matches multiple rows in another table, the JOIN returns multiple rows. Check join keys and relationships before using DISTINCT.
+
+        10. How to Find Unmatched Records
+            Use LEFT JOIN with IS NULL or use NOT EXISTS to find rows without a match.
+
+        11. LEFT JOIN vs LEFT ANTI JOIN
+            LEFT JOIN returns all left-side rows and matching right-side data. LEFT ANTI JOIN returns only left-side rows with no match.
+
+        ## Important Interview Points
+
+        - INNER JOIN = Matching rows only.
+        - LEFT JOIN = All left-side rows.
+        - RIGHT JOIN = All right-side rows.
+        - FULL OUTER JOIN = All rows from both tables.
+        - CROSS JOIN = All possible combinations.
+        - SELF JOIN = Same table joined with itself.
+        - ON = Matching condition.
+        - WHERE = Filtering condition.
+        - NOT EXISTS = Common way to find unmatched records.
+        - JOINs can produce multiple rows when multiple matches exist.
+
+    2. Window Functions
+        1. OVER() Clause
+            Defines the window of rows on which a window function performs calculations. It allows calculations across rows without combining them into a single row.
+
+        2. PARTITION BY vs GROUP BY
+            PARTITION BY divides data into groups but keeps all individual rows. GROUP BY combines rows into summary rows using aggregate functions.
+
+        3. ORDER BY Inside OVER()
+            Defines the order in which rows are processed inside a window. It is important for ranking, LAG, LEAD, and running calculations.
+
+        4. ROW_NUMBER() vs RANK() vs DENSE_RANK()
+            ROW_NUMBER() assigns unique numbers to every row. RANK() gives equal ranks to ties but skips subsequent ranks, while DENSE_RANK() does not skip ranks.
+
+        5. LAG() and LEAD()
+            LAG() retrieves a value from a previous row, while LEAD() retrieves a value from the next row. Commonly used for comparing current and previous/next records.
+
+        6. Running Total
+            Calculates the cumulative sum of values row by row. Commonly used to track cumulative sales, revenue, or expenses.
+
+        7. Cumulative Average
+            Calculates the average from the first row up to the current row. Useful for tracking average performance or sales over time.
+
+        8. Window Frames: ROWS vs RANGE
+            ROWS calculates using a physical number of rows relative to the current row. RANGE calculates using logical value ranges based on the ORDER BY column, so tied values can be included together.
+
+        9. Why Window Function Results Often Need a CTE or Subquery
+            Window functions generally cannot be used directly in the WHERE clause at the same query level. A CTE or subquery lets us calculate the window result first and then filter it.
+
+    3. Normalization and Database Design
+        1. Normalization
+            Organizing data into related tables to reduce duplicate data and prevent data inconsistencies.
+
+        2. First Normal Form (1NF)
+            Each cell must contain only one value. No repeating groups.
+            Example: Store phone numbers separately instead of 9876, 8765 in one cell.
+
+        3. Second Normal Form (2NF)
+            A table must be in 1NF and have no partial dependency.
+            Partial dependency: A column depends on only part of a composite key instead of the whole key.
+
+        4. Third Normal Form (3NF)
+            A table must be in 2NF and have no transitive dependency that violates 3NF.
+            Transitive dependency: A non-key column depends on another non-key column instead of depending directly on the key.
+            Example: Employee_ID → Dept_ID → Dept_Name.
+
+        5. BCNF
+            A stricter version of 3NF.
+            Rule: In every non-trivial functional dependency, the determinant must be a superkey.
+            Example: If A → B, then A must be a superkey.
+
+        6. Fourth Normal Form (4NF)
+            A table must be in BCNF and have no non-trivial multivalued dependency unless its determinant is a superkey.
+
+            Simple meaning: Separate independent multivalued facts into different tables.
+
+        7. Fifth Normal Form (5NF)
+            A table must not have a non-trivial join dependency that allows a valid decomposition into smaller tables beyond those implied by its candidate keys.
+
+            Simple meaning: Split complex relationships into smaller tables without losing information when joining them back.
+        8. Denormalization
+            Intentionally combining tables or duplicating data to improve query performance.
+            Advantages: Can reduce JOINs and speed up some queries.
+            Disadvantages: More storage and risk of inconsistent data.
+
+    4. Indexes and Query Optimization
+        1. What Is an Index?
+            An index is a data structure that helps a database find rows faster without checking every row in a table. It improves data retrieval, but it requires extra storage and maintenance.
+
+        2. Clustered vs Nonclustered Index
+            Clustered Index: A clustered index determines how table data is organized according to the index key. In SQL Server, a table can have only one clustered index.
+
+            Nonclustered Index: A nonclustered index is a separate structure that stores indexed values and row-location information to help find the actual data. A table can have multiple nonclustered indexes.
+
+        3. How Indexes Speed Up Reads
+            Indexes help the database locate matching rows quickly instead of scanning the entire table. For example, an index on employee_id can help find an employee without checking every row. The actual improvement depends on the query and the data.
+
+        4. Index Disadvantages and Storage Cost
+            Indexes require additional disk space and must be maintained whenever relevant data changes. Therefore, too many indexes can slow down INSERT, UPDATE, and DELETE operations. Indexes should be created based on actual query requirements.
+
+        5. Composite Indexes and Column Order
+            A composite index is an index created on two or more columns. Column order matters because the database organizes the index starting with the first column. Queries filtering on the first column can generally use the index more effectively than queries filtering only on later columns.
+
+            Example: An index on (department, salary) is generally more suitable for searching by department than for searching by salary alone.
+
+        6. Why Indexes May Not Be Used
+            A database may ignore an index when using it is estimated to be more expensive than scanning the table. This can happen when the table is small, the query returns many rows, or the filter makes efficient index access difficult. The query optimizer chooses the execution method.
+
+        7. Execution Plan Basics
+            An execution plan shows how the database plans to execute a query or, in an actual execution plan, which operations were performed. It helps identify operations such as table scans, index seeks, joins, and sorting that may affect performance.
+
+        8. SARGable vs Non-SARGable Filters
+            SARGable Filter: A condition that allows the database to search an index efficiently. Example: WHERE salary > 50000.
+
+            Non-SARGable Filter: A condition that can make efficient index usage difficult, often because a function or calculation is applied to the column. Example: WHERE YEAR(order_date) = 2026.
+
+            Rewriting a condition as a direct comparison or date range can improve index usage.
+
+        9. SELECT * and Its Impact
+            SELECT * retrieves all columns from a table. It can increase the amount of data read, transferred, and processed when only a few columns are needed. Selecting only the required columns can improve efficiency and may allow a covering index to satisfy the query.
+
+        10. Basic Query Optimization Techniques
+            Query optimization means improving a query's performance while keeping its results correct. Common techniques include:
+            Selecting only the required columns.
+            Using suitable indexes.
+            Writing SARGable filter conditions.
+            Optimizing joins and avoiding unnecessary operations.
+            Checking the execution plan.
+            Measuring performance before and after changes.         
+
+    5. Transactions and Concurrency
+    What Is a Transaction?
+
+    ACID Properties
+
+    COMMIT and ROLLBACK
+
+    SAVEPOINT
+
+    Dirty Read
+
+    Non-Repeatable Read
+
+    Phantom Read
+
+    Isolation Levels Basics
+
+    Locks and Deadlocks
+
+    DELETE vs TRUNCATE vs DROP

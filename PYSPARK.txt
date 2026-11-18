@@ -11,6 +11,197 @@ GPT:
     Phase 6 — Advanced Data Handling
     Phase 7 — Interview Round
 
+    PySpark Imp:
+        Reading Files:
+            df = spark.read.csv(
+                "employees.csv",
+                header=True,
+                inferSchema=True,
+                sep=",",
+                nullValue="NULL",
+                mode="PERMISSIVE",
+                encoding="UTF-8",
+                quote='"',
+                escape='"',
+                multiLine=True
+            )
+            OR
+            df = spark.read.format("csv") \
+                .option("header", True) \
+                .option("inferSchema", True) \
+                .option("delimiter", ",") \
+                .load("employees.csv")
+
+        Important CSV Options:
+            header – First row contains column names.
+            inferSchema – Automatically detects column data types.
+            sep / delimiter – Specifies the column separator, e.g. comma or pipe.
+            nullValue – Defines which value should be treated as NULL.
+            mode – Defines how malformed records are handled.
+            encoding – Specifies file encoding, e.g. UTF-8.
+            quote – Defines the character used for quoted values.
+            escape – Defines the escape character inside quoted values.
+            multiLine – Allows records to span multiple lines.
+            columnNameOfCorruptRecord – Specifies the column used to store malformed records in PERMISSIVE mode.
+
+        DataFrame Inspection:
+            df.show()
+            df.show(10)
+            df.show(truncate=False)
+            df.printSchema()
+            df.columns
+            df.dtypes
+            df.count()
+            df.describe().show()
+            df.limit(3).show()
+
+        Syntax:
+            df.select("name", "salary").show()
+
+            df.filter(df.salary > 50000)
+            df.filter(df.department == "IT")
+            df.where(df.salary > 40000)
+            df.filter(
+                (df.salary > 40000) & (df.department == "IT")
+            )
+
+            df = df.withColumn("bonus", col("salary") * 0.10)
+
+            df = df.withColumn(
+                "salary_grade",
+                when(col("salary") >= 70000, "A")
+                .when(col("salary") >= 50000, "B")
+                .otherwise("C")
+            )
+
+            # Rename column
+                df = df.withColumnRenamed("salary", "monthly_salary")
+
+            # Remove completely duplicate rows
+                df = df.distinct()
+
+            # Remove duplicates based on selected columns
+                df = df.dropDuplicates(["emp_id"])
+                df = df.dropDuplicates(["name", "department"])
+
+            # Replace NULL salary with 0
+                df = df.fillna({"salary": 0})
+
+            # Filter non-NULL values
+                df.filter(df.name.isNotNull())
+
+            # Filter NULL values
+                df.filter(df.name.isNull())
+
+            # groupBy
+                df.groupBy("department").agg(
+                    avg("salary").alias("avg_salary"),
+                    sum("salary").alias("total_salary"),
+                    max("salary").alias("max_salary"),
+                    min("salary").alias("min_salary"),
+                    count("*").alias("employee_count")
+                )
+
+            # Window Functions
+                from pyspark.sql.functions import (
+                    row_number, rank, dense_rank,
+                    lag, lead, desc, asc, avg, sum
+                )
+
+                window_spec = Window.partitionBy(
+                    "department"
+                ).orderBy(desc("salary"))
+
+                partitionBy(): Divides rows into groups.
+                orderBy(): Defines the order of rows.
+                over(): Applies the window specification to a window function.
+
+            ROW_NUMBER(): Assigns a unique sequential number to each row.
+                df = df.withColumn(
+                    "row_num",
+                    row_number().over(window_spec)
+                )
+            
+            RANK() and DENSE_RANK(): Used to assign rankings while handling ties.
+                df = df.withColumn(
+                    "rank",
+                    rank().over(window_spec)
+                )
+
+                df = df.withColumn(
+                    "dense_rank",
+                    dense_rank().over(window_spec)
+                )
+
+                Example:
+                Salary	RANK	DENSE_RANK ROW_NUMBER
+                90000	1	    1           1
+                80000	2	    2           2
+                80000	2	    2           3
+                70000	4	    3           4
+
+                RANK(): Skips ranks after ties.
+                DENSE_RANK(): Does not skip ranks.
+                ROW_NUMBER(): Always assigns a unique number.
+
+            LAG() and LEAD():
+                lag() retrieves a value from a previous row.
+                lead() retrieves a value from a next row.
+
+                df = df.withColumn(
+                    "previous_sales",
+                    lag("sales", 1).over(window_spec)
+                )
+
+                df = df.withColumn(
+                    "next_sales",
+                    lead("sales", 1).over(window_spec)
+                )
+
+            Running Total:
+                window_spec = (
+                    Window.partitionBy("department")
+                    .orderBy("salary")
+                    .rowsBetween(
+                        Window.unboundedPreceding,
+                        Window.currentRow
+                    )
+                )
+
+                df = df.withColumn(
+                    "running_total",
+                    sum("salary").over(window_spec)
+                )
+
+            Top 3 Employees Per Department:
+                window_spec = Window.partitionBy(
+                    "department"
+                ).orderBy(desc("salary"))
+
+                ranked_df = df.withColumn(
+                    "row_num",
+                    row_number().over(window_spec)
+                )
+
+                top3_df = ranked_df.filter(
+                    ranked_df.row_num <= 3
+                )
+
+            Joins: Used to combine 2 DataFrames
+                Syntax:
+                    df = employees.alias("e").join(
+                        departments.alias("d"),
+                        col("e.department_id") == col("d.dept_id"),
+                        "inner"
+                    )
+
+                    df.select(
+                        col("e.name"),
+                        col("d.department_name"),
+                        col("e.salary")
+                    )
+
+
     Phase 1 — PySpark Core
         SparkSession / basic architecture:
             SparkSession is the entry point for working with Spark. It is used to create DataFrames and run Spark operations. Spark distributes data across partitions and processes them using executors.
@@ -178,70 +369,134 @@ GPT:
             Common join problems are large shuffles, wrong join type, duplicate keys, data skew, NULL keys, and unnecessary data. Before joining, check the table size, join-key distribution, duplicates, and the actual business requirement.
 
 
-
     Phase 3:
-    Driver
-    Executor
-    Cluster Manager
-    Job
-    Stage
-    Task
-    Partition
-    Shuffle
-    Narrow vs Wide Transformation
-    DAG
-    Catalyst Optimizer
-    Tungsten / execution basics
-    explain()
-    Cache / Persist
-    Repartition / Coalesce
-    Broadcast
-    Data Skew
-    Small Files Problem
-    Predicate Pushdown
-    Partition Pruning
-    Performance troubleshooting
+        Driver:
+            Driver is the coordinator of a Spark application. It creates the execution plan, schedules tasks, coordinates executors, and monitors the application.
 
-    Phase 4:
-    SQL + DataFrame API
-    Temporary Views
-    SQL joins
-    SQL aggregations
-    SQL windows
-    SQL execution basics
+        Executor:
+            Executor is a process running on a worker node. It executes tasks sent by the Driver, processes data partitions, and can store cached or intermediate data.
 
-    Phase 5:
-    Latest record
-    Deduplication
-    Incremental processing
-    SCD basics
-    CDC
-    Multiple-source ETL
-    Data validation
-    Business rules
-    Aggregation pipelines
+        Cluster Manager:
+            Cluster Manager manages cluster resources such as CPU and memory. It allocates resources for Spark applications. Common examples are YARN, Kubernetes, and Spark Standalone.
 
-    Phase 6 — Advanced Data Handling
-    Struct
-    Array
-    Map
-    explode
-    Nested JSON
-    Complex schemas
-    UDFs
-    Pandas UDF
-    JSON flattening
+        Driver vs Cluster Manager:
+            Driver manages the application execution, while Cluster Manager manages the cluster resources required by the application.
 
-    Phase 7 — Interview Round 🔥
-    Coding questions
-    Optimization scenarios
-    Architecture questions
-    Debugging questions
-    "Why is this Spark job slow?"
-    "How would you process 1 TB?"
-    "Why did this join cause a shuffle?"
-    Real project scenarios
-    Mock interviews
+        Job:
+            A Job is a complete Spark computation triggered by an action such as count(), show(), collect(), or writing data.
+
+        Stage:
+            A Stage is a section of a Spark job. Stages are generally separated by shuffle boundaries.
+
+        Task:
+            A Task is the smallest unit of work sent to an executor. Generally, one task processes one partition for a stage.
+
+        Partition:
+            A Partition is a logical chunk of distributed data. Spark processes partitions in parallel, and generally one task processes one partition.
+
+        Too few partitions:
+            Too few partitions can create large partitions and reduce parallelism, which may make the job slower.
+
+        Too many partitions:
+            Too many small partitions can create task scheduling and management overhead, which can also make the job slower.
+
+        Shuffle:
+            Shuffle is the process of redistributing data between partitions so that related data can come together. Shuffle can involve network transfer, serialization, memory usage, and disk I/O.
+
+        Narrow Transformation:
+            A narrow transformation is a transformation where output data depends on a small number of input partitions. It generally does not require shuffle. Examples are filter(), select(), and withColumn().
+
+        Wide Transformation:
+            A wide transformation requires data to be redistributed across partitions and usually causes shuffle. Examples are groupBy(), join(), distinct(), orderBy(), and repartition().
+
+        Narrow vs Wide:
+            Narrow transformations generally avoid shuffle, while wide transformations usually involve shuffle.
+
+        DAG:
+            DAG stands for Directed Acyclic Graph. It represents the dependency and flow of operations in a Spark job and helps Spark identify stages and task dependencies.
+
+        Catalyst Optimizer:
+            Catalyst is Spark SQL's query optimization framework. It analyzes the logical plan, applies optimization rules, and helps create an optimized logical and physical execution plan.
+
+        Catalyst vs Executor:
+            Catalyst optimizes the query plan, while Executors execute the tasks generated from that plan.
+
+        Tungsten:
+            Tungsten is a set of Spark execution optimizations focused on improving CPU and memory efficiency, reducing JVM object overhead, and generating efficient execution code.
+
+        Catalyst vs Tungsten:
+            Catalyst focuses on optimizing the query plan, while Tungsten focuses on executing the plan efficiently.
+
+        explain():
+            explain() displays Spark's execution plan. It is useful for understanding operations such as scans, filters, joins, aggregations, broadcasts, and shuffles.
+
+        Exchange:
+            Exchange in an execution plan usually indicates that Spark needs to redistribute data, commonly because of a shuffle.
+
+        BroadcastExchange:
+            BroadcastExchange indicates that Spark is preparing a small dataset to be broadcast to executors for a broadcast join.
+
+        Cache:
+            Cache stores the computed DataFrame or RDD so that it can be reused without recomputing the entire lineage.
+
+        Cache is lazy:
+            Calling cache() does not immediately calculate or store the data. The data is actually computed and cached when an action is executed.
+
+        Persist:
+            persist() is used to store computed data and allows us to explicitly choose a storage level such as MEMORY_ONLY, MEMORY_AND_DISK, or DISK_ONLY.
+
+        Cache vs Persist:
+            cache() uses the default storage level, while persist() allows us to specify the storage level.
+
+        unpersist():
+            unpersist() removes cached or persisted data from Spark storage.
+
+        Repartition:
+            repartition() changes the number of partitions by redistributing data. It generally causes a shuffle and can be used to increase or decrease the number of partitions.
+
+        Coalesce:
+            coalesce() is mainly used to reduce the number of partitions. It generally avoids a full shuffle, so it is usually cheaper than repartition() when reducing partitions.
+
+        Repartition vs Coalesce:
+            repartition() redistributes data and generally causes shuffle, while coalesce() mainly combines existing partitions without a full shuffle.
+
+        Broadcast Join:
+            Broadcast join sends a small join table to the executors so that the large table does not need a large shuffle. It is useful when one side of the join is small enough to fit comfortably in executor memory.
+
+        Broadcast Join limitation:
+            Broadcasting a large table can consume a lot of executor memory and may cause performance problems or failures.
+
+        Data Skew:
+            Data skew occurs when data is unevenly distributed across partitions, usually because some keys appear much more frequently than others.
+
+        Data Skew example:
+            If one customer has 90 million records while other customers have only 1 million records each, the partition containing the frequent key may become much larger and take much longer to process.
+
+        Data Skew handling:
+            Data skew can be handled using techniques such as AQE skew handling, salting, and better partitioning or data design.
+
+        Small Files Problem:
+            The small files problem occurs when a large amount of data is stored in a very large number of tiny files. This creates file listing, metadata, and task scheduling overhead.
+
+        Small Files Solution:
+            The small files problem can be reduced using compaction and by controlling the number of output files using techniques such as coalesce() or repartition() when appropriate.
+
+        Predicate Pushdown:
+            Predicate pushdown is an optimization where Spark pushes filter conditions as close to the data source as possible so that unnecessary data is not read or processed.
+
+        Partition Pruning:
+            Partition pruning allows Spark to skip physical partitions that cannot satisfy the query's filter condition, reducing the amount of data that needs to be read.
+
+        Predicate Pushdown vs Partition Pruning:
+            Predicate pushdown filters data closer to the source, while partition pruning skips entire physical partitions that are not required.
+
+        Spark UI:
+            Spark UI is used to monitor and troubleshoot Spark jobs. It helps identify slow stages, slow tasks, shuffle size, task distribution, and other performance issues.
+
+        Performance Troubleshooting:
+            For performance issues, first check Spark UI to identify the slow stage or task. Then check shuffle, partition distribution, data skew, join strategy, execution plan using explain(), partition count, and small files before applying the appropriate optimization.
+
+    
 
 
 Spark Cluster:
